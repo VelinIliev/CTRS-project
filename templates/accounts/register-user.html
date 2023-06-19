@@ -1,0 +1,16 @@
+{% extends 'bases/base.html' %}
+{% load placeholders %}
+
+{% block page_content %}
+    <form action="{% url 'register user' %}" method="post">
+        {% csrf_token %}
+        <p>{{ form.username|placeholder:"username"|autofocus }}</p>
+        <p>{{ form.email|placeholder:"email" }}</p>
+        <p>{{ form.age|placeholder:"age" }}</p>
+        <p>{{ form.password1|placeholder:"password" }}</p>
+        <p>{{ form.password2|placeholder:"repeat password" }}</p>
+
+        <button>Register</button>
+    </form>
+{% endblock %}
+

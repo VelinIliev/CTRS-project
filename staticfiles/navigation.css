@@ -1,0 +1,12 @@
+nav ul {
+    display: flex;
+    border: 1px solid red;
+    justify-content: flex-end;
+
+}
+nav ul li {
+    text-decoration: none;
+    list-style-type: none;
+    margin: 20px;
+
+}

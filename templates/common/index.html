@@ -1,0 +1,17 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+<ul>
+    {% for user in users %}
+        {% if user == request.user %}
+            <li style="color: darkred; font-weight: bold;">{{ user }}</li>
+        {% else %}
+            <li>{{ user }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+<p>authenticated: {{ request.user.is_authenticated }}</p>
+<p>superuser: {{ request.user.is_superuser }}</p>
+<p>staff: {{ request.user.is_staff }}</p>
+
+{% endblock %}

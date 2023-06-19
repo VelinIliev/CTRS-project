@@ -1,0 +1,25 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <p>Username: {{ object.username }}</p>
+    {% if  object.get_full_name %}
+        <p>Name: {{ object.get_full_name }}</p>
+    {% endif %}
+    <p>Email: {{ object.email }}</p>
+    {% if  object.age %}
+        <p>Age: {{ object.age }}</p>
+    {% endif %}
+    <p>Type user:
+        {% if object.is_staff %}
+            staff
+        {% else %}
+            regular
+        {% endif %}
+    </p>
+    {% if is_owner %}
+        <p>
+            <a href="{% url 'edit user' pk=object.pk %}">Edit</a>
+            <a href="{% url 'delete user' pk=object.pk %}">Delete</a>
+        </p>
+    {% endif %}
+{% endblock %}

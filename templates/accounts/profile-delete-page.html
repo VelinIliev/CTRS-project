@@ -1,0 +1,13 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <h1>Are sure you want to delete your profile? {{ request.user.pk }}</h1>
+    <form action="{% url 'delete user' pk=request.user.pk %}" method="post">
+
+        <button>Yes</button>
+        {% csrf_token %}
+        <a href="javascript:history.back()">Go Back</a>
+    </form>
+
+
+{% endblock %}
