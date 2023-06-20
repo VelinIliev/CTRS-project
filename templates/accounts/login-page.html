@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="{% url 'login' %}" method="post">
-    <input type="hidden" name="next" value="{{ next }}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>Login</button>
-</form>
-</body>
-</html>
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <form action="{% url 'login' %}" method="post">
+        <input type="hidden" name="next" value="{{ next }}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Login</button>
+    </form>
+{% endblock %}

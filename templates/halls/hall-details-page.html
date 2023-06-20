@@ -1,0 +1,12 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <p>{{ object.name }}</p>
+    <p>{{ object.rows }}</p>
+    <p>{{ object.seats_per_row }}</p>
+    <p>{{ object.description }}</p>
+
+    {% if is_staff %}
+        <a href="{% url 'edit hall' pk=object.pk %}">Edit</a>
+    {% endif %}
+{% endblock %}

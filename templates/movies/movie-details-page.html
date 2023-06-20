@@ -1,0 +1,35 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    {#    <img src="{{ object.image_url }}" alt="{{ object.title }}-image" width="250">#}
+    <h1>{{ object.title }} ({{ object.year }})</h1>
+    <br>
+    <p>{{ object.plot }}</p>
+    <p>Runtime: {{ runtime }}</p>
+    <p>Genres: {{ object.genres }}</p>
+    <p>Country: {{ object.country }}</p>
+    <p>IMDB: <a href="{{ object.imbd_link }}" target="_blank"> link </a></p>
+    <br>
+    <h2>Directors: </h2>
+    <ul>
+        {% for director in directors %}
+            <li>{{ director }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Writers: </h2>
+    <ul>
+        {% for writer in writers %}
+            <li>{{ writer }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Actors:</h2>
+    <ul>
+        {% for actor in actors %}
+            <li>{{ actor }}</li>
+        {% endfor %}
+    </ul>
+    {% if is_staff %}
+        <a href="{% url 'edit movie' pk=object.pk %}">Edit</a>
+    {% endif %}
+{% endblock %}

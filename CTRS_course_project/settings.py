@@ -21,6 +21,8 @@ INSTALLED_APPS = [
 
     'CTRS_course_project.user_app',
     'CTRS_course_project.common',
+    'CTRS_course_project.movies',
+    'CTRS_course_project.hall',
 ]
 
 MIDDLEWARE = [
@@ -101,3 +103,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user_app.AppUser'
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
+
+LOGIN_URL = '/profile/login/'

@@ -1,0 +1,13 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    {% if is_staff %}
+        <form action="{% url 'add hall' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Confirm</button>
+        </form>
+    {% else %}
+        <p>You do not have rights</p>
+    {% endif %}
+{% endblock %}

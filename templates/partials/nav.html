@@ -1,20 +1,23 @@
 <nav>
     <ul>
+        <li><a href="#">Program</a></li>
+        <li><a href="{% url 'movies' %}">Movies</a></li>
+        <li><a href="{% url 'hall index' %}">Halls</a></li>
+
         {% if request.user.is_authenticated %}
+
             {% if  request.user.is_staff %}
                 <li><a href="{% url 'register staff user' %}">Add staff</a></li>
-                <li><a href="#">Add movie</a></li>
+                <li><a href="{% url 'add movie' %}">Add movie</a></li>
                 <li><a href="#">Add projection</a></li>
-            {% else %}
-                <li><a href="#">Program</a></li>
-                <li><a href="#">Movies</a></li>
+                <li><a href="{% url 'add hall' %}">Add hall</a></li>
             {% endif %}
+
             <li><a href="{% url 'details user' pk=request.user.pk %}">Profile</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
             <li><a href="{% url 'login' %}">Login</a></li>
             <li><a href="{% url 'register user' %}">Register</a></li>
-
         {% endif %}
     </ul>
 </nav>
