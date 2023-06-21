@@ -79,3 +79,6 @@ class Movie(models.Model):
         if not self.slug:
             self.slug = slugify(f'{self.title}-{self.year}')
         return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.title}'

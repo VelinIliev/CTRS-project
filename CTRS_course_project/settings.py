@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'CTRS_course_project.common',
     'CTRS_course_project.movies',
     'CTRS_course_project.hall',
+    'CTRS_course_project.projection',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,20 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    {{ object.hall }}
+    {{ object.hour|time:'H:i' }}
+    {{ object.date|date:"d-m-Y" }}
+    {{ object.movie }}
+    {% for row in seats %}
+        <div>
+            {% for seat in row %}
+                {% if seat.is_taken %}
+                    <span style="color: darkred">{{ seat.row_n }}{{ seat.seat_n }} </span>
+                {% else %}
+                    <span>{{ seat.row_n }}{{ seat.seat_n }} </span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endblock %}

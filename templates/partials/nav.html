@@ -9,7 +9,7 @@
             {% if  request.user.is_staff %}
                 <li><a href="{% url 'register staff user' %}">Add staff</a></li>
                 <li><a href="{% url 'add movie' %}">Add movie</a></li>
-                <li><a href="#">Add projection</a></li>
+                <li><a href="{% url 'add projection' %}">Add projection</a></li>
                 <li><a href="{% url 'add hall' %}">Add hall</a></li>
             {% endif %}
 
