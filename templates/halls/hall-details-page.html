@@ -7,6 +7,6 @@
     <p>{{ object.description }}</p>
 
     {% if is_staff %}
-        <a href="{% url 'edit hall' pk=object.pk %}">Edit</a>
+        <a href="{% url 'edit hall' pk=object.pk slug=object.slug %}">Edit</a>
     {% endif %}
 {% endblock %}

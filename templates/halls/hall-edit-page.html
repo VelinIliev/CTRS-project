@@ -2,7 +2,7 @@
 
 {% block page_content %}
     {% if is_staff %}
-        <form action="{% url 'edit hall' pk=object.pk %}" method="post">
+        <form action="{% url 'edit hall' pk=object.pk slug=object.slug %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button>Confirm</button>

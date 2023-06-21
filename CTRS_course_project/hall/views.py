@@ -18,7 +18,7 @@ class CreateHallView(LoginRequiredMixin, views.CreateView):
     form_class = CreateHallForm
 
     def get_success_url(self):
-        return reverse_lazy('details hall', kwargs={'pk': self.object.pk, })
+        return reverse_lazy('details hall', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,7 +53,7 @@ class EditHallView(LoginRequiredMixin, views.UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('details hall', kwargs={'pk': self.object.pk, })
+        return reverse_lazy('details hall', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

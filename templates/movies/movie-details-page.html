@@ -30,6 +30,6 @@
         {% endfor %}
     </ul>
     {% if is_staff %}
-        <a href="{% url 'edit movie' pk=object.pk %}">Edit</a>
+        <a href="{% url 'edit movie' pk=object.pk slug=object.slug %}">Edit</a>
     {% endif %}
 {% endblock %}

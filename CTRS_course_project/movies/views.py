@@ -1,10 +1,9 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic as views
 
-from CTRS_course_project.movies.forms import CreateMovieForm, DisplayMovieForm, EditMovieForm
+from CTRS_course_project.movies.forms import CreateMovieForm
 from CTRS_course_project.movies.helpers import calculate_runtime
 from CTRS_course_project.movies.models import Movie
 
@@ -21,7 +20,7 @@ class CreateMovieView(LoginRequiredMixin, views.CreateView):
     # success_url = reverse_lazy('index')
 
     def get_success_url(self):
-        return reverse_lazy('details movie', kwargs={'pk': self.object.pk, })
+        return reverse_lazy('details movie', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,7 +48,7 @@ class DisplayMoviesView(views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['movies'] = Movie.objects.all().order_by('-id')[:5]
+        context['movies'] = Movie.objects.filter(is_active=1).order_by('id')[:5]
         return context
 
 
@@ -60,7 +59,7 @@ class EditMovieView(LoginRequiredMixin, views.UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('details movie', kwargs={'pk': self.object.pk, })
+        return reverse_lazy('details movie', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

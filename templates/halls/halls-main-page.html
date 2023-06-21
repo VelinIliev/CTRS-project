@@ -3,7 +3,7 @@
 {% block page_content %}
     <ul>
         {% for hall in halls %}
-            <li><a href="{% url 'details hall' pk=hall.pk %}">{{ hall.name }}</a></li>
+            <li><a href="{% url 'details hall' pk=hall.pk slug=hall.slug %}">{{ hall.name }}</a></li>
         {% endfor %}
     </ul>
 

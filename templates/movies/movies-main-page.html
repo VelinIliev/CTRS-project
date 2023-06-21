@@ -3,7 +3,7 @@
 {% block page_content %}
     <ul>
         {% for movie in movies %}
-            <li><a href="{% url 'details movie' pk=movie.id  %}">{{ movie.title }}</a></li>
+            <li><a href="{% url 'details movie' pk=movie.id slug=movie.slug  %}">{{ movie.title }}</a></li>
         {% endfor %}
     </ul>
 

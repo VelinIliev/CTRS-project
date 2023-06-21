@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 from CTRS_course_project.movies.validators import validate_year
 
@@ -6,6 +7,7 @@ from CTRS_course_project.movies.validators import validate_year
 class Movie(models.Model):
     title = models.CharField(
         max_length=150,
+        unique=True,
         null=False,
         blank=False,
     )
@@ -60,3 +62,20 @@ class Movie(models.Model):
         blank=False,
         verbose_name="Link to IMDB"
     )
+    slug = models.SlugField(
+        null=False,
+        blank=True,
+        unique=True,
+        editable=False,
+    )
+    is_active = models.BooleanField(
+        default=True,
+        null=False,
+        blank=False,
+    )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.slug:
+            self.slug = slugify(f'{self.title}-{self.year}')
+        return super().save(*args, **kwargs)
