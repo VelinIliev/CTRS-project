@@ -1,20 +1,45 @@
 {% extends 'bases/base.html' %}
+{% load static %}
 
 {% block page_content %}
     {{ object.hall }}
     {{ object.hour|time:'H:i' }}
     {{ object.date|date:"d-m-Y" }}
     {{ object.movie }}
-    {% for row in seats %}
-        <div>
-            {% for seat in row %}
-                {% if seat.is_taken %}
-                    <span style="color: darkred">{{ seat.row_n }}{{ seat.seat_n }} </span>
-                {% else %}
-                    <span>{{ seat.row_n }}{{ seat.seat_n }} </span>
-                {% endif %}
-            {% endfor %}
-        </div>
-    {% endfor %}
-
+    <div class="cinema-hall">
+        <div class="cinema-screen">CINEMA SCREEN</div>
+        {% for row in seats %}
+            <div>
+                <span class="row-seat seat">
+                    <p>row:</p>
+                    <p>{{ forloop.counter }}</p>
+                </span>
+                {% for seat in row %}
+                    {% if seat.is_taken %}
+                        <span class="taken-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
+                              data-seat={{ seat.seat_n }}>
+                            <p>seat:</p>
+                            <p>{{ seat.seat_n }}</p>
+                        </span>
+                    {% else %}
+                        <span class="free-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
+                              data-seat={{ seat.seat_n }}>
+                            <p>seat:</p>
+                            <p>{{ seat.seat_n }}</p>
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <h1>Selected seats: </h1>
+        <div class="results"></div>
+        <form action="{% url 'reservations' %}" method="post">
+            {% csrf_token %}
+            <label> seats:
+                <input class="input-results" type="text">
+            </label>
+            <button name="type" class="send-results">Confirm</button>
+        </form>
+    </div>
+    <script src="{% static 'javascript/test.js' %}"></script>
 {% endblock %}
