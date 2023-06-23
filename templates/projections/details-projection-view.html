@@ -8,6 +8,7 @@
     {{ object.movie }}
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
+        <p>Free seats: {{ free_seats }}</p>
         {% for row in seats %}
             <div>
                 <span class="row-seat seat">
@@ -35,11 +36,16 @@
         <div class="results"></div>
         <form action="{% url 'reservations' %}" method="post">
             {% csrf_token %}
-            <label> seats:
-                <input class="input-results" type="text">
-            </label>
             <button name="type" class="send-results">Confirm</button>
+
         </form>
+        <button class="RstBtn">Reset</button>
     </div>
+
+    <div class="alert-msg" hidden>
+        <span class="closeAlertBtn">&times;</span>
+        <strong>The seat is already taken.</strong>
+    </div>
+
     <script src="{% static 'javascript/test.js' %}"></script>
 {% endblock %}

@@ -1,16 +1,19 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <ul>
-        {% for pr in object_list %}
-            <li>
-                <a href="{% url 'details projection' pk=pr.id slug=pr.slug %}">
-                    {{ pr.date|date:"d-m-Y" }} - {{ pr.hour|time:'H:i' }} - {{ pr.hall }} - {{ pr.movie }}
-                </a>
-
-            </li>
+<ul>
+    {% for pr in object_list %}
+        {% for key, value in seats.items %}
+            {% if key == pr.pk %}
+                <li>
+                    <a href="{% url 'details projection' pk=pr.id slug=pr.slug %}">
+                        {{ pr.date|date:"d-m-Y" }} - {{ pr.hour|time:'H:i' }} - {{ pr.hall }} - {{ pr.movie }} - ({{ value }})
+                    </a>
+                </li>
+            {% endif %}
         {% endfor %}
-    </ul>
+    {% endfor %}
+</ul>
 
 
 {% endblock %}
