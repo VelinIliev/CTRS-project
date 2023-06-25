@@ -8,4 +8,5 @@ urlpatterns = [
     path('movie/', include('CTRS_course_project.movies.urls')),
     path('hall/', include('CTRS_course_project.hall.urls')),
     path('projection/', include('CTRS_course_project.projection.urls')),
+    path('ticket/', include('CTRS_course_project.tickets.urls')),
 ]

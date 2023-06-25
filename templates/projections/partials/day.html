@@ -1,0 +1,20 @@
+{% if current_day %}
+    {% for movie_name, data in current_day.items %}
+        <p>
+            <a href="{% url 'details movie' pk=data.movie.pk slug=data.movie.slug %}">{{ movie_name }}</a>
+        </p>
+        {% for k, pr in data.hours.items %}
+            {% if pr.free_seats == 'No free seats' %}
+                <p>{{ k|time:'H:i' }}
+                    - {{ pr.free_seats }}</p>
+            {% else %}
+                <p>
+                    <a href="{% url 'details projection' pk=pr.projection.pk slug=pr.projection.slug %}">{{ k|time:'H:i' }}
+                        - {{ pr.free_seats }}</a>
+                </p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% else %}
+    <p>No movies this day</p>
+{% endif %}

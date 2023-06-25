@@ -8,5 +8,6 @@
 
     {% if is_staff %}
         <a href="{% url 'edit hall' pk=object.pk slug=object.slug %}">Edit</a>
+        <a href="{% url 'delete hall' pk=object.pk slug=object.slug %}">Delete</a>
     {% endif %}
 {% endblock %}

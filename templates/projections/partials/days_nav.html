@@ -1,0 +1,9 @@
+<ul class="days-navigation">
+    {% for day in days %}
+        {% if day|date:"Y-m-d" == current_day_date %}
+            <li style="font-weight: bold; color: darkred"><a href="{% url 'projection day' day=day|date:"Y-m-d" %}">{{ day }}</a></li>
+        {% else %}
+            <li><a href="{% url 'projection day' day=day|date:"Y-m-d" %}">{{ day }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>

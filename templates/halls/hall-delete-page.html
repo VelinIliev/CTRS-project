@@ -1,0 +1,13 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <h1>Are sure you want to delete {{ object.name}} hall? </h1>
+    <form action="{% url 'delete hall' pk=object.pk slug=object.slug %}" method="post">
+
+        <button>Yes</button>
+        {% csrf_token %}
+        <a href="javascript:history.back()">Go Back</a>
+    </form>
+
+
+{% endblock %}

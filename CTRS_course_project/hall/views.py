@@ -59,3 +59,9 @@ class EditHallView(LoginRequiredMixin, views.UpdateView):
         context = super().get_context_data(**kwargs)
         context['is_staff'] = self.request.user.is_staff
         return context
+
+
+class DeleteHallView(LoginRequiredMixin, views.DeleteView):
+    template_name = 'halls/hall-delete-page.html'
+    model = Hall
+    success_url = reverse_lazy('hall index')

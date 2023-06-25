@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from CTRS_course_project.projection.views import index, CreateProjectionView, DisplayProjectionView, \
+from CTRS_course_project.projection.views import CreateProjectionView, DisplayProjectionView, \
     DetailsProjectionView, reservations, DisplayProjectionByDayView
 
 urlpatterns = [
