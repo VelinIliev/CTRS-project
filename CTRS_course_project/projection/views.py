@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -5,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 
 from CTRS_course_project.projection.forms import CreateProjectionForm
-from CTRS_course_project.projection.helpers import get_seats
+from CTRS_course_project.projection.helpers import get_seats, get_today_movies, get_days
 from CTRS_course_project.projection.models import Projection, Seat
 
 
@@ -19,14 +21,24 @@ class DisplayProjectionView(views.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        seats = {}
-        for pk in self.object_list:
-            free_seats = Seat.objects.filter(projection_id=pk.pk, is_taken=0).count()
-            if free_seats == 0:
-                seats[pk.pk] = "No free seats"
-            else:
-                seats[pk.pk] = f'{free_seats} free seats'
-        context['seats'] = seats
+        today = get_days()[0]
+        context['days'] = get_days()
+        context['current_day'] = get_today_movies(today)
+        context['current_day_date'] = today
+
+        return context
+
+
+class DisplayProjectionByDayView(views.ListView):
+    template_name = 'partials/day.html'
+    model = Projection
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['date'] = datetime.datetime.strptime(self.kwargs['day'], "%Y-%m-%d").date()
+        context['days'] = get_days()
+        context['current_day'] = get_today_movies(self.kwargs['day'])
+        context['current_day_date'] = self.kwargs['day']
         return context
 
 
@@ -34,7 +46,7 @@ class CreateProjectionView(LoginRequiredMixin, views.CreateView):
     login_url = "/profile/login/"
     template_name = 'projections/create-projection-page.html'
     form_class = CreateProjectionForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('projection index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -1,4 +1,7 @@
-from CTRS_course_project.projection.models import Seat
+import datetime
+
+from CTRS_course_project.movies.models import Movie
+from CTRS_course_project.projection.models import Seat, Projection
 
 
 def create_seats(hall):
@@ -23,3 +26,50 @@ def get_seats(instance):
             final_seats.append(new_row)
             new_row = []
     return final_seats
+
+
+def find_free_seats(projection_pk):
+    free_seats = Seat.objects.filter(projection_id=projection_pk, is_taken=0).count()
+    if free_seats > 0:
+        return f'{free_seats} free seats'
+    else:
+        return 'No free seats'
+
+
+def get_today_movies(day):
+    this_day = Projection.objects.filter(date=day)
+
+    list_of_movies = {}
+    for projection in this_day:
+        movie = Movie.objects.filter(pk=projection.movie_id).get()
+        if movie.title not in list_of_movies:
+            list_of_movies[movie.title] = {
+                'movie': movie,
+                'hours': {
+                    projection.hour: {
+                        'projection': projection,
+                        'free_seats': find_free_seats(projection.pk),
+                    }
+                }
+            }
+        else:
+            list_of_movies[movie.title]['hours'][projection.hour] = {
+                'projection': projection,
+                'free_seats': find_free_seats(projection.pk),
+            }
+
+    return list_of_movies or None
+
+
+def get_days():
+    first_day = datetime.datetime.today().date()
+    days = [
+        first_day,
+        first_day + datetime.timedelta(days=1),
+        first_day + datetime.timedelta(days=2),
+        first_day + datetime.timedelta(days=3),
+        first_day + datetime.timedelta(days=4),
+        first_day + datetime.timedelta(days=5),
+        first_day + datetime.timedelta(days=6),
+    ]
+    return days

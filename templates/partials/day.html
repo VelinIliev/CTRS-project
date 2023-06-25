@@ -1,0 +1,28 @@
+{#<h1 style="color: darkred">{{ current_day_date  }}</h1>#}
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+
+    {% include 'partials/days_nav.html' %}
+    {{ date|date:"D d-m-Y" }}
+    {% if current_day %}
+        {% for movie_name, data in current_day.items %}
+            <p>{{ movie_name }}</p>
+            {% for k, pr in data.hours.items %}
+                <a href="{% url 'details projection' pk=pr.projection.pk slug=pr.projection.slug %}">{{ k|time:'H:i' }}
+                    - {{ pr.free_seats }}</a>
+                <a href="">{{ v.projection.pk }}</a>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>No movies this day</p>
+    {% endif %}
+{% endblock %}
+{#<h1>{{ current_day_date|date:"D d-m-Y" }}</h1>#}
+{#<h1>{{ current_day }}</h1>#}
+{#{% extends 'bases/base.html' %}#}
+{##}
+{#{% block page_content %}#}
+{#    {% include 'partials/days_nav.html' %}#}
+{#    {% include 'partials/day.html' %}#}
+{#{% endblock %}#}

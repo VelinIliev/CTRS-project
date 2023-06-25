@@ -1,19 +1,35 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-<ul>
-    {% for pr in object_list %}
-        {% for key, value in seats.items %}
-            {% if key == pr.pk %}
-                <li>
-                    <a href="{% url 'details projection' pk=pr.id slug=pr.slug %}">
-                        {{ pr.date|date:"d-m-Y" }} - {{ pr.hour|time:'H:i' }} - {{ pr.hall }} - {{ pr.movie }} - ({{ value }})
-                    </a>
-                </li>
-            {% endif %}
+    {#    {% include 'partials/days_nav.html' %}#}
+    {#    <ul>#}
+    {#        {% for pr in object_list %}#}
+    {#            {% for key, value in seats.items %}#}
+    {#                {% if key == pr.pk %}#}
+    {#                    <li>#}
+    {#                        <a href="{% url 'details projection' pk=pr.id slug=pr.slug %}">#}
+    {#                            {{ pr.date|date:"d-m-Y" }} - {{ pr.hour|time:'H:i' }} - {{ pr.hall }} - {{ pr.movie }} -#}
+    {#                            ({{ value }})#}
+    {#                        </a>#}
+    {#                    </li>#}
+    {#                {% endif %}#}
+    {#            {% endfor %}#}
+    {#        {% endfor %}#}
+    {#    </ul>#}
+    {% include 'partials/days_nav.html' %}
+    {{ date|date:"D d-m-Y" }}
+    {% if current_day %}
+        {% for movie_name, data in current_day.items %}
+            <p>{{ movie_name }}</p>
+            {% for k, pr in data.hours.items %}
+                <a href="{% url 'details projection' pk=pr.projection.pk slug=pr.projection.slug %}">{{ k|time:'H:i' }}
+                    - {{ pr.free_seats }}</a>
+                <a href="">{{ v.projection.pk }}</a>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-</ul>
+    {% else %}
+        <p>No movies this day</p>
+    {% endif %}
 
 
 {% endblock %}
