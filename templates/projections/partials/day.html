@@ -1,3 +1,4 @@
+<hr>
 {% if current_day %}
     {% for movie_name, data in current_day.items %}
         <p>
@@ -7,12 +8,13 @@
             {% if pr.free_seats == 'No free seats' %}
                 <p>{{ k|time:'H:i' }}
                     - {{ pr.free_seats }}</p>
+                <br>
             {% else %}
                 <p>
                     <a href="{% url 'start reservation' pk=pr.projection.pk  %}">{{ k|time:'H:i' }}
                         - {{ pr.free_seats }}</a>
-                <p>{{ pr.projection.pk }}</p>
                 </p>
+                <br>
             {% endif %}
         {% endfor %}
     {% endfor %}

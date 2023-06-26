@@ -5,21 +5,30 @@
     {% if  object.get_full_name %}
         <p>Name: {{ object.get_full_name }}</p>
     {% endif %}
-    <p>Email: {{ object.email }}</p>
-    {% if  object.age %}
-        <p>Age: {{ object.age }}</p>
-    {% endif %}
-    <p>Type user:
-        {% if object.is_staff %}
-            staff
-        {% else %}
-            regular
-        {% endif %}
-    </p>
+
     {% if is_owner %}
+        <p>Email: {{ object.email }}</p>
+        {% if  object.age %}
+            <p>Age: {{ object.age }}</p>
+        {% endif %}
+        <p>Type user:
+            {% if object.is_staff %}
+                staff
+            {% else %}
+                regular
+            {% endif %}
+        </p>
         <p>
             <a href="{% url 'edit user' pk=object.pk %}">Edit</a>
             <a href="{% url 'delete user' pk=object.pk %}">Delete</a>
         </p>
+        {% if reservations %}
+            <p>My reservations:</p>
+            {% for reservation in reservations %}
+                <p><a href="{% url 'reservation review' pk=reservation.pk %}">{{ reservation.projection.movie }}
+                    - {{ reservation.projection.date }}</a></p>
+            {% endfor %}
+        {% endif %}
     {% endif %}
+
 {% endblock %}

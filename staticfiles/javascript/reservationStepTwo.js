@@ -12,6 +12,7 @@ const id_is_finished = document.querySelector('#id_is_finished')
 
 console.log(numberOfTicketsReserved.textContent * 1)
 FinishBtn.style.display = "none";
+results.innerHTML = "";
 
 let reservedSeats = []
 
@@ -31,27 +32,30 @@ function displayResult() {
 
 }
 
-seats.forEach(x =>
-    x.addEventListener('click', (e) => {
-        let seat = e.currentTarget;
-        if (seat.className.includes('taken-seat')) {
-            //The seat is already taken.
-            alertMsg.querySelector('strong').textContent = `The seat is already taken.`;
-            alertMsg.hidden = false;
-            // alert('seat is taken')
-        } else if (seat.className.includes('free-seat')) {
-            seat.classList.remove('free-seat')
-            seat.classList.add('reserved-seat')
-            reservedSeats.push({'pk': seat.dataset.pk, 'row': seat.dataset.row, 'seat': seat.dataset.seat})
-            displayResult()
-        } else if (seat.className.includes('reserved-seat')) {
-            seat.classList.remove('reserved-seat')
-            seat.classList.add('free-seat')
-            reservedSeats = reservedSeats.filter(y => y.pk !== seat.dataset.pk)
-            displayResult()
-        }
-    })
+function reservation(e) {
+    let seat = e.currentTarget;
+    if (seat.className.includes('taken-seat')) {
+        //The seat is already taken.
+        alertMsg.querySelector('strong').textContent = `The seat is already taken.`;
+        alertMsg.hidden = false;
+        // alert('seat is taken')
+    } else if (seat.className.includes('free-seat')) {
+        seat.classList.remove('free-seat')
+        seat.classList.add('reserved-seat')
+        reservedSeats.push({'pk': seat.dataset.pk, 'row': seat.dataset.row, 'seat': seat.dataset.seat})
+        displayResult()
+    } else if (seat.className.includes('reserved-seat')) {
+        seat.classList.remove('reserved-seat')
+        seat.classList.add('free-seat')
+        reservedSeats = reservedSeats.filter(y => y.pk !== seat.dataset.pk)
+        displayResult()
+    }
+}
+
+seats.forEach(seat =>
+    seat.addEventListener('click', reservation)
 )
+
 document.addEventListener('click', () => {
     if (alertMsg.hidden === false) {
         setTimeout(() => {
@@ -65,7 +69,7 @@ closeBtn.addEventListener('click', (e) => {
 })
 
 RstBtn.addEventListener('click', () => {
-    resultsBtn.value = "";
+    // resultsBtn.value = "";
     reservedSeats = [];
     results.innerHTML = "";
     id_reserved_seats.value = '';
@@ -86,12 +90,14 @@ ConfirmBtn.addEventListener('click', () => {
         ConfirmBtn.style.display = 'none';
         RstBtn.style.display = 'none';
         FinishBtn.style.display = 'inline-block';
-
+        seats.forEach(seat => {
+            seat.removeEventListener('click', reservation)
+        })
     } else if (reservedSeats.length < numberOfTicketsReserved.textContent * 1) {
         let seatsToReserve = numberOfTicketsReserved.textContent * 1 - reservedSeats.length;
         alertMsg.querySelector('strong').textContent = `You must mark ${seatsToReserve} more seats.`;
         alertMsg.hidden = false;
-    } else if (reservedSeats.length > numberOfTicketsReserved.textContent * 1){
+    } else if (reservedSeats.length > numberOfTicketsReserved.textContent * 1) {
         let seatsToReserve = reservedSeats.length - numberOfTicketsReserved.textContent * 1;
         alertMsg.querySelector('strong').textContent = `You reserved ${seatsToReserve} extra seats.`;
         alertMsg.hidden = false;
