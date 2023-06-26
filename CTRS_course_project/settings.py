@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'CTRS_course_project.hall',
     'CTRS_course_project.projection',
     'CTRS_course_project.tickets',
+    'CTRS_course_project.reservation'
 ]
 
 MIDDLEWARE = [

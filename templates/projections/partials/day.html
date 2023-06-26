@@ -9,8 +9,9 @@
                     - {{ pr.free_seats }}</p>
             {% else %}
                 <p>
-                    <a href="{% url 'details projection' pk=pr.projection.pk slug=pr.projection.slug %}">{{ k|time:'H:i' }}
+                    <a href="{% url 'start reservation' pk=pr.projection.pk  %}">{{ k|time:'H:i' }}
                         - {{ pr.free_seats }}</a>
+                <p>{{ pr.projection.pk }}</p>
                 </p>
             {% endif %}
         {% endfor %}

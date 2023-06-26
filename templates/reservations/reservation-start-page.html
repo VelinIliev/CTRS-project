@@ -1,0 +1,14 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <h1>Do you wanna to make reservation for:</h1>
+    <p>Movie: {{ projection.movie }}</p>
+    <p>Date: {{ projection.date|date:"Y-m-d" }}</p>
+    <p>Hour: {{ projection.hour|time:'H:i' }}</p>
+    <p>Hall: {{ projection.hall }}</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button>Confirm</button>
+
+    </form>
+{% endblock %}

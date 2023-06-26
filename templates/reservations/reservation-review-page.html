@@ -1,0 +1,19 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <h1>Reservation details</h1>
+    <p>Movie: {{ object.projection.movie }}</p>
+    <p>Date: {{ object.projection.date|date:"Y-m-d" }}</p>
+    <p>Hour: {{ object.projection.hour|time:'H:i' }}</p>
+    <p>Hall: {{ object.projection.hall }}</p>
+    <p>Tickets:</p>
+    {% for ticket in tickets %}
+        <p>{{ ticket }}</p>
+    {% endfor %}
+    <p>Seats:</p>
+    {% for seat in seats %}
+        <p>Row: {{ seat.row_n }}, Seat: {{ seat.seat_n }}</p>
+    {% endfor %}
+    <p>Total: {{ object.total_price }}$</p>
+    <button>Finish</button>
+{% endblock %}

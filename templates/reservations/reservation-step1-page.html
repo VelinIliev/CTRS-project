@@ -1,0 +1,29 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+{% block page_content %}
+    <h1>Reservation - select tickets:</h1>
+    {% for ticket in tickets %}
+        <p class="{{ ticket.ticket_type }}">
+            {{ ticket.ticket_type }}
+            <span class="price">
+                {% if weekdays %}
+                    {{ ticket.price }}
+                {% else %}
+                    {{ ticket.weekend_price }}
+                {% endif %}
+                    <input type="number" min="0" step="1" value="0" class="numberInput"/>
+            </span>
+        </p>
+    {% endfor %}
+    <hr>
+    <p class="display-result"></p>
+    <hr>
+    <form action="{% url 'reservation step 1' pk=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button>Confirm</button>
+    </form>
+    <script src="{% static 'javascript/reservationStepOne.js' %}"></script>
+
+{% endblock %}
