@@ -1,13 +1,11 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Are sure you want to delete {{ object.ticket_type }} ticket type? </h1>
+    <h2>Are sure you want to delete {{ object.ticket_type }} ticket type? </h2>
     <form action="{% url 'delete ticket' pk=object.pk %}" method="post">
 
         <button>Yes</button>
         {% csrf_token %}
-        <a href="javascript:history.back()">Go Back</a>
+        <a class="go-back" href="javascript:history.back()">Go Back</a>
     </form>
-
-
 {% endblock %}

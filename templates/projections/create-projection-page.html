@@ -1,14 +1,15 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Projection create</h1>
+
     {% if is_staff %}
+        <h1>Create new projection</h1>
         <form action="{% url 'add projection' %}" method="post">
             {{ form }}
             {% csrf_token %}
             <button>Confirm</button>
         </form>
     {% else %}
-        <p>You do not have rights</p>
+        <h2>You do not have rights.</h2>
     {% endif %}
 {% endblock %}

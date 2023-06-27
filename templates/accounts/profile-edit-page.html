@@ -1,9 +1,10 @@
 {% extends 'bases/base.html'%}
 
 {% block page_content %}
+    <h1>Edit user</h1>
     <form action="{% url 'edit user' pk=object.pk%}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form}}
         <button>Confirm</button>
     </form>
 {% endblock %}

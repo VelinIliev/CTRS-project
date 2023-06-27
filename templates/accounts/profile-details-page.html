@@ -1,6 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
+    <h1>User details</h1>
     <p>Username: {{ object.username }}</p>
     {% if  object.get_full_name %}
         <p>Name: {{ object.get_full_name }}</p>
@@ -19,13 +20,15 @@
             {% endif %}
         </p>
         <p>
-            <a href="{% url 'edit user' pk=object.pk %}">Edit</a>
-            <a href="{% url 'delete user' pk=object.pk %}">Delete</a>
+            <a class="edit-link" href="{% url 'edit user' pk=object.pk %}">Edit</a>
+            <a class="edit-link" href="{% url 'delete user' pk=object.pk %}">Delete</a>
         </p>
+
         {% if reservations %}
-            <p>My reservations:</p>
+            <div class="separator"></div>
+            <h2>My reservations:</h2>
             {% for reservation in reservations %}
-                <p><a href="{% url 'reservation review' pk=reservation.pk %}">{{ reservation.projection.movie }}
+                <p><a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">{{ reservation.projection.movie }}
                     - {{ reservation.projection.date }}</a></p>
             {% endfor %}
         {% endif %}

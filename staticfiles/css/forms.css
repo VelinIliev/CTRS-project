@@ -1,0 +1,43 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.description {
+    width: 600px;
+}
+
+.helptext {
+    display: none;
+}
+
+form li {
+    color: #ff0000;
+    margin: 0;
+}
+
+form button {
+    color: #FFFFFF;
+    background-color: #888;
+    height: 60px;
+    border: none;
+    margin-top: 20px;
+}
+
+button:hover {
+    font-weight: bold;
+    background-color: #ff0000;
+    cursor: pointer;
+}
+
+form input, form select {
+    background-color: #EEE;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+form br {
+    display: none;
+}

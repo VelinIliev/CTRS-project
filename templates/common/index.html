@@ -1,17 +1,29 @@
 {% extends 'bases/base.html' %}
+{% load static %}
 
 {% block page_content %}
-<ul>
-    {% for user in users %}
-        {% if user == request.user %}
-            <li style="color: darkred; font-weight: bold;">{{ user }}</li>
-        {% else %}
-            <li>{{ user }}</li>
-        {% endif %}
-    {% endfor %}
-</ul>
-<p>authenticated: {{ request.user.is_authenticated }}</p>
-<p>superuser: {{ request.user.is_superuser }}</p>
-<p>staff: {{ request.user.is_staff }}</p>
+    <h1 class="hand-writing">Wellcome to</h1>
+    <div class="logo-wrapper">
+        <img src="{% static 'images/CTRSArena-white-logo.svg' %}" alt="CTRS Arena-logo">
+    </div>
+    {#    <div class="separator"></div>#}
+    <div class="image-wrapper">
+        <img src="{% static 'images/188185564-rows-of-red-velvet-seats-watching-movies-in-the-cinema-with-copy-space-banner-background.webp' %}"
+             alt="DrumbArena-logo">
+    </div>
+    {#    <div class="separator"></div>#}
+    <div class="description">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam amet corporis doloremque, eaque earum eius
+            excepturi expedita fugit in laborum minus modi nostrum, quas quasi quis repudiandae sint tenetur, vero. </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae delectus doloremque, enim illo ipsam iste,
+            laboriosam minus nemo nisi nulla perferendis, perspiciatis possimus provident quos voluptates? Animi,
+            impedit, iure. Animi. </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut commodi doloribus facere illo ipsa maiores
+            officia sequi tempore vel? Aliquid culpa cumque in nam officiis, sed sequi sint unde. Adipisci? </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium doloremque ducimus et laboriosam
+            quisquam rerum, similique velit? Alias aliquam blanditiis debitis deleniti deserunt doloremque expedita
+            molestias unde! Cupiditate, provident, tenetur?</p>
+
+    </div>
 
 {% endblock %}

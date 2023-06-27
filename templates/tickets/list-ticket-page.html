@@ -1,22 +1,40 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>List tickets types</h1>
-    <p>
-        Ticket type | weekdays price | weekend price
-    </p>
-    {% if is_staff %}
-        {% for ticket in object_list %}
-            <p>{{ ticket.ticket_type }} | ${{ ticket.price }} | ${{ ticket.weekend_price }}
-                <a href="{% url 'edit ticket' pk=ticket.pk %}">Edit</a>
-                <a href="{% url 'delete ticket' pk=ticket.pk %}">Delete</a>
-            </p>
-        {% endfor %}
-    {% else %}
-        {% for ticket in object_list %}
-            <p>
-                {{ ticket.ticket_type }} | ${{ ticket.price }} | ${{ ticket.weekend_price }}
-            </p>
-        {% endfor %}
-    {% endif %}
+    <h1>Tickets types</h1>
+    <div class="tickets-list">
+        {% if is_staff %}
+            <div class="ticket-row-staff title">
+                <span>Ticket type</span>
+                <span>Weekdays price</span>
+                <span>Weekend price</span>
+                <span>Actions</span>
+            </div>
+            {% for ticket in object_list %}
+                <div class="ticket-row-staff">
+                    <span>{{ ticket.ticket_type }} </span>
+                    <span>${{ ticket.price }}</span>
+                    <span>${{ ticket.weekend_price }}</span>
+                    <span>
+                        <a class="edit-link" href="{% url 'edit ticket' pk=ticket.pk %}">Edit</a>
+                        <a class="edit-link" href="{% url 'delete ticket' pk=ticket.pk %}">Delete</a>
+                    </span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="ticket-row title">
+                <span>Ticket type</span>
+                <span>Weekdays price</span>
+                <span>Weekend price</span>
+            </div>
+            {% for ticket in object_list %}
+                <div class="ticket-row">
+                    <span>{{ ticket.ticket_type }} </span>
+                    <span>${{ ticket.price }}</span>
+                    <span>${{ ticket.weekend_price }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
 {% endblock %}

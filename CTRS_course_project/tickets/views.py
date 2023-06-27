@@ -48,6 +48,6 @@ class EditTicketView(LoginRequiredMixin, views.UpdateView):
 
 
 class DeleteTicketView(LoginRequiredMixin, views.DeleteView):
-    template_name = 'halls/hall-delete-page.html'
+    template_name = 'tickets/delete-ticket-page.html'
     model = Ticket
     success_url = reverse_lazy('tickets index')

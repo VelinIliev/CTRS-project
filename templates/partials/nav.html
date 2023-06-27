@@ -1,26 +1,34 @@
+{% load static %}
 <nav>
-    <ul>
-        <li><a href="{% url 'index' %}">Home</a></li>
-        <li><a href="{% url 'projection index' %}">Program</a></li>
-        <li><a href="{% url 'movies' %}">Movies</a></li>
-        <li><a href="{% url 'hall index' %}">Halls</a></li>
-        <li><a href="{% url 'tickets index' %}">Tickets</a></li>
+    <div class="image">
+        <a href="{% url 'index' %}"><img src="{% static 'images/CTRSArena-white-logo.svg' %}" alt="CTRS Arena logo"></a>
+    </div>
+    <div>
+        <ul>
+            <li></li>
+            <li><a href="{% url 'projection index' %}">Program</a></li>
+            <li><a href="{% url 'movies' %}">Movies</a></li>
+            <li><a href="{% url 'hall index' %}">Halls</a></li>
+            <li><a href="{% url 'tickets index' %}">Tickets</a></li>
 
-        {% if request.user.is_authenticated %}
-
-            {% if  request.user.is_staff %}
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'details user' pk=request.user.pk %}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register user' %}">Register</a></li>
+            {% endif %}
+        </ul>
+        {% if  request.user.is_staff %}
+            <ul class="staff-nav">
                 <li><a href="{% url 'register staff user' %}">Add staff</a></li>
                 <li><a href="{% url 'add movie' %}">Add movie</a></li>
                 <li><a href="{% url 'add projection' %}">Add projection</a></li>
                 <li><a href="{% url 'add hall' %}">Add hall</a></li>
                 <li><a href="{% url 'add ticket' %}">Add ticket type</a></li>
-            {% endif %}
-
-            <li><a href="{% url 'details user' pk=request.user.pk %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Logout</a></li>
-        {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'register user' %}">Register</a></li>
+            </ul>
         {% endif %}
-    </ul>
+
+    </div>
+
 </nav>

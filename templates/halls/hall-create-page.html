@@ -2,9 +2,10 @@
 
 {% block page_content %}
     {% if is_staff %}
+        <h1>Create new hall</h1>
         <form action="{% url 'add hall' %}" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form }}
             <button>Confirm</button>
         </form>
     {% else %}

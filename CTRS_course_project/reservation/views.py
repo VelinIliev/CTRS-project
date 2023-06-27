@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy, reverse
@@ -17,6 +18,7 @@ def index_reservation(request):
     return HttpResponse('index_reservation')
 
 
+@login_required
 def create_reservation(request, pk):
     projection = Projection.objects.filter(pk=pk).get()
 

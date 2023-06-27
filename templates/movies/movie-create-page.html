@@ -2,13 +2,14 @@
 
 {% block page_content %}
     {% if is_staff %}
+        <h1>Create new movie</h1>
         <form action="{% url 'add movie' %}" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form }}
             <button>Add</button>
         </form>
     {% else %}
-        <p>You do not have rights</p>
+        <h2>You do not have rights.</h2>
     {% endif %}
 
 {% endblock %}
