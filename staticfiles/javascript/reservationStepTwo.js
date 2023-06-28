@@ -19,26 +19,22 @@ let reservedSeats = []
 function displayResult() {
     results.innerHTML = "";
     id_reserved_seats.value = "";
-
+    let pks = [];
+    let seats = []
     reservedSeats.forEach(seat => {
-        results.innerHTML += `<p>row: ${seat.row}, seat: ${seat.seat}, pk: ${seat.pk}</p>`
-        // id_reserved_seats.value += `${seat.row},${seat.seat},${seat.pk};`
-    })
-    let pks = []
-    reservedSeats.forEach(seat => {
-        pks.push(seat.pk * 1)
+        pks.push(seat.pk * 1);
+        seats.push(`R${seat.row}-S${seat.seat}`);
     })
     id_reserved_seats.value = pks.join(", ");
+    results.innerHTML = seats.join(", ")
 
 }
 
 function reservation(e) {
     let seat = e.currentTarget;
     if (seat.className.includes('taken-seat')) {
-        //The seat is already taken.
         alertMsg.querySelector('strong').textContent = `The seat is already taken.`;
         alertMsg.hidden = false;
-        // alert('seat is taken')
     } else if (seat.className.includes('free-seat')) {
         seat.classList.remove('free-seat')
         seat.classList.add('reserved-seat')

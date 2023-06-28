@@ -3,7 +3,8 @@
     width: 900px;
     flex-direction: column;
     align-items: center;
-    border: 1px solid red;
+    position: relative;
+    /*border: 1px solid red;*/
 }
 
 .cinema-screen {
@@ -11,43 +12,47 @@
     width: 90%;
     height: 30px;
     text-align: center;
-    padding: 7px 0;
-    background-color: lightgray;
+    padding: 3px 0;
+    background-color: var(--secondary-color-backgrond);
     margin: 20px 0;
+    font-weight: bold;
 }
+
+.free-seat-info {
+    margin-bottom: 1rem;
+}
+
 .seat {
     box-sizing: border-box;
     display: inline-block;
-    margin: 10px;
-    padding: 7px 0px;
+    margin: 5px;
+    padding: 2px 0px;
     width: 50px;
     height: 50px;
     text-align: center;
-    /*border: 1px solid red;*/
-    border-radius: 10px;
-    color: black;
+    border-radius: 5px;
+    color: var(--main-color-backgrond);
 }
 
 .seat span p {
     margin: 0;
     padding: 0;
-    /*color: black;*/
 }
 
 .taken-seat {
-    background-color: red;
+    background-color: var(--taken-seat);
 }
 
 .reserved-seat {
-    background-color: orange;
+    background-color: var(--reserved-seat);
 }
 
 .row-seat {
-    background-color: gray;
+    background-color: var(--row-seat);
 }
 
 .free-seat {
-    background-color: green;
+    background-color: var(--free-seat);
 }
 
 .taken-seat p, .row-seat p, .reserved-seat p, .free-seat p {
@@ -60,16 +65,16 @@
 
 .alert-msg {
     padding: 20px;
-    background-color: #f44336;
-    color: white;
+    background-color: var(--alert-color);
+    color: var(--main-color-text);
     position: absolute;
-    top: 30%;
-    left: 30%;
+    top: 20%;
+    left: 33%;
 }
 
 .closeAlertBtn {
     margin-left: 15px;
-    color: white;
+    color: var(--main-color-text);
     font-weight: bold;
     float: right;
     font-size: 22px;
@@ -79,5 +84,27 @@
 }
 
 .closeAlertBtn:hover {
-    color: black;
+    color: var(--main-color-backgrond);
+}
+
+.ConfirmBtn, .RstBtn {
+    display: inline-block;
+    width: 150px;
+    color: var(--main-color-text);
+    background-color: var(--secondary-color-backgrond);
+    height: 60px;
+    border: none;
+    /*margin-top: 20px;*/
+    margin: 20px 10px;
+}
+
+.RstBtn:hover {
+    background-color: var(--secondary-color-hover);
+}
+.results {
+    max-width: 300px;
+}
+.pseat{
+    margin-top: -5px;
+    font-weight: bold;
 }

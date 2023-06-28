@@ -1,24 +1,21 @@
 nav {
-    background-color: #333;
+    background-color: var(--navigation-color-backgrond);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /*border: 1px solid red;*/
 }
 nav div {
-    /*border: 1px solid red;*/
-    height: 100%;
-    width: 90px;
+    width: 100px;
     margin-left: 40px;
 }
 nav ul {
     display: flex;
     box-sizing: border-box;
     justify-content: flex-end;
-    background-color: #333;
+    background-color: var(--navigation-color-backgrond);
     align-items: center;
-    height: 50px;
+    height: 4.5rem;
     margin: 0;
     padding-top: 4px;
 
@@ -34,16 +31,14 @@ nav ul li a {
     text-align: center;
     width: 80px;
     /*border: 1px solid red;*/
-    color: #FFF;
+    color: var(--main-color-text);
     font-size: .8rem;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
-    /*padding: 0;*/
-
 }
 nav ul li a:hover {
-    color: #f44336;
+    color: var(--main-color-hover);
     font-weight: bold;
 }
 .staff-nav li a{

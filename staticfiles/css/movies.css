@@ -1,0 +1,92 @@
+/* MOVIES DISPLAY PAGE */
+.searchForm {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+.searchForm input {
+    width: 360px;
+}
+
+.searchBtn {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    display: inline-block;
+}
+
+.searchBtn:hover {
+    color: var(--main-color-hover);
+    background-color: transparent;
+}
+
+.list-movies {
+    /*border: 1px solid red;*/
+    display: flex;
+    padding: 2rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 2rem;
+
+}
+
+.single-movie {
+    width: 250px;
+}
+
+/* MOVIE DETAILS PAGE */
+
+.movie-wrapper {
+    box-sizing: border-box;
+    width: 800px;
+    /*border: 1px solid red;*/
+    position: relative;
+    padding: 1rem;
+    vertical-align: top;
+    margin-top: 2rem;
+}
+
+.movie-wrapper .movie-left {
+    box-sizing: border-box;
+    width: 300px;
+    display: inline-block;
+    /*padding: 1rem;*/
+    vertical-align: top;
+
+}
+
+.movie-wrapper .movie-right {
+    box-sizing: border-box;
+    width: 440px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 1rem;
+    /*padding: 1rem;*/
+}
+
+.movie-wrapper h2 {
+    margin: 0;
+}
+
+.movie-wrapper h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.imdb-logo {
+    margin-top: 10px;
+    width: 60px;
+}
+
+.movie-wrapper li {
+    margin: 0;
+    padding: 0;
+}
+
+.movie-wrapper ul {
+    margin: 0 0 0 10px;
+    padding: 0;
+    text-indent: 0;
+    list-style-type: none;
+}

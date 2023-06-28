@@ -14,20 +14,18 @@ from CTRS_course_project.reservation.models import Reservation
 from CTRS_course_project.tickets.models import Ticket
 
 
-def index_reservation(request):
-    return HttpResponse('index_reservation')
-
-
 @login_required
-def create_reservation(request, pk):
-    projection = Projection.objects.filter(pk=pk).get()
+def create_reservation(request):
+    # projection = Projection.objects.filter(pk=pk).get()
+    projection_pk = int(request.GET.get('projection'))
+    projection2 = Projection.objects.filter(pk=projection_pk).get()
 
     if request.method == "GET":
         form = CreateReservationForm()
     else:
         today = str(datetime.datetime.today().date())
         reservation = Reservation(
-            projection=projection,
+            projection=projection2,
             date=today,
             user=request.user
         )
@@ -35,14 +33,11 @@ def create_reservation(request, pk):
         return redirect('reservation step 1', pk=reservation.pk)
 
     context = {
-        'projection': projection,
+        'projection': projection2,
+        # 'projection2': projection2,
         'form': form,
     }
     return render(request, 'reservations/reservation-start-page.html', context)
-
-
-def reservation_step1(request, pk):
-    return HttpResponse(f'reservation_step1 - {pk}')
 
 
 class ReservationStep1View(LoginRequiredMixin, views.UpdateView):
@@ -86,10 +81,6 @@ class ReservationStep2View(LoginRequiredMixin, views.UpdateView):
         [Seat.objects.filter(pk=pk).update(is_taken=True) for pk in seats]
 
         return super().post(request, *args, **kwargs)
-
-
-def reservation_review(request, pk):
-    return HttpResponse(f'reservation_review {pk}')
 
 
 class ReservationDetailsView(LoginRequiredMixin, views.DetailView):

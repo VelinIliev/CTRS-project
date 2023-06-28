@@ -1,0 +1,15 @@
+:root {
+  --main-color-text: #FFFFFF;
+  --secondary-color-text: #BBBBBB;
+  --main-color-hover: #ff0000;
+  --secondary-color-hover: #009cff;
+  --main-color-backgrond: #000000;
+  --secondary-color-backgrond: #888888;
+  --navigation-color-backgrond: #333333;
+  --navigation-color-days-backgrond: #b01f42;
+  --taken-seat: #ff0000;
+  --reserved-seat: #FFA500;
+  --free-seat: #008000;
+  --row-seat: #888888;
+  --alert-color: #f44336;
+}

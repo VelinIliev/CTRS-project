@@ -1,0 +1,95 @@
+.projections-list {
+    width: 600px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.projection-display {
+    box-sizing: border-box;
+    padding: .7rem;
+    width: 600px;
+    height: 250px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--navigation-color-backgrond);
+    margin-bottom: 2rem;
+}
+
+.movie-image {
+    height: 100%;
+    width: 11rem;
+}
+
+.movie-image img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.right-side {
+    position: relative;
+    flex-basis: 70%;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.right-side h3 {
+    padding: 0;
+    margin: 0;
+    color: var(--main-color-text);
+}
+.right-side a {
+    text-decoration: none;
+}
+
+.right-side h3:hover {
+    color: var(--main-color-hover);
+}
+
+.movie-plot {
+    font-size: .9rem;
+}
+
+.display-hours{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    gap: .5rem;
+    flex-wrap: wrap;
+    width: calc(100% - 1rem);
+    height: 6.5rem;
+    bottom: 0;
+    left: 1rem;
+    padding: .5rem;
+    position: absolute;
+    border: 1px solid var(--secondary-color-text);
+    border-radius: 4px;
+}
+.hour-projection {
+    text-decoration: none;
+    color: var(--main-color-text);
+    width: 86px;
+    height: 39px;
+    background-color: var(--secondary-color-backgrond);
+    text-align: center;
+
+}
+.hour-projection:hover{
+    background-color: var(--main-color-hover);
+}
+.hour-projection .hour{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 0;
+    margin-top: -3px;
+}
+.hour-projection .free-seats{
+    font-size: .65rem;
+    margin-top: -6px;
+}
+.no-free-seats {
+    color: var(--secondary-color-text);
+}

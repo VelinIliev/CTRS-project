@@ -1,35 +1,47 @@
 {% extends 'bases/base.html' %}
+{% load static %}
 
 {% block page_content %}
-    {#    <img src="{{ object.image_url }}" alt="{{ object.title }}-image" width="250">#}
-    <h1>{{ object.title }} ({{ object.year }})</h1>
-    <br>
-    <p>{{ object.plot }}</p>
-    <p>Runtime: {{ runtime }}</p>
-    <p>Genres: {{ object.genres }}</p>
-    <p>Country: {{ object.country }}</p>
-    <p>IMDB: <a href="{{ object.imbd_link }}" target="_blank"> link </a></p>
-    <br>
-    <h2>Directors: </h2>
-    <ul>
-        {% for director in directors %}
-            <li>{{ director }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Writers: </h2>
-    <ul>
-        {% for writer in writers %}
-            <li>{{ writer }}</li>
-        {% endfor %}
-    </ul>
+    <div class="movie-wrapper">
+        <div class="movie-left">
+            <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie.title }} - image">
+            {% if is_staff %}
+                <a href="{% url 'edit movie' pk=object.pk slug=object.slug %}" class="edit-link">Edit</a>
+            {% endif %}
+        </div>
+        <div class="movie-right">
+            <h2>{{ object.title }} ({{ object.year }})</h2>
+            <p>{{ object.plot }}</p>
+            <br>
+            <p>Runtime: {{ runtime }}</p>
+            <p>Genres: {{ object.genres }}</p>
+            <p>Country: {{ object.country }}</p>
+            <p>
+                <a href="{{ object.imbd_link }}" target="_blank">
+                    <img src="{% static 'images/IMDB-logo.png' %}" alt="IMDB"class="imdb-logo">
+                </a>
+            </p>
+            <br>
+            <h3>Directors: </h3>
+            <ul>
+                {% for director in directors %}
+                    <li>{{ director }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Writers: </h3>
+            <ul>
+                {% for writer in writers %}
+                    <li>{{ writer }}</li>
+                {% endfor %}
+            </ul>
 
-    <h2>Actors:</h2>
-    <ul>
-        {% for actor in actors %}
-            <li>{{ actor }}</li>
-        {% endfor %}
-    </ul>
-    {% if is_staff %}
-        <a href="{% url 'edit movie' pk=object.pk slug=object.slug %}">Edit</a>
-    {% endif %}
+            <h3>Actors:</h3>
+            <ul>
+                {% for actor in actors %}
+                    <li>{{ actor }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
 {% endblock %}

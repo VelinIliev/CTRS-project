@@ -2,18 +2,43 @@
 
 {% block page_content %}
     <h1>Reservation details</h1>
-    <p>Movie: {{ object.projection.movie }}</p>
-    <p>Date: {{ object.projection.date|date:"Y-m-d" }}</p>
-    <p>Hour: {{ object.projection.hour|time:'H:i' }}</p>
-    <p>Hall: {{ object.projection.hall }}</p>
-    <p>Tickets:</p>
-    {% for ticket in tickets %}
-        <p>{{ ticket }}</p>
-    {% endfor %}
-    <p>Seats:</p>
-    {% for seat in seats %}
-        <p>Row: {{ seat.row_n }}, Seat: {{ seat.seat_n }}</p>
-    {% endfor %}
-    <p>Total: {{ object.total_price }}$</p>
-{#    <a href="{% url 'index' %}">OK</a>#}
+    <div class="reservation-details">
+        <div class="reservation-row">
+            <span class="left">Movie: </span>
+            <span class="right">{{ object.projection.movie }}</span>
+        </div>
+        <div class="reservation-row">
+            <span class="left">Date: </span>
+            <span class="right">{{ object.projection.date|date:"Y-m-d" }}</span>
+        </div>
+        <div class="reservation-row">
+            <span class="left">Hour: </span>
+            <span class="right">{{ object.projection.hour|time:'H:i' }}</span>
+        </div>
+        <div class="reservation-row">
+            <span class="left">Hall: </span>
+            <span class="right">{{ object.projection.hall }}</span>
+        </div>
+        <div class="reservation-row">
+            <span class="left">Tickets: </span>
+            <span class="right">
+                {% for ticket in tickets %}
+                    <p>{{ ticket }}$</p>
+                {% endfor %}
+            </span>
+        </div>
+        <div class="reservation-row">
+            <span class="left">Seats: </span>
+            <span class="right">
+                {% for seat in seats %}
+                    <p>Row: {{ seat.row_n }}, Seat: {{ seat.seat_n }}</p>
+                {% endfor %}
+            </span>
+        </div>
+        <div class="reservation-row">
+            <span class="left">Total: </span>
+            <span class="right">{{ object.total_price }}$</span>
+        </div>
+    </div>
+
 {% endblock %}

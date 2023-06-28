@@ -2,27 +2,34 @@
 {% load static %}
 
 {% block page_content %}
-    <h1>Reservation - select tickets:</h1>
-    {% for ticket in tickets %}
-        <p class="{{ ticket.ticket_type }}">
-            {{ ticket.ticket_type }}
-            <span class="price">
-                {% if weekdays %}
-                    {{ ticket.price }}
-                {% else %}
-                    {{ ticket.weekend_price }}
-                {% endif %}
-                    <input type="number" min="0" step="1" value="0" class="numberInput"/>
-            </span>
-        </p>
-    {% endfor %}
-    <hr>
-    <p class="display-result"></p>
-    <hr>
-    <form action="{% url 'reservation step 1' pk=object.pk %}" method="post">
+    <h1>Reservation - step 1 <br> select tickets:</h1>
+    <div class="select-tickets">
+        {% for ticket in tickets %}
+            <div class="ticket-type">
+                <div class="{{ ticket.ticket_type }}">
+                    {{ ticket.ticket_type }}:
+                </div>
+                <div class="price">
+                        <span>$</span>
+                        <span class="price-value">
+                        {% if weekdays %}
+                            {{ ticket.price }}
+                        {% else %}
+                            {{ ticket.weekend_price }}
+                        {% endif %}
+                        </span>
+                    </div>
+                <input type="number" min="0" step="1" value="0" class="numberInput"/>
+            </div>
+        {% endfor %}
+    </div>
+    <p class="display-result">Total: $00.00</p>
+    <form action="{% url 'reservation step 1' pk=object.pk %}" method="post"  >
         {% csrf_token %}
-        {{ form.as_p }}
         <button>Confirm</button>
+        <p style="display: none">{{ form.type_of_tickets }}</p>
+        <p style="display: none">{{ form.number_of_tickets }}</p>
+        <p style="display: none">{{ form.total_price }}</p>
     </form>
     <script src="{% static 'javascript/reservationStepOne.js' %}"></script>
 

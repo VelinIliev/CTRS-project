@@ -32,7 +32,7 @@ class Reservation(models.Model):
         blank=True,
     )
     total_price = models.DecimalField(
-        max_digits=4,
+        max_digits=8,
         decimal_places=2,
         null=True,
         blank=True,

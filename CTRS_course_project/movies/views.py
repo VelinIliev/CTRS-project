@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -8,16 +7,10 @@ from CTRS_course_project.movies.helpers import calculate_runtime
 from CTRS_course_project.movies.models import Movie
 
 
-def index(request):
-    return HttpResponse("index movies")
-
-
 class CreateMovieView(LoginRequiredMixin, views.CreateView):
     login_url = "/profile/login/"
     template_name = 'movies/movie-create-page.html'
     form_class = CreateMovieForm
-
-    # success_url = reverse_lazy('index')
 
     def get_success_url(self):
         return reverse_lazy('details movie', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
@@ -45,10 +38,20 @@ class DisplayMovieDetailsView(views.DetailView):
 class DisplayMoviesView(views.ListView):
     template_name = 'movies/movies-main-page.html'
     model = Movie
+    paginate_by = 4
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search = self.request.GET.get('search', '')
+        if search:
+            queryset = queryset.filter(title__icontains=search, is_active=1).order_by('-pk')
+        else:
+            queryset = Movie.objects.filter(is_active=1).order_by('-pk')
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['movies'] = Movie.objects.filter(is_active=1).order_by('id')[:5]
+        context['search'] = self.request.GET.get('search', '')
         return context
 
 

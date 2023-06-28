@@ -1,0 +1,43 @@
+.select-tickets {
+    display: flex;
+    flex-direction: column;
+    /*border: 1px solid red;*/
+    padding: 0;
+    margin: 3rem 0 0 0;
+}
+
+.ticket-type {
+    display: flex;
+    flex-direction: row;
+    margin: .75rem;
+    /*border: 1px solid red;*/
+}
+
+.ticket-type div {
+    width: 8rem;
+    /*border: 1px solid red;*/
+    margin-right: 1rem;
+}
+
+.ticket-type input {
+    width: 4rem;
+}
+
+.reservation-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    width: 300px;
+    border: .5px solid var(--main-color-text);
+}
+
+.reservation-row {
+    display: flex;
+    border: .5px solid var(--main-color-text);
+    padding: 10px;
+}
+
+.reservation-row .left {
+    width: 90px;
+}

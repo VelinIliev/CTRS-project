@@ -1,23 +1,13 @@
-<hr>
-{% if current_day %}
-    {% for movie_name, data in current_day.items %}
-        <p>
-            <a href="{% url 'details movie' pk=data.movie.pk slug=data.movie.slug %}">{{ movie_name }}</a>
-        </p>
-        {% for k, pr in data.hours.items %}
-            {% if pr.free_seats == 'No free seats' %}
-                <p>{{ k|time:'H:i' }}
-                    - {{ pr.free_seats }}</p>
-                <br>
-            {% else %}
-                <p>
-                    <a href="{% url 'start reservation' pk=pr.projection.pk  %}">{{ k|time:'H:i' }}
-                        - {{ pr.free_seats }}</a>
-                </p>
-                <br>
-            {% endif %}
+{% load static %}
+
+<h1>{{ date }} movies</h1>
+
+<div class="projections-list">
+    {% if current_day %}
+        {% for movie_name, data in current_day.items %}
+            {% include 'projections/partials/movie-projections.html' %}
         {% endfor %}
-    {% endfor %}
-{% else %}
-    <p>No movies this day</p>
-{% endif %}
+    {% else %}
+        <h2>No movies this day</h2>
+    {% endif %}
+</div>

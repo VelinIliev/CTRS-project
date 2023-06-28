@@ -2,55 +2,65 @@
 {% load static %}
 
 {% block page_content %}
-    {{ projection.hall }}
-    {{ projection.hour|time:'H:i' }}
-    {{ projection.date|date:"d-m-Y" }}
-    {{ projection.movie }}
+    <h1>Reservation - step 2 <br> select seats:</h1>
+    <p>
+        {{ projection.movie }}
+    </p>
+    <p>
+        {{ projection.date|date:"d-m-Y" }} {{ projection.hour|time:'H:i' }}h
+    </p>
+
+    <p>
+        {{ projection.hall }}
+    </p>
+
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
-        <p>Free seats: {{ free_seats }}</p>
+        <p class="free-seat-info">Free seats: {{ free_seats }}</p>
+        <div class="alert-msg" hidden>
+            <span class="closeAlertBtn">&times;</span>
+            <strong>The seat is already taken.</strong>
+        </div>
         {% for row in seats %}
             <div>
                 <span class="row-seat seat">
-                    <p>row:</p>
-                    <p>{{ forloop.counter }}</p>
+                    <p >row</p>
+                    <p class="pseat">{{ forloop.counter }}</p>
                 </span>
                 {% for seat in row %}
                     {% if seat.is_taken %}
                         <span class="taken-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
                               data-seat={{ seat.seat_n }}>
-                            <p>seat:</p>
-                            <p>{{ seat.seat_n }}</p>
+                            <p >seat</p>
+                            <p class="pseat">{{ seat.seat_n }}</p>
                         </span>
                     {% else %}
                         <span class="free-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
                               data-seat={{ seat.seat_n }}>
-                            <p>seat:</p>
-                            <p>{{ seat.seat_n }}</p>
+                            <p >seat</p>
+                            <p class="pseat">{{ seat.seat_n }}</p>
                         </span>
                     {% endif %}
                 {% endfor %}
             </div>
         {% endfor %}
         <h1>Selected seats: </h1>
-        <div class="results"></div>
-        {#        <form action="{% url 'reservations' %}" method="post">#}
-        {#            {% csrf_token %}#}
-        {#            <button name="type" class="send-results">Confirm</button>#}
-        {##}
-        {#        </form>#}
-        <button name="type" class="ConfirmBtn">Confirm</button>
-        <button class="RstBtn">Reset</button>
+        <div class="results">
+
+        </div>
+        <div class="buttons">
+            <button name="type" class="ConfirmBtn">Confirm</button>
+            <button class="RstBtn">Reset</button>
+        </div>
+
     </div>
 
-    <div class="alert-msg" hidden>
-        <span class="closeAlertBtn">&times;</span>
-        <strong>The seat is already taken.</strong>
-    </div>
+
     <form action="{% url 'reservation step 2' pk=object.pk %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <p class="numberOfTicketsReserved">{{ object.number_of_tickets }}</p>
+        <p style="display: none">{{ form.reserved_seats }}</p>
+        <p style="display: none">{{ form.is_finished }}</p>
+        <p class="numberOfTicketsReserved" style="display: none">{{ object.number_of_tickets }}</p>
         <button class="FinishBtn">Finish</button>
     </form>
 

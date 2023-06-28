@@ -5,7 +5,6 @@
     </div>
     <div>
         <ul>
-            <li></li>
             <li><a href="{% url 'projection index' %}">Program</a></li>
             <li><a href="{% url 'movies' %}">Movies</a></li>
             <li><a href="{% url 'hall index' %}">Halls</a></li>
@@ -19,6 +18,7 @@
                 <li><a href="{% url 'register user' %}">Register</a></li>
             {% endif %}
         </ul>
+
         {% if  request.user.is_staff %}
             <ul class="staff-nav">
                 <li><a href="{% url 'register staff user' %}">Add staff</a></li>
@@ -30,5 +30,4 @@
         {% endif %}
 
     </div>
-
 </nav>

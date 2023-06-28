@@ -2,8 +2,8 @@
 
 
 body {
-    background-color: #000;
-    color: #FFF;
+    background-color: var(--main-color-backgrond);
+    color: var(--main-color-text);
     font-family: Verdana, sans-serif;
 }
 
@@ -17,12 +17,14 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    /*padding: 20px;*/
 }
 
 h1 {
-    font-size: 3rem;
+    margin-top: 3rem;
+    font-size: 2rem;
     text-transform: uppercase;
+    text-align: center;
 }
 h2 {
     margin: 20px 0;
@@ -48,26 +50,26 @@ h2 {
 .separator {
     width: 600px;
     height: 2px;
-    background-color: #FFF;
+    background-color: var(--main-color-text);
     margin: 20px 0 0 0;
     border-radius: 2px;
 }
 
 .edit-link {
     display: inline-block;
-    color: #FFF;
+    color: var(--main-color-text);
     text-decoration: none;
     font-weight: bold;
     text-align: center;
     width: 80px;
     height: 30px;
-    background-color: #888;
+    background-color: var(--secondary-color-backgrond);
     padding: 3px;
     margin: 20px 10px;
 }
 
 .edit-link:hover {
-    background-color: #ff0000;
+    background-color: var(--main-color-hover);
 }
 
 .go-back {
@@ -75,8 +77,8 @@ h2 {
     text-decoration: none;
     text-align: center;
     padding: 17px;
-    color: #FFFFFF;
-    background-color: #888;
+    color: var(--main-color-text);
+    background-color: var(--secondary-color-backgrond);
     height: 60px;
     border: none;
     margin-top: 20px;
@@ -84,14 +86,14 @@ h2 {
 
 .go-back:hover {
     font-weight: bold;
-    background-color: #009cff;
+    background-color: var(--secondary-color-hover);
     cursor: pointer;
 }
 
 .alink {
-    color: #FFF;
+    color: var(--main-color-text);
     text-decoration: none;
 }
 .alink:hover {
-    color: #FF0000;
+    color: var(--main-color-hover);
 }

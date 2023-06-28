@@ -1,10 +1,51 @@
 {% extends 'bases/base.html' %}
+{% load static %}
 
 {% block page_content %}
-    <ul>
-        {% for movie in movies %}
-            <li><a href="{% url 'details movie' pk=movie.id slug=movie.slug  %}">{{ movie.title }}</a></li>
+    <form action="{% url 'movies' %}" method="get" class="searchForm">
+        <input name="search" value="{{ search }}" placeholder="Search by title">
+        <button class="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+    <div class="list-movies">
+        {% for movie in object_list %}
+            <div class="single-movie">
+                <a href="{% url 'details movie' pk=movie.id slug=movie.slug %}">
+                    <img src="{% static 'images/work_picture.jpg' %}" alt="">
+                    {#TODO: Change image with real URL#}
+                </a>
+            </div>
+
         {% endfor %}
-    </ul>
+    </div>
+
+
+    {% if paginator.num_pages > 1 %}
+        <div>
+
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">
+                    <i class="fa-solid fa-less-than" style="color: #FFFFFF"></i>
+                </a>
+            {% else %}
+                <a>
+                    <i class="fa-solid fa-less-than" style="color: #333333"></i>
+                </a>
+            {% endif %}
+
+            <sapn>page {{ page_obj.number }} of {{ paginator.num_pages }}</sapn>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&search={{ search }}">
+                    <i class="fa-solid fa-greater-than" style="color: #FFFFFF"></i>
+                </a>
+            {% else %}
+                <a>
+                    <i class="fa-solid fa-greater-than" style="color: #333333"></i>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
 
 {% endblock %}

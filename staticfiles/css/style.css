@@ -1,13 +1,13 @@
 @import "reset.css";
+@import url(https://use.fontawesome.com/releases/v6.1.2/css/all.css);
+@import "variables.css";
 @import "navigation.css";
 @import "footer.css";
 @import "main.css";
 @import "forms.css";
 @import "tickets.css";
+@import "days-nav.css";
+@import "projections-list.css";
+@import "reservation.css";
 @import "reservationSeats.css";
-
-.days-navigation {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid red;
-}
+@import "movies.css";

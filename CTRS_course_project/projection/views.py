@@ -59,14 +59,11 @@ class DetailsProjectionView(LoginRequiredMixin, views.DetailView):
         context['free_seats'] = Seat.objects.filter(projection_id=self.object.id, is_taken=0).count()
         return context
 
-
-def reservations(request):
-    if request.method == "POST":
-
-        if request.POST.get("type") != "":
-            seat_pks = [int(x) for x in request.POST.get("type").split(", ")]
-            [Seat.objects.filter(pk=pk).update(is_taken=True) for pk in seat_pks]
-
-        return redirect('projection index')
-
-    return redirect('index')
+#
+# def reservations(request):
+#     if request.method == "POST":
+#         if request.POST.get("type") != "":
+#             seat_pks = [int(x) for x in request.POST.get("type").split(", ")]
+#             [Seat.objects.filter(pk=pk).update(is_taken=True) for pk in seat_pks]
+#         return redirect('projection index')
+#     return redirect('index')
