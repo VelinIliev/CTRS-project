@@ -24,13 +24,27 @@
             <a class="edit-link" href="{% url 'delete user' pk=object.pk %}">Delete</a>
         </p>
 
-        {% if reservations %}
+        {% if new_reservations %}
             <div class="separator"></div>
-            <h2>My reservations:</h2>
-            {% for reservation in reservations %}
-                <p><a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">{{ reservation.projection.movie }}
-                    - {{ reservation.projection.date }}</a></p>
+            <h2>Pending reservations:</h2>
+            {% for reservation in new_reservations %}
+                <p>
+                    <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
+                        {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
+                    </a>
+                </p>
             {% endfor %}
+            {% if old_reservations %}
+            <div class="separator"></div>
+            <h2>Old reservations:</h2>
+            {% for reservation in old_reservations %}
+                <p>
+                    <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
+                        {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
+                    </a>
+                </p>
+            {% endfor %}
+        {% endif %}
         {% endif %}
     {% endif %}
 

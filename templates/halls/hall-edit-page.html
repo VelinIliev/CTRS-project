@@ -4,7 +4,7 @@
     {% if is_staff %}
         <form action="{% url 'edit hall' pk=object.pk slug=object.slug %}" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form }}
             <button>Confirm</button>
         </form>
     {% else %}

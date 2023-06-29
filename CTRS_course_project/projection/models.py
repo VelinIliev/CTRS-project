@@ -40,6 +40,9 @@ class Projection(models.Model):
             self.slug = slugify(f'{self.date}-{self.hour}-{self.hall.name}-{self.movie.title}')
         return super().save(*args, **kwargs)
 
+    def __str__(self):
+        return f'{self.date} - {self.hour} - {self.hall} - {self.movie} '
+
 
 class Seat(models.Model):
     projection = models.ForeignKey(

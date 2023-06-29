@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from CTRS_course_project.tickets.models import Ticket
+
+
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    ...

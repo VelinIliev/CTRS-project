@@ -1,8 +1,10 @@
-from django.contrib.auth import views as auth_view, get_user_model
-from django.views import generic as views
+import datetime
+
+from django.contrib.auth import views as auth_view, get_user_model, login
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views import generic as views
 
 from CTRS_course_project.reservation.models import Reservation
 from CTRS_course_project.user_app.forms import UserCreateForm, UserCreateStaffForm
@@ -23,6 +25,11 @@ class SignUpView(views.CreateView):
     template_name = 'accounts/register-user.html'
     form_class = UserCreateForm
     success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect(self.success_url)
 
 
 class CreateUpStaffView(views.CreateView):
@@ -45,9 +52,29 @@ class UserDetailsView(views.DetailView):
     model = UserModel
 
     def get_context_data(self, **kwargs):
+        today = datetime.datetime.now().date()
         context = super().get_context_data(**kwargs)
         context['is_owner'] = self.request.user == self.object
-        context['reservations'] = Reservation.objects.filter(user=self.object.pk, is_finished=True)
+        context['new_reservations'] = Reservation.objects \
+            .filter(
+            user=self.object.pk,
+            is_finished=True,
+            projection__date__gte=today,
+        ) \
+            .order_by(
+            'projection__date',
+            'projection__hour'
+        )
+        context['old_reservations'] = Reservation.objects \
+            .filter(
+            user=self.object.pk,
+            is_finished=True,
+            projection__date__lt=today,
+        ) \
+            .order_by(
+            'projection__date',
+            'projection__hour'
+        )
         return context
 
 

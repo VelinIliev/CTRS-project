@@ -2,17 +2,17 @@
 {% load static %}
 
 {% block page_content %}
-    <h1>Reservation - step 2 <br> select seats:</h1>
-    <p>
-        {{ projection.movie }}
-    </p>
-    <p>
-        {{ projection.date|date:"d-m-Y" }} {{ projection.hour|time:'H:i' }}h
-    </p>
-
-    <p>
-        {{ projection.hall }}
-    </p>
+    <h1>Reservation - step 2: <br> select seats</h1>
+{#    <p>#}
+{#        {{ projection.movie }}#}
+{#    </p>#}
+{#    <p>#}
+{#        {{ projection.date|date:"d-m-Y" }} {{ projection.hour|time:'H:i' }}h#}
+{#    </p>#}
+{##}
+{#    <p>#}
+{#        {{ projection.hall }}#}
+{#    </p>#}
 
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
@@ -56,7 +56,7 @@
     </div>
 
 
-    <form action="{% url 'reservation step 2' pk=object.pk %}" method="post">
+    <form action="{% url 'reservation step 2' pk=object.pk %}" method="post" id="cinema-hall-form">
         {% csrf_token %}
         <p style="display: none">{{ form.reserved_seats }}</p>
         <p style="display: none">{{ form.is_finished }}</p>

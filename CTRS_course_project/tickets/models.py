@@ -18,3 +18,6 @@ class Ticket(models.Model):
         null=False,
         blank=False,
     )
+
+    def __str__(self):
+        return self.ticket_type

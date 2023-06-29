@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h2>Are sure you want to delete {{ object.ticket_type }} ticket type? </h2>
+    <h1>Аre you sure you want to delete <br> {{ object.ticket_type }} ticket type? </h1>
     <form action="{% url 'delete ticket' pk=object.pk %}" method="post">
 
         <button>Yes</button>

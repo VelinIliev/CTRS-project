@@ -81,4 +81,4 @@ class Movie(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.title}'
+        return f'{self.title} ({self.year})'

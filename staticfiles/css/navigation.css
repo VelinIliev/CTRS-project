@@ -4,43 +4,49 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    /*border: 1px solid red;*/
 }
-nav div {
+
+nav .image {
     width: 100px;
     margin-left: 40px;
+    /*border: 1px solid red;*/
 }
+
 nav ul {
     display: flex;
     box-sizing: border-box;
-    justify-content: flex-end;
+    justify-content: center;
     background-color: var(--navigation-color-backgrond);
     align-items: center;
     height: 4.5rem;
     margin: 0;
     padding-top: 4px;
-
+    /*border: 1px solid red;*/
 }
+
 nav ul li {
     text-decoration: none;
     list-style-type: none;
     margin: 0 20px;
 }
+
 nav ul li a {
     box-sizing: border-box;
     display: inline-block;
     text-align: center;
-    width: 80px;
-    /*border: 1px solid red;*/
     color: var(--main-color-text);
     font-size: .8rem;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
 }
+
 nav ul li a:hover {
     color: var(--main-color-hover);
     font-weight: bold;
 }
-.staff-nav li a{
+
+.staff-nav li a {
     width: 140px;
 }

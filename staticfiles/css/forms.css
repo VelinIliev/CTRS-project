@@ -33,7 +33,7 @@ button:hover {
     cursor: pointer;
 }
 
-form input, form select {
+form input, form select, form textarea {
     background-color: var(--main-color-text);
     margin-top: 5px;
     margin-bottom: 20px;

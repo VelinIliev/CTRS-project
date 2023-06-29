@@ -25,6 +25,11 @@ class Hall(models.Model):
         null=False,
         blank=False,
     )
+    image_url = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name='Image URL'
+    )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

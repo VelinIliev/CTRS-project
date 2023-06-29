@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from CTRS_course_project.reservation.models import Reservation
+
+
+@admin.register(Reservation)
+class ReservationAdmin(admin.ModelAdmin):
+    ...

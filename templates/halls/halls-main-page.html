@@ -1,10 +1,17 @@
 {% extends 'bases/base.html' %}
+{% load multiply %}
+{% load static %}
+
+
 
 {% block page_content %}
-    <ul>
         {% for hall in halls %}
-            <li><a href="{% url 'details hall' pk=hall.pk slug=hall.slug %}">{{ hall.name }}</a></li>
-        {% endfor %}
-    </ul>
+            <a class="single-hall" href="{% url 'details hall' pk=hall.pk slug=hall.slug %}">
+                <h2>{{ hall.name }}</h2>
+                <p>Number of seats: {{ hall.rows|multiply:hall.seats_per_row }}</p>
+                <img src="{% static 'images/hall02.webp' %}" alt="">
 
+                {#TODO: Change image with real URL#}
+            </a>
+        {% endfor %}
 {% endblock %}

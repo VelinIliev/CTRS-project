@@ -1,0 +1,34 @@
+.hall-wrapper {
+    width: 600px;
+}
+
+.hall-wrapper img {
+    margin: 1rem 0;
+}
+
+.single-hall {
+    position: relative;
+    width: 400px;
+    margin-top: 2rem;
+    border: 1px solid var(--main-color-text);
+    border-radius: 1rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--main-color-text);
+    text-align: center;
+}
+
+
+.single-hall h2, .single-hall p {
+    position: absolute;
+}
+
+.single-hall>h2 {
+    margin: 0;
+    top: 0;
+    left: .5rem;
+}
+.single-hall>p {
+    top: 2rem;
+    left: .5rem;
+}

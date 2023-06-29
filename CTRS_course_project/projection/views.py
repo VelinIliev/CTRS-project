@@ -49,6 +49,7 @@ class CreateProjectionView(LoginRequiredMixin, views.CreateView):
         return context
 
 
+# PermissionRequiredMixin
 class DetailsProjectionView(LoginRequiredMixin, views.DetailView):
     template_name = 'projections/details-projection-view.html'
     model = Projection

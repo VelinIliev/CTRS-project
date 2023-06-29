@@ -1,13 +1,20 @@
 {% extends 'bases/base.html' %}
+{% load static %}
 
 {% block page_content %}
-    <p>{{ object.name }}</p>
-    <p>{{ object.rows }}</p>
-    <p>{{ object.seats_per_row }}</p>
-    <p>{{ object.description }}</p>
+    <div class="hall-wrapper">
+        <h1>{{ object.name }}</h1>
+        <p>Number of seats: {{ total_seats }}</p>
+        <img src="{% static 'images/hall02.webp' %}" alt="{{ object.name }} hall image">
+        {#TODO: Change image with real URL#}
+        <p>{{ object.description }}</p>
 
-    {% if is_staff %}
-        <a href="{% url 'edit hall' pk=object.pk slug=object.slug %}">Edit</a>
-        <a href="{% url 'delete hall' pk=object.pk slug=object.slug %}">Delete</a>
-    {% endif %}
+        {% if is_staff %}
+            <div class="buttons">
+                <a class="edit-link" href="{% url 'edit hall' pk=object.pk slug=object.slug %}">Edit</a>
+                <a class="edit-link" href="{% url 'delete hall' pk=object.pk slug=object.slug %}">Delete</a>
+            </div>
+
+        {% endif %}
+    </div>
 {% endblock %}

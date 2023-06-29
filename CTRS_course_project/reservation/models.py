@@ -46,3 +46,6 @@ class Reservation(models.Model):
         null=False,
         blank=False
     )
+
+    def __str__(self):
+        return f'{self.date} - {self.projection.movie} - {self.projection.hall} - {self.user}'

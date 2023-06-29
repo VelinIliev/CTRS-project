@@ -37,7 +37,7 @@ def find_free_seats(projection_pk):
 
 
 def get_today_movies(day):
-    this_day = Projection.objects.filter(date=day)
+    this_day = Projection.objects.filter(date=day).order_by('hour')
 
     list_of_movies = {}
     for projection in this_day:

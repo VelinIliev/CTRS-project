@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from CTRS_course_project.projection.models import Projection
+
+
+@admin.register(Projection)
+class ProjectionAdmin(admin.ModelAdmin):
+    ...
