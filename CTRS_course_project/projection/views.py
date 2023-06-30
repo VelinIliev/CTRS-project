@@ -1,6 +1,6 @@
 import datetime
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -37,7 +37,8 @@ class DisplayProjectionByDayView(views.ListView):
         return context
 
 
-class CreateProjectionView(LoginRequiredMixin, views.CreateView):
+class CreateProjectionView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateView):
+    permission_required = 'projection.add_projection'
     login_url = "/profile/login/"
     template_name = 'projections/create-projection-page.html'
     form_class = CreateProjectionForm
@@ -49,7 +50,6 @@ class CreateProjectionView(LoginRequiredMixin, views.CreateView):
         return context
 
 
-# PermissionRequiredMixin
 class DetailsProjectionView(LoginRequiredMixin, views.DetailView):
     template_name = 'projections/details-projection-view.html'
     model = Projection
@@ -60,11 +60,4 @@ class DetailsProjectionView(LoginRequiredMixin, views.DetailView):
         context['free_seats'] = Seat.objects.filter(projection_id=self.object.id, is_taken=0).count()
         return context
 
-#
-# def reservations(request):
-#     if request.method == "POST":
-#         if request.POST.get("type") != "":
-#             seat_pks = [int(x) for x in request.POST.get("type").split(", ")]
-#             [Seat.objects.filter(pk=pk).update(is_taken=True) for pk in seat_pks]
-#         return redirect('projection index')
-#     return redirect('index')
+

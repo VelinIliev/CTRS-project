@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib.auth import views as auth_view, get_user_model, login
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -32,7 +33,8 @@ class SignUpView(views.CreateView):
         return redirect(self.success_url)
 
 
-class CreateUpStaffView(views.CreateView):
+class CreateUpStaffView(PermissionRequiredMixin, views.CreateView):
+    permission_required = 'user_app.add_appuser'
     template_name = 'accounts/register-staff-user.html'
     form_class = UserCreateStaffForm
     success_url = reverse_lazy('index')

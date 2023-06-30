@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.http import HttpResponse
@@ -12,7 +12,8 @@ def index_hall(request):
     return HttpResponse("Hall index")
 
 
-class CreateHallView(LoginRequiredMixin, views.CreateView):
+class CreateHallView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateView):
+    permission_required = 'hall.add_hall'
     login_url = "/profile/login/"
     template_name = 'halls/hall-create-page.html'
     form_class = CreateHallForm
@@ -47,7 +48,8 @@ class HallDetailsView(views.DetailView):
         return context
 
 
-class EditHallView(LoginRequiredMixin, views.UpdateView):
+class EditHallView(LoginRequiredMixin, PermissionRequiredMixin,  views.UpdateView):
+    permission_required = 'hall.change_hall'
     login_url = "/profile/login/"
     template_name = 'halls/hall-edit-page.html'
     model = Hall
@@ -62,7 +64,8 @@ class EditHallView(LoginRequiredMixin, views.UpdateView):
         return context
 
 
-class DeleteHallView(LoginRequiredMixin, views.DeleteView):
+class DeleteHallView(LoginRequiredMixin, PermissionRequiredMixin, views.DeleteView):
+    permission_required = 'hall.delete_hall'
     template_name = 'halls/hall-delete-page.html'
     model = Hall
     success_url = reverse_lazy('hall index')

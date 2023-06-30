@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -7,7 +7,8 @@ from CTRS_course_project.movies.helpers import calculate_runtime
 from CTRS_course_project.movies.models import Movie
 
 
-class CreateMovieView(LoginRequiredMixin, views.CreateView):
+class CreateMovieView(LoginRequiredMixin, PermissionRequiredMixin,  views.CreateView):
+    permission_required = 'movies.add_movie'
     login_url = "/profile/login/"
     template_name = 'movies/movie-create-page.html'
     form_class = CreateMovieForm
@@ -55,7 +56,8 @@ class DisplayMoviesView(views.ListView):
         return context
 
 
-class EditMovieView(LoginRequiredMixin, views.UpdateView):
+class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateView):
+    permission_required = 'movies.change_movie'
     login_url = "/profile/login/"
     template_name = 'movies/movie-edit-page.html'
     model = Movie
