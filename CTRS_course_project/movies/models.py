@@ -1,8 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.template.defaultfilters import slugify
 
 from CTRS_course_project.movies.validators import validate_year
 
+
+UserModel = get_user_model()
 
 class Movie(models.Model):
     title = models.CharField(
@@ -82,3 +85,28 @@ class Movie(models.Model):
 
     def __str__(self):
         return f'{self.title} ({self.year})'
+
+
+class MovieComment(models.Model):
+    text = models.CharField(
+        max_length=300,
+        null=False,
+        blank=False,
+    )
+    publication_date_and_time = models.DateTimeField(
+        auto_now_add=True,
+        blank=True,
+        null=False,
+    )
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )

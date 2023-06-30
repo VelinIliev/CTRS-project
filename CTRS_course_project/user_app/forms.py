@@ -17,7 +17,11 @@ class UserCreateStaffForm(forms.ModelForm):
 
     class Meta:
         model = UserModel
-        fields = ('username', 'password', 'groups')
+        fields = ('username', 'email', 'password', 'groups')
+
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)

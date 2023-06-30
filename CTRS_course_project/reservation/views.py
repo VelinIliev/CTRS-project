@@ -2,10 +2,9 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-from django.urls import reverse_lazy, reverse
-from django.views import generic as views
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.views import generic as views
 
 from CTRS_course_project.projection.helpers import get_seats
 from CTRS_course_project.projection.models import Projection, Seat
@@ -16,16 +15,15 @@ from CTRS_course_project.tickets.models import Ticket
 
 @login_required
 def create_reservation(request):
-    # projection = Projection.objects.filter(pk=pk).get()
     projection_pk = int(request.GET.get('projection'))
-    projection2 = Projection.objects.filter(pk=projection_pk).get()
+    projection = Projection.objects.filter(pk=projection_pk).get()
 
     if request.method == "GET":
         form = CreateReservationForm()
     else:
         today = str(datetime.datetime.today().date())
         reservation = Reservation(
-            projection=projection2,
+            projection=projection,
             date=today,
             user=request.user
         )
@@ -33,9 +31,10 @@ def create_reservation(request):
         return redirect('reservation step 1', pk=reservation.pk)
 
     context = {
-        'projection': projection2,
-        # 'projection2': projection2,
+        'projection': projection,
         'form': form,
+        'seats': get_seats(projection),
+        'free_seats': Seat.objects.filter(projection_id=projection.id, is_taken=0).count(),
     }
     return render(request, 'reservations/reservation-start-page.html', context)
 
@@ -50,9 +49,11 @@ class ReservationStep1View(LoginRequiredMixin, views.UpdateView):
         return reverse('reservation step 2', kwargs={'pk': self.object.id, })
 
     def get_context_data(self, **kwargs):
+        projection = Projection.objects.filter(pk=self.object.projection.id).get()
         context = super().get_context_data(**kwargs)
         context['tickets'] = Ticket.objects.all()
         context['weekdays'] = True if self.object.projection.date.weekday() < 5 else False
+        context['free_seats'] = Seat.objects.filter(projection_id=projection.id, is_taken=0).count()
         return context
 
 
@@ -75,9 +76,7 @@ class ReservationStep2View(LoginRequiredMixin, views.UpdateView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        # print('post:', self.request.POST.get("reserved_seats"))
         seats = [int(x) for x in self.request.POST.get("reserved_seats").split(", ")]
-        # seat_pks = [int(x) for x in request.POST.get("type").split(", ")]
         [Seat.objects.filter(pk=pk).update(is_taken=True) for pk in seats]
 
         return super().post(request, *args, **kwargs)

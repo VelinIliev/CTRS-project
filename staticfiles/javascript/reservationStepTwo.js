@@ -10,7 +10,6 @@ const ConfirmBtn = document.querySelector('.ConfirmBtn');
 const numberOfTicketsReserved = document.querySelector('.numberOfTicketsReserved');
 const id_is_finished = document.querySelector('#id_is_finished')
 
-console.log(numberOfTicketsReserved.textContent * 1)
 FinishBtn.style.display = "none";
 results.innerHTML = "";
 

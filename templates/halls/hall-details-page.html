@@ -17,4 +17,21 @@
 
         {% endif %}
     </div>
+    <div class="cinema-hall">
+        <div class="cinema-screen">CINEMA SCREEN</div>
+        {% for row in rows %}
+            <div>
+                <span class="row-seat seat">
+                    <p>row</p>
+                    <p class="pseat">{{ forloop.counter }}</p>
+                </span>
+                {% for seat in seats %}
+                    <span class="free-seat seat">
+                            <p>seat</p>
+                            <p class="pseat"> {{ forloop.counter }}</p>
+                    </span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

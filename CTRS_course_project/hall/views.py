@@ -45,6 +45,8 @@ class HallDetailsView(views.DetailView):
         context = super().get_context_data(**kwargs)
         context['is_staff'] = self.request.user.is_staff
         context['total_seats'] = self.object.rows * self.object.seats_per_row
+        context['rows'] = range(self.object.rows)
+        context['seats'] = range(self.object.seats_per_row)
         return context
 
 

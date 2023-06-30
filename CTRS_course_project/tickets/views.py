@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django.shortcuts import render
 
 from CTRS_course_project.tickets.forms import CreateTicketForm
 from CTRS_course_project.tickets.models import Ticket

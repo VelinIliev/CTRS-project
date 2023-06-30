@@ -1,6 +1,6 @@
 from django import forms
 
-from CTRS_course_project.movies.models import Movie
+from CTRS_course_project.movies.models import Movie, MovieComment
 
 
 class CreateMovieForm(forms.ModelForm):
@@ -27,13 +27,7 @@ class CreateMovieForm(forms.ModelForm):
         }
 
 
-# class DisplayMovieForm(forms.ModelForm):
-#     class Meta:
-#         model = Movie
-#         fields = '__all__'
-#
-#
-# class EditMovieForm(forms.ModelForm):
-#     class Meta:
-#         model = Movie
-#         fields = '__all__'
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = MovieComment
+        fields = ('text',)

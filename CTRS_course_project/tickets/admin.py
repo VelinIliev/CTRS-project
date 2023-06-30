@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from CTRS_course_project.tickets.forms import CreateTicketForm
 from CTRS_course_project.tickets.models import Ticket
 
 

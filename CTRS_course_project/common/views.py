@@ -11,8 +11,6 @@ class IndexView(views.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['permissions'] = self.request.user.has_perm('user_app.view_appuser')
-        # context['permissions_hall'] = self.request.user.has_perm('hall.view_hall')
-        # context['permissions_hall'] = self.request.user.has_perm('hall.edit_hall')
         return context
 
 

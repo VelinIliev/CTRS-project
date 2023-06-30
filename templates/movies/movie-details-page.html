@@ -7,18 +7,18 @@
             <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie.title }} - image">
             {#TODO: Change image with real URL#}
             {% if is_staff %}
-                <a href="{% url 'edit movie' pk=object.pk slug=object.slug %}" class="edit-link">Edit</a>
+                <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-link">Edit</a>
             {% endif %}
         </div>
         <div class="movie-right">
-            <h2>{{ object.title }} ({{ object.year }})</h2>
-            <p>{{ object.plot }}</p>
+            <h2>{{ movie.title }} ({{ movie.year }})</h2>
+            <p>{{ movie.plot }}</p>
             <br>
             <p>Runtime: {{ runtime }}</p>
-            <p>Genres: {{ object.genres }}</p>
-            <p>Country: {{ object.country }}</p>
+            <p>Genres: {{ movie.genres }}</p>
+            <p>Country: {{ movie.country }}</p>
             <p>
-                <a href="{{ object.imbd_link }}" target="_blank">
+                <a href="{{ movie.imbd_link }}" target="_blank">
                     <img src="{% static 'images/IMDB-logo.png' %}" alt="IMDB" class="imdb-logo">
                 </a>
             </p>
@@ -43,6 +43,17 @@
                 {% endfor %}
             </ul>
         </div>
-
     </div>
+    {% for commnet in comments %}
+        <p>{{ commnet.user }}: {{ commnet.text }}</p>
+    {% endfor %}
+
+    {% if logged_user %}
+        <form action="{% url 'details movie' pk=movie.pk slug=movie.slug %}" method="post">
+            {{ comment_form }}
+            {% csrf_token %}
+            <button>Send</button>
+        </form>
+    {% endif %}
+
 {% endblock %}

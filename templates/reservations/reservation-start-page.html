@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Would you like  to make<br> a reservation for: </h1>
+    <h1>Would you like to make<br> a reservation for: </h1>
     <br>
     <p>Movie: {{ projection.movie }}</p>
     <p>Date: {{ projection.date|date:"Y-m-d" }}</p>
@@ -13,4 +13,33 @@
         <button>Confirm</button>
     </form>
     {{ projection2 }}
+    {#    #}
+    <div class="cinema-hall">
+        <div class="cinema-screen">CINEMA SCREEN</div>
+        <p class="free-seat-info">Free seats: {{ free_seats }}</p>
+        {% for row in seats %}
+            <div>
+                <span class="row-seat seat">
+                    <p>row</p>
+                    <p class="pseat">{{ forloop.counter }}</p>
+                </span>
+                {% for seat in row %}
+                    {% if seat.is_taken %}
+                        <span class="taken-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
+                              data-seat={{ seat.seat_n }}>
+                            <p>seat</p>
+                            <p class="pseat">{{ seat.seat_n }}</p>
+                        </span>
+                    {% else %}
+                        <span class="free-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
+                              data-seat={{ seat.seat_n }}>
+                            <p>seat</p>
+                            <p class="pseat">{{ seat.seat_n }}</p>
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
 {% endblock %}
