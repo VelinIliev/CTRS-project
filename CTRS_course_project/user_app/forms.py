@@ -16,7 +16,6 @@ class UserCreateStaffForm(UserCreateForm):
         user.is_staff = True
         if commit:
             user.save()
-
         return user
 
 

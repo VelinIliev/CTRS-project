@@ -21,5 +21,4 @@ class AppUser(AbstractUser):
         null=True,
         blank=True,
     )
-# superuser velko/123
-# minkov / GoodPass123!
+
