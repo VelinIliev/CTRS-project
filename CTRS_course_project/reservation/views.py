@@ -102,4 +102,5 @@ class ReservationDetailsView(LoginRequiredMixin, views.DetailView):
         seats = [int(x) for x in self.object.reserved_seats.split(", ")]
         seats = Seat.objects.filter(pk__in=seats)
         context['seats'] = seats
+        context['is_owner'] = self.request.user == self.object.user
         return context

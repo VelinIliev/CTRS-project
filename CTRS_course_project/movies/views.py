@@ -1,7 +1,11 @@
+import time
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import F
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
+from django.utils import timezone
 
 from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm
 from CTRS_course_project.movies.helpers import calculate_runtime
@@ -23,24 +27,16 @@ class CreateMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateV
         return context
 
 
-# class DisplayMovieDetailsView(views.DetailView):
-#     template_name = 'movies/movie-details-page.html'
-#     model = Movie
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['writers'] = self.object.writers.split(", ")
-#         context['directors'] = self.object.directors.split(", ")
-#         context['actors'] = self.object.actors.split(", ")
-#         context['runtime'] = calculate_runtime(self.object.runtime)
-#         context['is_staff'] = self.request.user.is_staff
-#         return context
-
 class DisplayMovieDetailsView(views.View):
 
     def get(self, request, pk, slug):
         movie = Movie.objects.filter(pk=pk).get()
         comment_form = CommentForm()
+
+        comments = MovieComment.objects.filter(movie_id=pk).order_by('publication_date_and_time')
+        updated_comments = comments.annotate(
+            updated_datetime=F('publication_date_and_time') + timezone.timedelta(hours=3)
+        )
         context = {
             'movie': movie,
             'comment_form': comment_form,
@@ -49,9 +45,10 @@ class DisplayMovieDetailsView(views.View):
             'actors': movie.actors.split(", "),
             'runtime': calculate_runtime(movie.runtime),
             'is_staff': self.request.user.is_staff,
-            'comments': MovieComment.objects.filter(movie_id=pk),
+            'comments': updated_comments,
             'logged_user': self.request.user.is_authenticated,
         }
+
         return render(request, 'movies/movie-details-page.html', context)
 
     def post(self, request, pk, slug):
@@ -62,19 +59,11 @@ class DisplayMovieDetailsView(views.View):
             comment.movie = movie
             comment.user = self.request.user
             comment.save()
-            return redirect('details movie', pk=pk, slug=slug)
+            # return redirect('details movie', pk=pk, slug=slug)
+            return redirect('{}#comments'.format(reverse('details movie', kwargs={'pk': pk, 'slug': slug})))
+
         else:
-            context = {
-                'movie': movie,
-                'comment_form': comment_form,
-                'writers': movie.writers.split(", "),
-                'directors': movie.directors.split(", "),
-                'actors': movie.actors.split(", "),
-                'runtime': calculate_runtime(movie.runtime),
-                'is_staff': self.request.user.is_staff,
-                'comments': MovieComment.objects.filter(movie_id=pk)
-            }
-            return render(request, 'movies/movie-details-page.html', context)
+            return redirect('index')
 
 
 class DisplayMoviesView(views.ListView):

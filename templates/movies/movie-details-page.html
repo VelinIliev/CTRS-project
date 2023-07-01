@@ -1,4 +1,5 @@
 {% extends 'bases/base.html' %}
+{% load placeholders %}
 {% load static %}
 
 {% block page_content %}
@@ -44,16 +45,38 @@
             </ul>
         </div>
     </div>
-    {% for commnet in comments %}
-        <p>{{ commnet.user }}: {{ commnet.text }}</p>
-    {% endfor %}
 
-    {% if logged_user %}
-        <form action="{% url 'details movie' pk=movie.pk slug=movie.slug %}" method="post">
-            {{ comment_form }}
-            {% csrf_token %}
-            <button>Send</button>
-        </form>
-    {% endif %}
+    <div class="comments-list" >
+        {% if comments %}
+            {% for commnet in comments %}
+                <div class="single-comment">
+                    <p>
+                        <span class="comment-user">
+                            {{ commnet.user }}
+                        </span>
+                        <span class="comment-date">
+                            {{ commnet.updated_datetime|date:"d-m-Y H:i" }}
+                        </span>
+                    </p>
+                    <p class="comment-text">{{ commnet.text }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments.</p>
+        {% endif %}
+        <div id="comments"></div>
+        {% if logged_user %}
+            <div class="new-comments">
+                <form action="{% url 'details movie' pk=movie.pk slug=movie.slug %}" method="post">
+                    <p class="new-comment-text">{{ comment_form.text|placeholder:"Add new comment..." }}</p>
+                    {% csrf_token %}
+                    <button class="post-comment">Post</button>
+                </form>
+            </div>
+        {% else %}
+            <p class="comment-login">Login to comment</p>
+            <a class="edit-link" href="{% url 'login' %}?next=/movie/details/{{ movie.pk }}/{{ movie.slug }}">Login</a>
+        {% endif %}
 
+    </div>
 {% endblock %}

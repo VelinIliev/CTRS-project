@@ -31,3 +31,6 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = MovieComment
         fields = ('text',)
+        widgets = {
+            'text': forms.Textarea()
+        }

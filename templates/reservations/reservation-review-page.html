@@ -1,6 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
+    {% if is_owner %}
     <h1>Reservation details</h1>
     <div class="reservation-details">
         <div class="reservation-row">
@@ -40,5 +41,8 @@
             <span class="right">{{ object.total_price }}$</span>
         </div>
     </div>
+    {% else %}
+        <h2>You do not have rights to see this reservation.</h2>
+    {% endif %}
 
 {% endblock %}
