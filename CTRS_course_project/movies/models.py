@@ -1,11 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.core import validators
 from django.db import models
 from django.template.defaultfilters import slugify
 
 from CTRS_course_project.movies.validators import validate_year
 
-
 UserModel = get_user_model()
+
 
 class Movie(models.Model):
     title = models.CharField(
@@ -76,6 +77,18 @@ class Movie(models.Model):
         null=False,
         blank=False,
     )
+    rating = models.DecimalField(
+        default=0,
+        max_digits=3,
+        decimal_places=1,
+        null=False,
+        blank=False,
+    )
+    votes = models.PositiveIntegerField(
+        default=0,
+        null=False,
+        blank=False,
+    )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -107,6 +120,26 @@ class MovieComment(models.Model):
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+
+
+class MovieVotes(models.Model):
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False,
+    )
+    rating = models.IntegerField(
+        validators=[validators.MinValueValidator(0), validators.MaxValueValidator(10), ],
         null=False,
         blank=False,
     )

@@ -1,0 +1,31 @@
+{% extends 'bases/base.html' %}
+{% load static %}
+
+{% block page_content %}
+    <h2>{{ movie }}</h2>
+    <p>Your vote:</p>
+
+    {% if already_voted %}
+        <div class="rating-wrap">
+            {% for star in stars %}
+                <div class="rating-star">
+                    <img class="" src="{% static star %}" alt="star">
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="rating-wrap ">
+            {% for star in stars %}
+                <div class="rating-star vote" data-starn="{{ forloop.counter }}">
+                    <img class="" src="{% static star %}" alt="star">
+                </div>
+            {% endfor %}
+        </div>
+        <form action="{% url 'vote movie' pk=movie.pk slug=movie.slug %}" method="post">
+            {% csrf_token %}
+            <p style="display: none">{{ form.rating }}</p>
+            <button>Vote</button>
+        </form>
+    {% endif %}
+    <script src="{% static 'javascript/ratingStars.js' %}"></script>
+{% endblock %}

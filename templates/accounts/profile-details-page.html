@@ -34,17 +34,18 @@
                     </a>
                 </p>
             {% endfor %}
-            {% if old_reservations %}
-                <div class="separator"></div>
-                <h2>Expired reservations:</h2>
-                {% for reservation in old_reservations %}
-                    <p>
-                        <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
-                            {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
-                        </a>
-                    </p>
-                {% endfor %}
-            {% endif %}
+        {% endif %}
+        {% if old_reservations %}
+            <div class="separator"></div>
+            <h2>Expired reservations:</h2>
+            {% for reservation in old_reservations %}
+                <p>
+                    <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
+                        {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
+                    </a>
+                </p>
+            {% endfor %}
+
         {% endif %}
     {% endif %}
 

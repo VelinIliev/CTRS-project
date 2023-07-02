@@ -10,10 +10,22 @@
     <div class="list-movies">
         {% for movie in object_list %}
             <div class="single-movie">
-                <a href="{% url 'details movie' pk=movie.id slug=movie.slug %}">
-                    <img src="{% static 'images/work_picture.jpg' %}" alt="">
-                    {#TODO: Change image with real URL#}
-                </a>
+                <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie.title }}-image">
+                {#TODO: Change image with real URL#}
+                <div class="more-info">
+                    <div class="movie-title">
+                        <p class="title">{{ movie.title }}</p>
+                        <p class="plot">{{ movie.plot }}</p>
+                    </div>
+                    <div class="rating">
+                        <p>Rating: {{ movie.rating }} ({{ movie.votes }} votes)</p>
+                    </div>
+                    <div class="details">
+                        <a href="{% url 'details movie' pk=movie.id slug=movie.slug %}">Details</a>
+                    </div>
+                </div>
+
+
             </div>
 
         {% endfor %}
@@ -22,8 +34,6 @@
 
     {% if paginator.num_pages > 1 %}
         <div>
-
-
             {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">
                     <i class="fa-solid fa-less-than" style="color: #FFFFFF"></i>

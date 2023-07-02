@@ -7,6 +7,17 @@
         <div class="movie-left">
             <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie.title }} - image">
             {#TODO: Change image with real URL#}
+
+            <p class="movie-rating">Rating {{ movie.rating|floatformat:1 }} from {{ movie.votes }} votes</p>
+            <div class="rating-wrap details">
+                {% for star in stars %}
+                    <div class="rating-star">
+                        <img src="{% static star %}" alt="star">
+                    </div>
+                {% endfor %}
+            </div>
+            <a class='edit-link' href="{% url 'vote movie' pk=movie.pk slug=movie.slug %}">Vote</a>
+
             {% if is_staff %}
                 <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-link">Edit</a>
             {% endif %}
@@ -46,7 +57,7 @@
         </div>
     </div>
 
-    <div class="comments-list" >
+    <div class="comments-list">
         {% if comments %}
             {% for commnet in comments %}
                 <div class="single-comment">

@@ -7,9 +7,9 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 from django.utils import timezone
 
-from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm
-from CTRS_course_project.movies.helpers import calculate_runtime
-from CTRS_course_project.movies.models import Movie, MovieComment
+from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm
+from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, prepare_stars, displays_stars
+from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 
 
 class CreateMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateView):
@@ -37,6 +37,9 @@ class DisplayMovieDetailsView(views.View):
         updated_comments = comments.annotate(
             updated_datetime=F('publication_date_and_time') + timezone.timedelta(hours=3)
         )
+        rating = calculate_rating(movie)
+        votes = MovieVotes.objects.filter(movie=movie).count()
+        stars = prepare_stars(rating)
         context = {
             'movie': movie,
             'comment_form': comment_form,
@@ -47,6 +50,9 @@ class DisplayMovieDetailsView(views.View):
             'is_staff': self.request.user.is_staff,
             'comments': updated_comments,
             'logged_user': self.request.user.is_authenticated,
+            'rating': rating,
+            'votes': votes,
+            'stars': stars,
         }
 
         return render(request, 'movies/movie-details-page.html', context)
@@ -59,7 +65,6 @@ class DisplayMovieDetailsView(views.View):
             comment.movie = movie
             comment.user = self.request.user
             comment.save()
-            # return redirect('details movie', pk=pk, slug=slug)
             return redirect('{}#comments'.format(reverse('details movie', kwargs={'pk': pk, 'slug': slug})))
 
         else:
@@ -100,3 +105,60 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
         context = super().get_context_data(**kwargs)
         context['is_staff'] = self.request.user.is_staff
         return context
+
+
+def find_vote(movie, user):
+    try:
+        already_voted = MovieVotes.objects.filter(movie=movie, user=user).get()
+    except MovieVotes.DoesNotExist:
+        already_voted = None
+    return already_voted
+
+
+class VoteMovieView(LoginRequiredMixin, views.View):
+    login_url = "/profile/login/"
+    template_name = 'movies/movie-vote-page.html'
+    model = MovieVotes
+    fields = '__all__'
+
+    def get(self, request, pk, slug):
+        movie = Movie.objects.filter(pk=pk).get()
+        user = self.request.user
+        vote_form = VoteForm()
+        user_rating = find_vote(movie, user)
+        stars = displays_stars(user_rating)
+
+        context = {
+            'movie': movie,
+            'user': self.request.user,
+            'form': vote_form,
+            'already_voted': user_rating,
+            'stars': stars,
+        }
+        return render(request, 'movies/movie-vote-page.html', context)
+
+    def post(self, request, pk, slug):
+        movie = Movie.objects.get(pk=pk)
+        user = self.request.user
+        vote_form = VoteForm(request.POST)
+
+        if vote_form.is_valid():
+            vote = vote_form.save(commit=False)
+            vote.movie = movie
+            vote.user = self.request.user
+            vote.save()
+            rating = calculate_rating(movie)
+            votes = MovieVotes.objects.filter(movie=movie).count()
+            movie.rating = round(rating, 1)
+            movie.votes = votes
+            movie.save()
+            return redirect(reverse('details movie', kwargs={'pk': pk, 'slug': slug}))
+        else:
+            context = {
+                'movie': movie,
+                'user': user,
+                'form': vote_form,
+                'already_voted': find_vote(movie, user),
+                'stars': [f'images/stars/star00.svg' for _ in range(10)],
+            }
+            return render(request, 'movies/movie-vote-page.html', context)

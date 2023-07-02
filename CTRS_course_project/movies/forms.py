@@ -1,12 +1,12 @@
 from django import forms
 
-from CTRS_course_project.movies.models import Movie, MovieComment
+from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 
 
 class CreateMovieForm(forms.ModelForm):
     class Meta:
         model = Movie
-        fields = '__all__'
+        exclude = ['rating', 'votes']
         widgets = {
             'directors': forms.Textarea(
                 attrs={
@@ -33,4 +33,18 @@ class CommentForm(forms.ModelForm):
         fields = ('text',)
         widgets = {
             'text': forms.Textarea()
+        }
+
+
+class VoteForm(forms.ModelForm):
+    class Meta:
+        model = MovieVotes
+        fields = ('rating', )
+        widgets = {
+            'rating': forms.NumberInput(
+                attrs={
+                    'min': '0',
+                    'max': '10',
+                },
+            )
         }
