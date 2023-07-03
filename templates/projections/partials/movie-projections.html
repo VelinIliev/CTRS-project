@@ -1,9 +1,24 @@
+{% load convert_to_list %}
 {% load static %}
 
 <div class="projection-display">
     <div class="movie-image">
-        <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie_name }} image">
-                {# TODO: Change image with real URL #}
+        {% if data.movie.temp_img %}
+            <img src="{% static data.movie.temp_img %}" alt="{{ data.movie.title }} - image">
+        {% else %}
+            <img src="{{ data.movie.image_url }}" alt="{{ data.movie.title }} - image">
+        {% endif %}
+        <div class="movie-image-rating">
+            <div class="rating-wrap">
+                {% for star in data.movie.stars|convert_to_list %}
+                    <div class="rating-star">
+                        <img src="{% static star %}" alt="star">
+                    </div>
+                {% endfor %}
+            </div>
+            <p>Rating: {{ data.movie.rating }} ({{ data.movie.votes }} votes) </p>
+        </div>
+        {#TODO: Change image with real URL#}
     </div>
     <div class="right-side">
         <a href="{% url 'details movie' pk=data.movie.pk slug=data.movie.slug %}">

@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.db.models import F
+from django.db.models import F, Value, CharField
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
@@ -78,15 +78,22 @@ class DisplayMoviesView(views.ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         search = self.request.GET.get('search', '')
-        if search:
+        rating = self.request.GET.get('rating', '')
+        if search and rating:
+            queryset = queryset.filter(title__icontains=search, is_active=1).order_by('-rating')
+        elif search:
             queryset = queryset.filter(title__icontains=search, is_active=1).order_by('-pk')
+        elif rating == 'dsc':
+            queryset = queryset.filter(is_active=1).order_by('-rating')
         else:
             queryset = Movie.objects.filter(is_active=1).order_by('-pk')
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search'] = self.request.GET.get('search', '')
+        context['rating'] = self.request.GET.get('rating', '')
         return context
 
 
@@ -142,6 +149,7 @@ class VoteMovieView(LoginRequiredMixin, views.View):
             votes = MovieVotes.objects.filter(movie=movie).count()
             movie.rating = round(rating, 1)
             movie.votes = votes
+            movie.stars = prepare_stars(movie.rating)
             movie.save()
             return redirect(reverse('details movie', kwargs={'pk': pk, 'slug': slug}))
         else:

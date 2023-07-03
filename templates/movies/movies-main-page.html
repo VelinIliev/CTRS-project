@@ -1,4 +1,5 @@
 {% extends 'bases/base.html' %}
+{% load convert_to_list %}
 {% load static %}
 
 {% block page_content %}
@@ -10,15 +11,29 @@
     <div class="list-movies">
         {% for movie in object_list %}
             <div class="single-movie">
-                <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie.title }}-image">
-                {#TODO: Change image with real URL#}
+                {% if movie.temp_img %}
+                    <img src="{% static movie.temp_img %}" alt="{{ movie.title }} - image">
+                {% else %}
+                    <img src="{{ movie.image_url }}" alt="{{ movie.title }} - image">
+                {% endif %}
+                {# TODO: Change image with real URL#}
+                {{ stars }}
                 <div class="more-info">
                     <div class="movie-title">
                         <p class="title">{{ movie.title }}</p>
                         <p class="plot">{{ movie.plot }}</p>
                     </div>
                     <div class="rating">
+                        <div class="rating-wrap-single-movie">
+                            {% for star in movie.stars|convert_to_list %}
+                                <div class="rating-star">
+                                    <img src="{% static star %}" alt="star">
+                                </div>
+                            {% endfor %}
+                        </div>
+
                         <p>Rating: {{ movie.rating }} ({{ movie.votes }} votes)</p>
+
                     </div>
                     <div class="details">
                         <a href="{% url 'details movie' pk=movie.id slug=movie.slug %}">Details</a>
@@ -35,7 +50,7 @@
     {% if paginator.num_pages > 1 %}
         <div>
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">
+                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&rating={{ rating }}">
                     <i class="fa-solid fa-less-than" style="color: #FFFFFF"></i>
                 </a>
             {% else %}
@@ -47,7 +62,7 @@
             <sapn>page {{ page_obj.number }} of {{ paginator.num_pages }}</sapn>
 
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}&search={{ search }}">
+                <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&rating={{ rating }}">
                     <i class="fa-solid fa-greater-than" style="color: #FFFFFF"></i>
                 </a>
             {% else %}
@@ -55,7 +70,16 @@
                     <i class="fa-solid fa-greater-than" style="color: #333333"></i>
                 </a>
             {% endif %}
+            <p>
+                <a class="order-by-rating" href="?page={{ page_obj.number }}&search={{ search }}&rating=dsc">
+                    Order by rating
+                </a>
+            </p>
         </div>
     {% endif %}
+
+
+
+
 
 {% endblock %}

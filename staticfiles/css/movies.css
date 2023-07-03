@@ -51,13 +51,14 @@
     width: 100%;
     height: 400px;
     box-sizing: border-box;
-    transition: .5s top;
+    transition: .5s top ease-in-out;
 }
 
 .single-movie:hover .more-info {
     /*cursor: pointer;*/
     top: 0;
 }
+
 .more-info .movie-title {
     box-sizing: border-box;
     width: 100%;
@@ -66,10 +67,12 @@
     text-align: center;
     padding: .5rem;
 }
+
 .more-info .movie-title .title {
     font-size: 1.2rem;
     font-weight: bold;
 }
+
 .more-info .movie-title .plot {
     font-size: .8rem;
 }
@@ -80,6 +83,7 @@
     height: 80px;
     background-color: #ff000099;
 }
+
 .more-info a {
     display: inline-block;
     width: 100%;
@@ -98,10 +102,14 @@
     background-color: #00000099;
     text-align: center;
     font-size: 1.3rem;
-    padding-top: 1.5rem;
+    padding: 1rem .5rem 0 .5rem;
 }
 
-
+.rating-wrap-single-movie {
+    /*width: 90%;*/
+    display: flex;
+    gap: .2rem;
+}
 
 /* MOVIE DETAILS PAGE */
 
@@ -178,4 +186,14 @@
 
 .movie-rating {
     margin-top: .5rem;
+}
+
+.order-by-rating {
+    display: inline-block;
+    color: var(--main-color-text);
+    text-decoration: none;
+    margin-top: 1rem;
+}
+.order-by-rating:hover{
+    color: var(--main-color-hover);
 }

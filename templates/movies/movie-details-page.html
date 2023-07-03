@@ -5,8 +5,12 @@
 {% block page_content %}
     <div class="movie-wrapper">
         <div class="movie-left">
-            <img src="{% static 'images/work_picture.jpg' %}" alt="{{ movie.title }} - image">
-            {#TODO: Change image with real URL#}
+            {% if movie.temp_img %}
+                <img src="{% static movie.temp_img %}" alt="{{ movie.title }} - image">
+            {% else %}
+                <img src="{{ movie.image_url }}" alt="{{ movie.title }} - image">
+            {% endif %}
+            {# TODO: Change image with real URL#}
 
             <p class="movie-rating">Rating {{ movie.rating|floatformat:1 }} from {{ movie.votes }} votes</p>
             <div class="rating-wrap details">

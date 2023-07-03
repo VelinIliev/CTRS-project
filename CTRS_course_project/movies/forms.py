@@ -6,7 +6,7 @@ from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 class CreateMovieForm(forms.ModelForm):
     class Meta:
         model = Movie
-        exclude = ['rating', 'votes']
+        exclude = ['rating', 'votes', 'temp_img', 'stars']
         widgets = {
             'directors': forms.Textarea(
                 attrs={
