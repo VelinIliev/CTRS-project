@@ -9,13 +9,15 @@
             <img src="{{ data.movie.image_url }}" alt="{{ data.movie.title }} - image">
         {% endif %}
         <div class="movie-image-rating">
-            <div class="rating-wrap">
-                {% for star in data.movie.stars|convert_to_list %}
-                    <div class="rating-star">
-                        <img src="{% static star %}" alt="star">
-                    </div>
-                {% endfor %}
-            </div>
+            {% if data.movie.stars %}
+                <div class="rating-wrap">
+                    {% for star in data.movie.stars|convert_to_list %}
+                        <div class="rating-star">
+                            <img src="{% static star %}" alt="star">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <p>Rating: {{ data.movie.rating }} ({{ data.movie.votes }} votes) </p>
         </div>
         {#TODO: Change image with real URL#}

@@ -24,13 +24,15 @@
                         <p class="plot">{{ movie.plot }}</p>
                     </div>
                     <div class="rating">
-                        <div class="rating-wrap-single-movie">
-                            {% for star in movie.stars|convert_to_list %}
-                                <div class="rating-star">
-                                    <img src="{% static star %}" alt="star">
-                                </div>
-                            {% endfor %}
-                        </div>
+                        {% if movie.stars %}
+                            <div class="rating-wrap-single-movie">
+                                {% for star in movie.stars|convert_to_list %}
+                                    <div class="rating-star">
+                                        <img src="{% static star %}" alt="star">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
 
                         <p>Rating: {{ movie.rating }} ({{ movie.votes }} votes)</p>
 
