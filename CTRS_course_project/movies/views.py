@@ -1,14 +1,13 @@
-import time
-
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views import generic as views
 from django.utils import timezone
+from django.views import generic as views
 
 from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm
-from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, prepare_stars, displays_stars
+from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, prepare_stars, displays_stars, \
+    find_vote
 from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 
 
@@ -47,12 +46,12 @@ class DisplayMovieDetailsView(views.View):
             'directors': movie.directors.split(", "),
             'actors': movie.actors.split(", "),
             'runtime': calculate_runtime(movie.runtime),
-            'is_staff': self.request.user.is_staff,
-            'comments': updated_comments,
-            'logged_user': self.request.user.is_authenticated,
             'rating': rating,
             'votes': votes,
             'stars': stars,
+            'comments': updated_comments,
+            'is_staff': self.request.user.is_staff,
+            'logged_user': self.request.user.is_authenticated,
         }
 
         return render(request, 'movies/movie-details-page.html', context)
@@ -105,14 +104,6 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
         context = super().get_context_data(**kwargs)
         context['is_staff'] = self.request.user.is_staff
         return context
-
-
-def find_vote(movie, user):
-    try:
-        already_voted = MovieVotes.objects.filter(movie=movie, user=user).get()
-    except MovieVotes.DoesNotExist:
-        already_voted = None
-    return already_voted
 
 
 class VoteMovieView(LoginRequiredMixin, views.View):

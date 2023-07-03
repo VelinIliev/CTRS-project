@@ -51,3 +51,11 @@ def displays_stars(user_rating):
         for star in range(10):
             stars.append(f'images/stars/star00.svg')
     return stars
+
+
+def find_vote(movie, user):
+    try:
+        already_voted = MovieVotes.objects.filter(movie=movie, user=user).get()
+    except MovieVotes.DoesNotExist:
+        already_voted = None
+    return already_voted
