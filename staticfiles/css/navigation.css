@@ -50,3 +50,39 @@ nav ul li a:hover {
 .staff-nav li a {
     width: 140px;
 }
+
+.header-menu {
+    position: relative;
+}
+
+nav .sub-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: -20px;
+    width: 160px;
+    height: 210px;
+    background-color: var(--navigation-color-backgrond);
+    padding: 0.3rem 0;
+    text-align: left;
+    z-index: 1000;
+}
+nav .sub-menu li{
+    margin-top: .7rem;
+    border-bottom: 1px solid var(--main-color-text);
+}
+/*nav .sub-menu li:hover{*/
+/*    border-bottom: 1px solid var(--main-color-hover);*/
+/*}*/
+nav .sub-menu a{
+    font-weight: normal;
+    font-size: .8rem;
+}
+nav .sub-menu a:hover{
+    font-weight: normal;
+    font-size: .8rem;
+}
+
+.header-menu:hover > .sub-menu {
+    display: block;
+}

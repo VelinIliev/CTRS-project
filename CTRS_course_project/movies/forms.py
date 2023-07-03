@@ -6,7 +6,7 @@ from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 class CreateMovieForm(forms.ModelForm):
     class Meta:
         model = Movie
-        exclude = ['rating', 'votes', 'temp_img', 'stars']
+        exclude = ('rating', 'votes', 'temp_img', 'stars',)
         widgets = {
             'directors': forms.Textarea(
                 attrs={
@@ -27,6 +27,12 @@ class CreateMovieForm(forms.ModelForm):
         }
 
 
+class EditMovieForm(forms.ModelForm):
+    class Meta:
+        model = Movie
+        exclude = ('rating', 'votes', 'temp_img', 'stars',)
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = MovieComment
@@ -39,7 +45,7 @@ class CommentForm(forms.ModelForm):
 class VoteForm(forms.ModelForm):
     class Meta:
         model = MovieVotes
-        fields = ('rating', )
+        fields = ('rating',)
         widgets = {
             'rating': forms.NumberInput(
                 attrs={

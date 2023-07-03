@@ -1,11 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.db.models import F, Value, CharField
+from django.db.models import F
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import generic as views
 
-from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm
+from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm, EditMovieForm
 from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, prepare_stars, displays_stars, \
     find_vote
 from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
@@ -102,7 +102,10 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
     login_url = "/profile/login/"
     template_name = 'movies/movie-edit-page.html'
     model = Movie
-    fields = '__all__'
+    fields = ('title', 'year', 'image_url', 'runtime', 'plot', 'directors', 'writers', 'actors', 'genres', 'country',
+              'languages', 'contentRating', 'imbd_link', 'is_active')
+
+    # exclude = ('rating', 'votes', 'temp_img', 'stars', )
 
     def get_success_url(self):
         return reverse_lazy('details movie', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
@@ -111,6 +114,10 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
         context = super().get_context_data(**kwargs)
         context['is_staff'] = self.request.user.is_staff
         return context
+
+# class EditMovieView(views.UpdateView):
+#     template_name = 'movies/movie-edit-page.html'
+#     form_class = EditMovieForm
 
 
 class VoteMovieView(LoginRequiredMixin, views.View):
