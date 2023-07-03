@@ -20,7 +20,6 @@ function createStars(star, i) {
     imgSvg.setAttribute('stroke', 'none');
     imgSvg.setAttribute('x', '0px');
     imgSvg.setAttribute('y', '0px');
-    imgSvg.setAttribute('y', '0px');
     imgSvg.innerHTML = `
     <g>
         <path class="st0" d="M106.8,4.2l25,50.7c1.1,2.2,3.2,3.8,5.7,4.2l56,8.1c6.2,0.9,8.7,8.6,4.2,12.9l-40.5,39.5
