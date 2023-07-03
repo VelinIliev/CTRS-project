@@ -28,7 +28,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 2rem;
-
+    width: 1160px;
 }
 
 .single-movie {
@@ -195,5 +195,15 @@
     margin-top: 1rem;
 }
 .order-by-rating:hover{
+    color: var(--main-color-hover);
+}
+.list-projections h4{
+    padding-bottom: 1rem;
+}
+.list-projections a {
+    text-decoration: none;
+    color: var(--main-color-text);
+}
+.list-projections a:hover {
     color: var(--main-color-hover);
 }

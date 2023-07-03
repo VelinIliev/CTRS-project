@@ -29,7 +29,6 @@
         <p class="movie-plot">{{ data.movie.plot|truncatechars:140 }}</p>
         <div class="display-hours">
             {% for hour, pr in data.hours.items %}
-
                 {% if pr.free_seats == 'No free seats' %}
                     <a class="hour-projection">
                         <p class="hour no-free-seats">{{ hour|time:'H:i' }}</p>
@@ -38,7 +37,6 @@
                 {% else %}
                     <a class="hour-projection"
                        href="{% url 'start reservation' %}?projection={{ pr.projection.pk }}">
-
                         <p class="hour">{{ hour|time:'H:i' }}</p>
                         <p class="free-seats">{{ pr.free_seats }}</p>
                     </a>

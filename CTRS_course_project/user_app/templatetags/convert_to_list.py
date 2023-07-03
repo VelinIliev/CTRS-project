@@ -9,5 +9,4 @@ def image_data(object):
     for x in object.split(", "):
         x = x.replace("'", "").replace("[", "").replace("]", "")
         new_list.append(x)
-    print(new_list)
     return new_list

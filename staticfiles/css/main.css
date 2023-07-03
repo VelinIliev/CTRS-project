@@ -5,6 +5,9 @@ body {
     color: var(--main-color-text);
     font-family: Verdana, sans-serif;
 }
+a:hover {
+    cursor: pointer;
+}
 
 .wrapper {
     position: relative;

@@ -20,11 +20,26 @@
                     </div>
                 {% endfor %}
             </div>
-            <a class='edit-link' href="{% url 'vote movie' pk=movie.pk slug=movie.slug %}">Vote</a>
-
             {% if is_staff %}
                 <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-link">Edit</a>
             {% endif %}
+            <a class='edit-link' href="{% url 'vote movie' pk=movie.pk slug=movie.slug %}">Vote</a>
+            <div class="list-projections">
+                <h4>Upcoming projections:</h4>
+                {% if projections %}
+                    {% for projection in projections %}
+                        <p>
+                            <a href="{% url 'start reservation' %}?projection={{ projection.pk }}">
+                                {{ projection.date }} - {{ projection.hour|time:"H:i" }} - {{ projection.hall }}
+                            </a>
+                        </p>
+                    {% endfor %}
+                {% else %}
+                    <p>No projections found.</p>
+                {% endif %}
+            </div>
+
+
         </div>
         <div class="movie-right">
             <h2>{{ movie.title }} ({{ movie.year }})</h2>
@@ -94,4 +109,5 @@
         {% endif %}
 
     </div>
+
 {% endblock %}
