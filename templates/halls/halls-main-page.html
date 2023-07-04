@@ -9,7 +9,7 @@
             <a class="single-hall" href="{% url 'details hall' pk=hall.pk slug=hall.slug %}">
                 <h2>{{ hall.name }}</h2>
                 <p>Number of seats: {{ hall.rows|multiply:hall.seats_per_row }}</p>
-                <img src="{% static 'images/hall02.webp' %}" alt="">
+                <img src="{% static hall.temp_img %}" alt="">
 
                 {#TODO: Change image with real URL#}
             </a>

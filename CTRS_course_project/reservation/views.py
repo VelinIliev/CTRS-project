@@ -22,7 +22,6 @@ def save_projection(request, pk):
 def create_reservation(request):
     projection_pk = int(request.session["projection_pk"])
     projection = Projection.objects.filter(pk=projection_pk).get()
-    # print(request.session["projection_pk"])
 
     if request.method == "GET":
         form = CreateReservationForm()

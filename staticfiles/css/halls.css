@@ -21,12 +21,14 @@
 
 .single-hall h2, .single-hall p {
     position: absolute;
+    text-shadow: 2px 2px 5px #333333;
 }
 
 .single-hall>h2 {
     margin: 0;
     top: 0;
     left: .5rem;
+
 }
 .single-hall>p {
     top: 2rem;

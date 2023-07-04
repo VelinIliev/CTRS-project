@@ -30,6 +30,10 @@ class Hall(models.Model):
         blank=True,
         verbose_name='Image URL'
     )
+    temp_img = models.URLField(
+        null=True,
+        blank=True,
+    )
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -39,5 +43,3 @@ class Hall(models.Model):
 
     def __str__(self):
         return f'{self.name}'
-
-
