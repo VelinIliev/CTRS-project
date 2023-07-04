@@ -22,6 +22,7 @@ def save_projection(request, pk):
 def create_reservation(request):
     projection_pk = int(request.session["projection_pk"])
     projection = Projection.objects.filter(pk=projection_pk).get()
+    # print(request.session["projection_pk"])
 
     if request.method == "GET":
         form = CreateReservationForm()
@@ -33,6 +34,7 @@ def create_reservation(request):
             user=request.user
         )
         reservation.save()
+        request.session["reservation_pk"] = reservation.pk
         return redirect('reservation step 1', pk=reservation.pk)
 
     context = {
@@ -54,7 +56,7 @@ class ReservationStep1View(LoginRequiredMixin, views.UpdateView):
         return reverse('reservation step 2', kwargs={'pk': self.object.id, })
 
     def get_context_data(self, **kwargs):
-        print(self.request.session['reservation_pk'])
+        # print(self.request.session['reservation_pk'])
         projection = Projection.objects.filter(pk=self.object.projection.id).get()
         context = super().get_context_data(**kwargs)
         context['tickets'] = Ticket.objects.all()
