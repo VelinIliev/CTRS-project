@@ -29,7 +29,7 @@
                 {% if projections %}
                     {% for projection in projections %}
                         <p>
-                            <a href="{% url 'start reservation' %}?projection={{ projection.pk }}">
+                            <a href="{% url 'save projection' pk=projection.pk %}">
                                 {{ projection.date }} - {{ projection.hour|time:"H:i" }} - {{ projection.hall }}
                             </a>
                         </p>

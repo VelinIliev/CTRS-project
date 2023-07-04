@@ -48,37 +48,34 @@
         {% endfor %}
     </div>
 
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&rating={{ rating }}">
+                <i class="fa-solid fa-less-than" style="color: #FFFFFF"></i>
+            </a>
+        {% else %}
+            <a>
+                <i class="fa-solid fa-less-than" style="color: #333333"></i>
+            </a>
+        {% endif %}
 
-    {% if paginator.num_pages > 1 %}
-        <div>
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&rating={{ rating }}">
-                    <i class="fa-solid fa-less-than" style="color: #FFFFFF"></i>
-                </a>
-            {% else %}
-                <a>
-                    <i class="fa-solid fa-less-than" style="color: #333333"></i>
-                </a>
-            {% endif %}
+        <sapn>page {{ page_obj.number }} of {{ paginator.num_pages }}</sapn>
 
-            <sapn>page {{ page_obj.number }} of {{ paginator.num_pages }}</sapn>
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&rating={{ rating }}">
-                    <i class="fa-solid fa-greater-than" style="color: #FFFFFF"></i>
-                </a>
-            {% else %}
-                <a>
-                    <i class="fa-solid fa-greater-than" style="color: #333333"></i>
-                </a>
-            {% endif %}
-            <p>
-                <a class="order-by-rating" href="?page={{ page_obj.number }}&search={{ search }}&rating=dsc">
-                    Order by rating
-                </a>
-            </p>
-        </div>
-    {% endif %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&rating={{ rating }}">
+                <i class="fa-solid fa-greater-than" style="color: #FFFFFF"></i>
+            </a>
+        {% else %}
+            <a>
+                <i class="fa-solid fa-greater-than" style="color: #333333"></i>
+            </a>
+        {% endif %}
+        <p>
+            <a class="order-by-rating" href="?page={{ page_obj.number }}&search={{ search }}&rating=dsc">
+                Order by rating
+            </a>
+        </p>
+    </div>
 
 
 

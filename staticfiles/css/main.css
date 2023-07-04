@@ -33,24 +33,47 @@ h1 {
 h2 {
     margin: 20px 0;
 }
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid red;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: center;*/
+}
 
 .hand-writing {
     font-family: 'Dancing Script', cursive;
     text-transform: inherit;
+    margin-top: 2rem;
 }
 
 .image-wrapper {
-    /*border: 1px solid red;*/
-    width: 600px;
-    margin: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -20;
+    width: 100%;
 }
 
 .logo-wrapper {
     /*border: 1px solid red;*/
     width: 450px;
+    margin: auto;
     /*margin: 40px;*/
 }
-
+.image-wrapper img {
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+}
+.description-index{
+    /*position: absolute;*/
+    width: 40%;
+    /*border: 1px solid red;*/
+    margin: 1rem auto 0 auto;
+}
 .separator {
     width: 600px;
     height: 2px;

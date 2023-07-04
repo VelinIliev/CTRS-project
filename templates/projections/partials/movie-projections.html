@@ -36,7 +36,7 @@
                     </a>
                 {% else %}
                     <a class="hour-projection"
-                       href="{% url 'start reservation' %}?projection={{ pr.projection.pk }}">
+                       href="{% url 'save projection' pk=pr.projection.pk %}">
                         <p class="hour">{{ hour|time:'H:i' }}</p>
                         <p class="free-seats">{{ pr.free_seats }}</p>
                     </a>
