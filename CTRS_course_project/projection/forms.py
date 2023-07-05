@@ -37,8 +37,3 @@ class CreateProjectionForm(forms.ModelForm):
 
         return projection
 
-# widgets = {
-#     'name': forms.TextInput(attrs={"placeholder": "Pet name"}),
-#     'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-#     'personal_photo': forms.TextInput(attrs={'placeholder': 'Link ti image'})
-# }

@@ -1,11 +1,11 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Tickets types</h1>
+    <h1>Tickets</h1>
     <div class="tickets-list">
         {% if is_staff %}
             <div class="ticket-row-staff title">
-                <span>Ticket type</span>
+                <span>Type</span>
                 <span>Weekdays price</span>
                 <span>Weekend price</span>
                 <span>Actions</span>
@@ -23,7 +23,7 @@
             {% endfor %}
         {% else %}
             <div class="ticket-row title">
-                <span>Ticket type</span>
+                <span>Type</span>
                 <span>Weekdays price</span>
                 <span>Weekend price</span>
             </div>

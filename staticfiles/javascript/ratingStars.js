@@ -13,6 +13,12 @@ function createStars(star, i) {
         starInput.value = numberOfStars;
         displayStars(numberOfStars)
     })
+    divEl.addEventListener('mouseover', e => {
+        starInput.value = '';
+        let numberOfStars = e.currentTarget.dataset.starn * 1;
+        starInput.value = numberOfStars;
+        displayStars(numberOfStars)
+    })
 
     let imgSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     imgSvg.setAttribute('fill', `${star}`);
@@ -53,5 +59,14 @@ stars.forEach(star => {
             displayStars(numberOfStars)
         })
 
+    }
+)
+stars.forEach(star => {
+        star.addEventListener('mouseover', (e) => {
+            starInput.value = '';
+            let numberOfStars = e.currentTarget.dataset.starn * 1;
+            starInput.value = numberOfStars;
+            displayStars(numberOfStars)
+        })
     }
 )
