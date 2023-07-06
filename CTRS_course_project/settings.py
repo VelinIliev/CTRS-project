@@ -19,13 +19,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'CTRS_course_project.user_app',
     'CTRS_course_project.common',
     'CTRS_course_project.movies',
     'CTRS_course_project.hall',
     'CTRS_course_project.projection',
     'CTRS_course_project.tickets',
-    'CTRS_course_project.reservation'
+    'CTRS_course_project.reservation',
+    'CTRS_course_project.api',
 ]
 
 MIDDLEWARE = [
