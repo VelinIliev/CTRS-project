@@ -1,10 +1,17 @@
 import datetime
 
 from rest_framework import generics as rest_views
+from rest_framework.exceptions import APIException
 
 from CTRS_course_project.api.serialezers import MovieSerializer, ProjectionSerializer
 from CTRS_course_project.movies.models import Movie
 from CTRS_course_project.projection.models import Projection
+
+
+class InvalidDateException(APIException):
+    status_code = 400
+    default_detail = 'Invalid date format. Date format must be: DD-MM-YYYY'
+    default_code = 'invalid_date'
 
 
 class MoviesListApiView(rest_views.ListAPIView):
@@ -40,7 +47,8 @@ class ProjectionListApiView(rest_views.ListAPIView):
         today = datetime.datetime.now().date()
         movie_id = self.request.query_params.get('movie_id')
         movie_title = self.request.query_params.get('movie_title')
-        period = self.request.query_params.get('period')
+        start = self.request.query_params.get('start')
+        end = self.request.query_params.get('end')
 
         if movie_id:
             queryset = queryset.filter(movie_id=movie_id)
@@ -48,12 +56,21 @@ class ProjectionListApiView(rest_views.ListAPIView):
         if movie_title:
             queryset = queryset.filter(movie__title__icontains=movie_title)
 
-        if period:
+        if start:
             try:
-                start, end = [datetime.datetime.strptime(x, "%Y-%m-%d").date() for x in period.split("_")]
-                queryset = queryset.filter(date__gte=start, date__lte=end)
-            except ValueError:
-                queryset = {}
+                start = datetime.datetime.strptime(start, "%d-%m-%Y").date()
+            except (ValueError,):
+                raise InvalidDateException()
+            queryset = queryset.filter(date__gte=start)
+        else:
+            queryset = queryset.filter(date__gte=today)
+
+        if end:
+            try:
+                end = datetime.datetime.strptime(end, "%d-%m-%Y").date()
+            except (ValueError,):
+                raise InvalidDateException()
+            queryset = queryset.filter(date__lte=end)
         else:
             queryset = queryset.filter(date__gte=today)
 
@@ -65,6 +82,10 @@ class ProjectionByDateListApiView(rest_views.ListAPIView):
     lookup_url_kwarg = 'projection_date'
 
     def get_queryset(self):
-        date = datetime.datetime.strptime(self.kwargs.get('projection_date'), "%Y-%m-%d").date()
-        projections = Projection.objects.filter(date=date).order_by('movie', 'hour')
-        return projections
+        try:
+            date = datetime.datetime.strptime(self.kwargs.get('projection_date'), "%d-%m-%Y").date()
+        except ValueError:
+            raise InvalidDateException()
+
+        queryset = Projection.objects.filter(date=date).order_by('movie', 'hour')
+        return queryset
