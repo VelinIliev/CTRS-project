@@ -1,13 +1,45 @@
 {% extends 'bases/base.html' %}
+{% load convert_to_list %}
+{% load static %}
 
 {% block page_content %}
     <h1>Would you like to make<br> a reservation for: </h1>
     <br>
-    <p>Movie: {{ projection.movie }}</p>
-    <p>Date: {{ projection.date|date:"Y-m-d" }}</p>
-    <p>Hour: {{ projection.hour|time:'H:i' }}</p>
-    <p>Hall: {{ projection.hall }}</p>
+    <div class="projection-display">
+        <div class="movie-image">
+            {% if projection.movie.temp_img %}
+                <img src="{% static projection.movie.temp_img %}" alt="{{ projection.movie.title }} - image">
+            {% else %}
+                <img src="{{ projection.movie.image_url }}" alt="{{ projection.movie.title }} - image">
+            {% endif %}
+            {#TODO: Change image with real URL#}
 
+            <div class="movie-image-rating">
+                {% if projection.movie.stars %}
+                    <div class="rating-wrap">
+                        {% for star in projection.movie.stars|convert_to_list %}
+                            <div class="rating-star">
+                                <img src="{% static star %}" alt="star">
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <p>Rating: {{ projection.movie.rating }} ({{ projection.movie.votes }} votes) </p>
+            </div>
+
+        </div>
+        <div class="right-side">
+            <a href="{% url 'details movie' pk=projection.movie.pk slug=projection.movie.slug %}">
+                <h3>{{ projection.movie.title }}</h3>
+            </a>
+            <p class="movie-plot">{{ projection.movie.plot|truncatechars:200 }}</p>
+            <hr>
+            <p class="movie-plot">Date: {{ projection.date|date:"d-m-Y" }}</p>
+            <p class="movie-plot">Hour: {{ projection.hour|time:'H:i' }}</p>
+            <p class="movie-plot">Hall: {{ projection.hall }}</p>
+
+        </div>
+    </div>
     <form action="" method="post">
         {% csrf_token %}
         <button>Confirm</button>
