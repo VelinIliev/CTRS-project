@@ -1,5 +1,4 @@
 from django.template import Library
-from datetime import datetime, timedelta
 
 register = Library()
 

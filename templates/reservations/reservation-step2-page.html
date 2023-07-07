@@ -2,17 +2,10 @@
 {% load static %}
 
 {% block page_content %}
+    {% if reservation.is_finished %}
+        <h1>finished</h1>
+    {% else %}
     <h1>Reservation - step 2: <br> select seats</h1>
-{#    <p>#}
-{#        {{ projection.movie }}#}
-{#    </p>#}
-{#    <p>#}
-{#        {{ projection.date|date:"d-m-Y" }} {{ projection.hour|time:'H:i' }}h#}
-{#    </p>#}
-{##}
-{#    <p>#}
-{#        {{ projection.hall }}#}
-{#    </p>#}
 
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
@@ -24,20 +17,20 @@
         {% for row in seats %}
             <div>
                 <span class="row-seat seat">
-                    <p >row</p>
+                    <p>row</p>
                     <p class="pseat">{{ forloop.counter }}</p>
                 </span>
                 {% for seat in row %}
                     {% if seat.is_taken %}
                         <span class="taken-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
                               data-seat={{ seat.seat_n }}>
-                            <p >seat</p>
+                            <p>seat</p>
                             <p class="pseat">{{ seat.seat_n }}</p>
                         </span>
                     {% else %}
                         <span class="free-seat seat" data-pk={{ seat.pk }} data-row={{ seat.row_n }}
                               data-seat={{ seat.seat_n }}>
-                            <p >seat</p>
+                            <p>seat</p>
                             <p class="pseat">{{ seat.seat_n }}</p>
                         </span>
                     {% endif %}
@@ -56,7 +49,7 @@
     </div>
 
 
-    <form action="{% url 'reservation step 2' pk=object.pk %}" method="post" id="cinema-hall-form">
+    <form action="{% url 'reservation step 2' %}" method="post" id="cinema-hall-form">
         {% csrf_token %}
         <p style="display: none">{{ form.reserved_seats }}</p>
         <p style="display: none">{{ form.is_finished }}</p>
@@ -65,4 +58,5 @@
     </form>
 
     <script src="{% static 'javascript/reservationStepTwo.js' %}"></script>
+    {% endif %}
 {% endblock %}

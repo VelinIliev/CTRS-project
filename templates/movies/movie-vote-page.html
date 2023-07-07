@@ -1,4 +1,5 @@
 {% extends 'bases/base.html' %}
+{% load prepare_stars %}
 {% load static %}
 
 {% block page_content %}
@@ -7,7 +8,7 @@
 
     {% if already_voted %}
         <div class="rating-wrap">
-            {% for star in stars %}
+            {% for star in movie.rating|prepare_stars %}
                 <div class="rating-star">
                     <img class="" src="{% static star %}" alt="star">
                 </div>
@@ -15,7 +16,7 @@
         </div>
     {% else %}
         <div class="rating-wrap ">
-            {% for star in stars %}
+            {% for star in movie.rating|prepare_stars %}
                 <div class="rating-star vote" data-starn="{{ forloop.counter }}">
                     <img class="" src="{% static star %}" alt="star">
                 </div>

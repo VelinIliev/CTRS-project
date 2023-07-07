@@ -1,4 +1,5 @@
 {% extends 'bases/base.html' %}
+{% load prepare_stars %}
 {% load convert_to_list %}
 {% load static %}
 
@@ -15,9 +16,9 @@
             {#TODO: Change image with real URL#}
 
             <div class="movie-image-rating">
-                {% if projection.movie.stars %}
+                {% if projection.movie.rating %}
                     <div class="rating-wrap">
-                        {% for star in projection.movie.stars|convert_to_list %}
+                        {% for star in projection.movie.rating|prepare_stars %}
                             <div class="rating-star">
                                 <img src="{% static star %}" alt="star">
                             </div>
@@ -44,8 +45,7 @@
         {% csrf_token %}
         <button>Confirm</button>
     </form>
-    {{ projection2 }}
-    {#    #}
+    <h2>Available seats:</h2>
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
         <p class="free-seat-info">Free seats: {{ free_seats }}</p>

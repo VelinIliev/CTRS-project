@@ -3,6 +3,10 @@
 
 {% block page_content %}
 
+    {% if reservation.is_finished %}
+        <h1>finished</h1>
+    {% else %}
+    <h1>Step1</h1>
     <h1>Reservation - step 1: <br> select tickets</h1>
     <div class="select-tickets">
         {% for ticket in tickets %}
@@ -25,7 +29,7 @@
         {% endfor %}
     </div>
     <p class="display-result">Total: $00.00</p>
-    <form action="{% url 'reservation step 1' pk=object.pk %}" method="post">
+    <form action="{% url 'reservation step 1' %}" method="post">
         {% csrf_token %}
         <button>Confirm</button>
         <p style="display: none">{{ form.type_of_tickets }}</p>
@@ -34,5 +38,5 @@
     </form>
     <p style="display: none" class="free-seats">{{ free_seats }}</p>
     <script src="{% static 'javascript/reservationStepOne.js' %}"></script>
-
+    {% endif %}
 {% endblock %}

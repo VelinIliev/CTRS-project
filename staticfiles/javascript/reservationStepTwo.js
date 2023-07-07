@@ -13,7 +13,8 @@ const id_is_finished = document.querySelector('#id_is_finished')
 FinishBtn.style.display = "none";
 results.innerHTML = "";
 
-let reservedSeats = []
+let reservedSeats = [];
+let leavePage = false;
 
 function displayResult() {
     results.innerHTML = "";
@@ -81,7 +82,7 @@ RstBtn.addEventListener('click', () => {
 ConfirmBtn.addEventListener('click', () => {
     if (reservedSeats.length === numberOfTicketsReserved.textContent * 1) {
         id_is_finished.checked = true;
-        console.log(`ffff${id_is_finished}`)
+        // console.log(`ffff${id_is_finished}`)
         ConfirmBtn.style.display = 'none';
         RstBtn.style.display = 'none';
         FinishBtn.style.display = 'inline-block';
@@ -98,3 +99,16 @@ ConfirmBtn.addEventListener('click', () => {
         alertMsg.hidden = false;
     }
 })
+FinishBtn.addEventListener('click', (event) => {
+    leavePage = true;
+});
+
+window.onbeforeunload = function (e) {
+    if (leavePage) {
+        console.log('xxx')
+    } else {
+        e.preventDefault();
+        e.returnValue = 'Are you sure you want to leave this page?';
+        console.log('yyy')
+    }
+}

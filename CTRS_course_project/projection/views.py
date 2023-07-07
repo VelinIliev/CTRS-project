@@ -1,7 +1,6 @@
 import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -59,5 +58,3 @@ class DetailsProjectionView(LoginRequiredMixin, views.DetailView):
         context['seats'] = get_seats(self.object)
         context['free_seats'] = Seat.objects.filter(projection_id=self.object.id, is_taken=0).count()
         return context
-
-

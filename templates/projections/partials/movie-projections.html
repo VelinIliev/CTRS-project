@@ -1,3 +1,4 @@
+{% load prepare_stars %}
 {% load convert_to_list %}
 {% load static %}
 
@@ -9,9 +10,9 @@
             <img src="{{ data.movie.image_url }}" alt="{{ data.movie.title }} - image">
         {% endif %}
         <div class="movie-image-rating">
-            {% if data.movie.stars %}
+            {% if data.movie.rating %}
                 <div class="rating-wrap">
-                    {% for star in data.movie.stars|convert_to_list %}
+                    {% for star in data.movie.rating|prepare_stars %}
                         <div class="rating-star">
                             <img src="{% static star %}" alt="star">
                         </div>

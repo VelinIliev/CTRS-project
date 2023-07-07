@@ -50,7 +50,7 @@ class HallDetailsView(views.DetailView):
         return context
 
 
-class EditHallView(LoginRequiredMixin, PermissionRequiredMixin,  views.UpdateView):
+class EditHallView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateView):
     permission_required = 'hall.change_hall'
     login_url = "/profile/login/"
     template_name = 'halls/hall-edit-page.html'

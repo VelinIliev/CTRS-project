@@ -93,10 +93,7 @@ class Movie(models.Model):
         null=True,
         blank=True,
     )
-    stars = models.CharField(
-        null=True,
-        blank=True,
-    )
+
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

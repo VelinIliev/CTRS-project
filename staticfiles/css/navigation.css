@@ -6,10 +6,10 @@ nav {
     align-items: center;
 }
 
+
 nav .image {
     width: 100px;
     margin-left: 40px;
-    /*border: 1px solid red;*/
 }
 
 nav ul {
@@ -66,18 +66,21 @@ nav .sub-menu {
     text-align: left;
     z-index: 1000;
 }
-nav .sub-menu li{
+
+nav .sub-menu li {
     margin-top: .7rem;
     border-bottom: 1px solid var(--main-color-text);
 }
+
 /*nav .sub-menu li:hover{*/
 /*    border-bottom: 1px solid var(--main-color-hover);*/
 /*}*/
-nav .sub-menu a{
+nav .sub-menu a {
     font-weight: normal;
     font-size: .8rem;
 }
-nav .sub-menu a:hover{
+
+nav .sub-menu a:hover {
     font-weight: normal;
     font-size: .8rem;
 }

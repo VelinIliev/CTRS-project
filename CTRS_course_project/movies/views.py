@@ -8,8 +8,7 @@ from django.utils import timezone
 from django.views import generic as views
 
 from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm
-from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, prepare_stars, displays_stars, \
-    find_vote
+from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, find_vote
 from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 from CTRS_course_project.projection.models import Projection
 
@@ -32,7 +31,7 @@ class CreateMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateV
 class DisplayMovieDetailsView(views.View):
 
     def get(self, request, pk, slug):
-        movie = Movie.objects.filter(pk=pk).get()
+        movie = Movie.objects.filter(pk=pk, slug=slug).get()
         comment_form = CommentForm()
 
         comments = MovieComment.objects.filter(movie_id=pk).order_by('publication_date_and_time')
@@ -41,7 +40,6 @@ class DisplayMovieDetailsView(views.View):
         )
         rating = calculate_rating(movie)
         votes = MovieVotes.objects.filter(movie=movie).count()
-        stars = prepare_stars(rating)
         today = datetime.datetime.today().date()
         context = {
             'movie': movie,
@@ -52,7 +50,6 @@ class DisplayMovieDetailsView(views.View):
             'runtime': calculate_runtime(movie.runtime),
             'rating': rating,
             'votes': votes,
-            'stars': stars,
             'comments': updated_comments,
             'is_staff': self.request.user.is_staff,
             'logged_user': self.request.user.is_authenticated,
@@ -62,7 +59,8 @@ class DisplayMovieDetailsView(views.View):
         return render(request, 'movies/movie-details-page.html', context)
 
     def post(self, request, pk, slug):
-        movie = Movie.objects.get(pk=pk)
+        movie = Movie.objects.filter(pk=pk, slug=slug).get()
+
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
@@ -84,6 +82,7 @@ class DisplayMoviesView(views.ListView):
         queryset = super().get_queryset()
         search = self.request.GET.get('search', '')
         rating = self.request.GET.get('rating', '')
+
         if search and rating:
             queryset = queryset.filter(title__icontains=search, is_active=1).order_by('-rating')
         elif search:
@@ -126,23 +125,23 @@ class VoteMovieView(LoginRequiredMixin, views.View):
     fields = '__all__'
 
     def get(self, request, pk, slug):
-        movie = Movie.objects.filter(pk=pk).get()
+        movie = Movie.objects.filter(pk=pk, slug=slug).get()
+
         user = self.request.user
         vote_form = VoteForm()
         user_rating = find_vote(movie, user)
-        stars = displays_stars(user_rating)
 
         context = {
             'movie': movie,
             'user': self.request.user,
             'form': vote_form,
             'already_voted': user_rating,
-            'stars': stars,
         }
         return render(request, 'movies/movie-vote-page.html', context)
 
     def post(self, request, pk, slug):
-        movie = Movie.objects.get(pk=pk)
+        movie = Movie.objects.filter(pk=pk, slug=slug).get()
+
         user = self.request.user
         vote_form = VoteForm(request.POST)
 
@@ -155,7 +154,6 @@ class VoteMovieView(LoginRequiredMixin, views.View):
             votes = MovieVotes.objects.filter(movie=movie).count()
             movie.rating = round(rating, 1)
             movie.votes = votes
-            movie.stars = prepare_stars(movie.rating)
             movie.save()
             return redirect(reverse('details movie', kwargs={'pk': pk, 'slug': slug}))
         else:
@@ -164,6 +162,5 @@ class VoteMovieView(LoginRequiredMixin, views.View):
                 'user': user,
                 'form': vote_form,
                 'already_voted': find_vote(movie, user),
-                'stars': [f'images/stars/star00.svg' for _ in range(10)],
             }
             return render(request, 'movies/movie-vote-page.html', context)

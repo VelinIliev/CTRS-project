@@ -13,7 +13,7 @@ class UserCreateForm(auth_forms.UserCreationForm):
 
 
 class UserCreateStaffForm(forms.ModelForm):
-    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all())
+    groups = forms.ModelMultipleChoiceField(queryset=Group.objects.all().order_by('name'))
 
     class Meta:
         model = UserModel

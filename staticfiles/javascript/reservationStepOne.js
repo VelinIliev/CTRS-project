@@ -7,12 +7,19 @@ const freeSeats = document.querySelector('.free-seats');
 const ConfirmBtn = document.querySelector('form button')
 
 let statistic = {}
+
 id_total_price.value = "";
 id_number_of_tickets.value = "";
 id_type_of_tickets.value = "";
 
 ConfirmBtn.disabled = true
-// console.log(ConfirmBtn)
+
+window.onload = function () {
+    numberInput.forEach(el => {
+        el.value = 0;
+    })
+}
+
 
 numberInput.forEach(el => {
         let typeTicket = el.parentElement.querySelector('div:first-child').className;
@@ -36,7 +43,7 @@ numberInput.forEach(el => {
                     tickets += `${typeTicket},${value.number},${value.price};`
                 }
             }
-            if (numberOfTickets === 0 ){
+            if (numberOfTickets === 0) {
                 displayResult.innerHTML += `<p style="color: #ff0000">Please select at least one tickets</p>`
                 ConfirmBtn.disabled = true;
             } else if (freeSeats.textContent * 1 >= numberOfTickets) {
@@ -53,5 +60,14 @@ numberInput.forEach(el => {
         })
     }
 )
+
+ConfirmBtn.addEventListener('click', (event) => {
+    window.onbeforeunload = null;
+});
+window.onbeforeunload = function () {
+    console.log('event');
+    return false; //here also can be string, that will be shown to the user
+}
+
 
 

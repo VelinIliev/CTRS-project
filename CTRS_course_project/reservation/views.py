@@ -2,6 +2,7 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import generic as views
@@ -34,7 +35,7 @@ def create_reservation(request):
         )
         reservation.save()
         request.session["reservation_pk"] = reservation.pk
-        return redirect('reservation step 1', pk=reservation.pk)
+        return redirect('reservation step 1')
 
     context = {
         'projection': projection,
@@ -51,11 +52,19 @@ class ReservationStep1View(LoginRequiredMixin, views.UpdateView):
     model = Reservation
     fields = ('type_of_tickets', 'number_of_tickets', 'total_price',)
 
+    def get_object(self, queryset=None):
+        reservation_pk = int(self.request.session.get('reservation_pk'))
+        if reservation_pk:
+            queryset = self.get_queryset()
+            obj = queryset.filter(pk=reservation_pk).get()
+            if obj:
+                return obj
+        raise Http404("No Reservation found matching the query")
+
     def get_success_url(self):
-        return reverse('reservation step 2', kwargs={'pk': self.object.id, })
+        return reverse('reservation step 2')
 
     def get_context_data(self, **kwargs):
-        # print(self.request.session['reservation_pk'])
         projection = Projection.objects.filter(pk=self.object.projection.id).get()
         context = super().get_context_data(**kwargs)
         context['tickets'] = Ticket.objects.all()
@@ -70,12 +79,22 @@ class ReservationStep2View(LoginRequiredMixin, views.UpdateView):
     model = Reservation
     fields = ('reserved_seats', 'is_finished')
 
+    def get_object(self, queryset=None):
+        reservation_pk = int(self.request.session.get('reservation_pk'))
+        if reservation_pk:
+            queryset = self.get_queryset()
+            obj = queryset.filter(pk=reservation_pk).get()
+            if obj:
+                return obj
+        raise Http404("No Reservation found matching the query")
+
     def get_success_url(self):
         return reverse('reservation review', kwargs={'pk': self.object.id, })
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         projection = Projection.objects.filter(pk=self.object.projection.id).get()
+
         context['projection'] = projection
         context['seats'] = get_seats(projection)
         context['free_seats'] = Seat.objects.filter(projection_id=projection.id, is_taken=0).count()
