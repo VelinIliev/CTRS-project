@@ -1,8 +1,10 @@
 {% extends 'bases/base.html' %}
+{% load prepare_stars %}
 {% load convert_to_list %}
 {% load static %}
 
 {% block page_content %}
+
     <form action="{% url 'movies' %}" method="get" class="searchForm">
         <input name="search" value="{{ search }}" placeholder="Search by title">
         <button class="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -17,32 +19,30 @@
                     <img src="{{ movie.image_url }}" alt="{{ movie.title }} - image">
                 {% endif %}
                 {# TODO: Change image with real URL#}
-                {{ stars }}
+
                 <div class="more-info">
+
                     <div class="movie-title">
                         <p class="title">{{ movie.title }}</p>
                         <p class="plot">{{ movie.plot }}</p>
                     </div>
+
                     <div class="rating">
-                        {% if movie.stars %}
-                            <div class="rating-wrap-single-movie">
-                                {% for star in movie.stars|convert_to_list %}
-                                    <div class="rating-star">
-                                        <img src="{% static star %}" alt="star">
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-
+                        <div class="rating-wrap-single-movie">
+                            {% for star in movie.rating|prepare_stars %}
+                                <div class="rating-star">
+                                    <img src="{% static star %}" alt="star">
+                                </div>
+                            {% endfor %}
+                        </div>
                         <p>Rating: {{ movie.rating }} ({{ movie.votes }} votes)</p>
-
                     </div>
+
                     <div class="details">
                         <a href="{% url 'details movie' pk=movie.id slug=movie.slug %}">Details</a>
                     </div>
+
                 </div>
-
-
             </div>
 
         {% endfor %}
@@ -70,15 +70,12 @@
                 <i class="fa-solid fa-greater-than" style="color: #333333"></i>
             </a>
         {% endif %}
+
         <p>
             <a class="order-by-rating" href="?page={{ page_obj.number }}&search={{ search }}&rating=dsc">
                 Order by rating
             </a>
         </p>
     </div>
-
-
-
-
 
 {% endblock %}

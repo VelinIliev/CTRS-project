@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block page_content %}
+
     <h2>{{ movie }}</h2>
     <p>Your vote:</p>
 
@@ -22,11 +23,13 @@
                 </div>
             {% endfor %}
         </div>
+
         <form action="{% url 'vote movie' pk=movie.pk slug=movie.slug %}" method="post">
             {% csrf_token %}
             <p style="display: none">{{ form.rating }}</p>
             <button>Vote</button>
         </form>
     {% endif %}
+
     <script src="{% static 'javascript/ratingStars.js' %}"></script>
 {% endblock %}

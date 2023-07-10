@@ -1,6 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
+
     {% if is_staff %}
         <h1>Create new movie</h1>
         <form action="{% url 'add movie' %}" method="post">

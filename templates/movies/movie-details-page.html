@@ -4,6 +4,7 @@
 {% load static %}
 
 {% block page_content %}
+
     <div class="movie-wrapper">
         <div class="movie-left">
             {% if movie.temp_img %}
@@ -22,10 +23,13 @@
                     </div>
                 {% endfor %}
             </div>
+
             {% if is_staff %}
                 <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-link">Edit</a>
             {% endif %}
+
             <a class='edit-link' href="{% url 'vote movie' pk=movie.pk slug=movie.slug %}">Vote</a>
+
             <div class="list-projections">
                 <h4>Upcoming projections:</h4>
                 {% if projections %}
@@ -40,9 +44,8 @@
                     <p>No projections found.</p>
                 {% endif %}
             </div>
-
-
         </div>
+
         <div class="movie-right">
             <h2>{{ movie.title }} ({{ movie.year }})</h2>
             <p>{{ movie.plot }}</p>
@@ -56,12 +59,14 @@
                 </a>
             </p>
             <br>
+
             <h3>Directors: </h3>
             <ul>
                 {% for director in directors %}
                     <li>{{ director }}</li>
                 {% endfor %}
             </ul>
+
             <h3>Writers: </h3>
             <ul>
                 {% for writer in writers %}
@@ -96,6 +101,7 @@
         {% else %}
             <p>No comments.</p>
         {% endif %}
+
         <div id="comments"></div>
         {% if logged_user %}
             <div class="new-comments">
