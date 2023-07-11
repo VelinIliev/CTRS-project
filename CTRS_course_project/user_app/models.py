@@ -9,13 +9,19 @@ class AppUser(AbstractUser):
     first_name = models.CharField(
         max_length=35,
         validators=[validators.MinLengthValidator(2), validate_only_letters, ],
+        null=False,
+        blank=False,
     )
     last_name = models.CharField(
         max_length=35,
         validators=[validators.MinLengthValidator(2), validate_only_letters, ],
+        null=False,
+        blank=False,
     )
     email = models.EmailField(
-        unique=True
+        unique=True,
+        null=False,
+        blank=False,
     )
     age = models.PositiveIntegerField(
         null=True,

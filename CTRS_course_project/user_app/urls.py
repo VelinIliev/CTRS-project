@@ -1,4 +1,5 @@
 from django.urls import path
+from .signals import *
 
 from CTRS_course_project.user_app.views import index, SignInView, SignUpView, SignOutView, UserDetailsView, \
     UserEditView, UserDeleteView, CreateUpStaffView
