@@ -141,3 +141,7 @@ h2 {
 .staff-rights-list a:hover {
     color: var(--main-color-hover);
 }
+
+#id_image {
+    color: black;
+}

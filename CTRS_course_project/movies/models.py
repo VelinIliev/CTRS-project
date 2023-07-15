@@ -1,3 +1,4 @@
+from cloudinary import models as cloudinary_models
 from django.contrib.auth import get_user_model
 from django.core import validators
 from django.db import models
@@ -20,11 +21,9 @@ class Movie(models.Model):
         null=False,
         blank=False,
     )
-    image_url = models.URLField(
-        null=False,
-        blank=False,
-        verbose_name="Image URL"
-    )
+
+    image = cloudinary_models.CloudinaryField('image')
+
     runtime = models.IntegerField(
         null=False,
         blank=False,

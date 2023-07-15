@@ -8,12 +8,7 @@
     <br>
     <div class="projection-display">
         <div class="movie-image">
-            {% if projection.movie.temp_img %}
-                <img src="{% static projection.movie.temp_img %}" alt="{{ projection.movie.title }} - image">
-            {% else %}
-                <img src="{{ projection.movie.image_url }}" alt="{{ projection.movie.title }} - image">
-            {% endif %}
-            {#TODO: Change image with real URL#}
+            <img src="{{ projection.movie.image.url }}" alt="{{ projection.movie.title }} - image">
 
             <div class="movie-image-rating">
                 {% if projection.movie.rating %}

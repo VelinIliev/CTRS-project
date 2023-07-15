@@ -5,13 +5,15 @@
 
 
 {% block page_content %}
+    {% if halls %}
         {% for hall in halls %}
             <a class="single-hall" href="{% url 'details hall' pk=hall.pk slug=hall.slug %}">
                 <h2>{{ hall.name }}</h2>
                 <p>Number of seats: {{ hall.rows|multiply:hall.seats_per_row }}</p>
-                <img src="{% static hall.temp_img %}" alt="">
-
-                {#TODO: Change image with real URL#}
+                <img src="{{ hall.image.url }}" alt="{{ hall.name }}-image">
             </a>
         {% endfor %}
+    {% else %}
+        <h1>No halls found</h1>
+    {% endif %}
 {% endblock %}

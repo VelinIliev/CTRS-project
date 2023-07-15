@@ -7,16 +7,10 @@
 
     <div class="movie-wrapper">
         <div class="movie-left">
-            {% if movie.temp_img %}
-                <img src="{% static movie.temp_img %}" alt="{{ movie.title }} - image">
-            {% else %}
-                <img src="{{ movie.image_url }}" alt="{{ movie.title }} - image">
-            {% endif %}
-            {# TODO: Change image with real URL#}
-
+            <img src="{{ movie.image.url }}" alt="{{ movie.title }} - image">
             <p class="movie-rating">Rating {{ movie.rating|floatformat:1 }} from {{ movie.votes }} votes</p>
             <div class="rating-wrap details">
-{#                <p>{{ movie.rating }}</p>#}
+                {#                <p>{{ movie.rating }}</p>#}
                 {% for star in rating|prepare_stars %}
                     <div class="rating-star">
                         <img src="{% static star %}" alt="star">
@@ -119,3 +113,5 @@
     </div>
 
 {% endblock %}
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At commodi cumque ducimus eligendi, enim esse eveniet, expedita facere facilis inventore molestias nobis pariatur provident quas quos repellat tempore tenetur voluptate. </p>

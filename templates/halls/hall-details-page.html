@@ -5,8 +5,7 @@
     <div class="hall-wrapper">
         <h1>{{ object.name }}</h1>
         <p>Number of seats: {{ total_seats }}</p>
-        <img src="{% static object.temp_img %}" alt="{{ object.name }} hall image">
-        {#TODO: Change image with real URL#}
+        <img src="{{ hall.image.url }}" alt="{{ object.name }} hall image">
         <p>{{ object.description }}</p>
 
         {% if is_staff %}

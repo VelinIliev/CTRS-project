@@ -4,6 +4,8 @@ from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 
 
 class CreateMovieForm(forms.ModelForm):
+    image = forms.ImageField()
+
     class Meta:
         model = Movie
         exclude = ('rating', 'votes', 'temp_img', 'stars',)

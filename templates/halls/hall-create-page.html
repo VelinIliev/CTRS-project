@@ -3,7 +3,7 @@
 {% block page_content %}
     {% if is_staff %}
         <h1>Create new hall</h1>
-        <form action="{% url 'add hall' %}" method="post">
+        <form action="{% url 'add hall' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <button>Confirm</button>

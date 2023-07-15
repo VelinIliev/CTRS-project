@@ -9,7 +9,8 @@
 
     {% if already_voted %}
         <div class="rating-wrap">
-            {% for star in movie.rating|prepare_stars %}
+{#            <p>{{ already_voted.rating }}</p>#}
+            {% for star in already_voted.rating|prepare_stars %}
                 <div class="rating-star">
                     <img class="" src="{% static star %}" alt="star">
                 </div>
@@ -17,7 +18,7 @@
         </div>
     {% else %}
         <div class="rating-wrap ">
-            {% for star in movie.rating|prepare_stars %}
+            {% for star in 0|prepare_stars %}
                 <div class="rating-star vote" data-starn="{{ forloop.counter }}">
                     <img class="" src="{% static star %}" alt="star">
                 </div>

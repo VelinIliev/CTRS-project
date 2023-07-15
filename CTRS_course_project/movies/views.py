@@ -106,7 +106,7 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
     login_url = "/profile/login/"
     template_name = 'movies/movie-edit-page.html'
     model = Movie
-    fields = ('title', 'year', 'image_url', 'runtime', 'plot', 'directors', 'writers', 'actors', 'genres', 'country',
+    fields = ('title', 'year', 'image', 'runtime', 'plot', 'directors', 'writers', 'actors', 'genres', 'country',
               'languages', 'contentRating', 'imbd_link', 'is_active')
 
     def get_success_url(self):

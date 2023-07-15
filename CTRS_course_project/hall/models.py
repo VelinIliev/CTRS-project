@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from cloudinary import models as cloudinary_models
 
 
 class Hall(models.Model):
@@ -25,11 +26,8 @@ class Hall(models.Model):
         null=False,
         blank=False,
     )
-    image_url = models.URLField(
-        null=True,
-        blank=True,
-        verbose_name='Image URL'
-    )
+    image = cloudinary_models.CloudinaryField('image')
+
     temp_img = models.URLField(
         null=True,
         blank=True,

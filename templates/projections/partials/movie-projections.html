@@ -4,11 +4,8 @@
 
 <div class="projection-display">
     <div class="movie-image">
-        {% if data.movie.temp_img %}
-            <img src="{% static data.movie.temp_img %}" alt="{{ data.movie.title }} - image">
-        {% else %}
-            <img src="{{ data.movie.image_url }}" alt="{{ data.movie.title }} - image">
-        {% endif %}
+        <img src="{{ data.movie.image.url }}" alt="{{ data.movie.title }} - image">
+
         <div class="movie-image-rating">
             {% if data.movie.rating %}
                 <div class="rating-wrap">
@@ -21,7 +18,7 @@
             {% endif %}
             <p>Rating: {{ data.movie.rating }} ({{ data.movie.votes }} votes) </p>
         </div>
-        {#TODO: Change image with real URL#}
+
     </div>
     <div class="right-side">
         <a href="{% url 'details movie' pk=data.movie.pk slug=data.movie.slug %}">

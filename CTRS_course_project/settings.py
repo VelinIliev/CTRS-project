@@ -1,5 +1,8 @@
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from decouple import config
 from django.urls import reverse_lazy
 
@@ -20,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'cloudinary',
 
     'CTRS_course_project.user_app',
     'CTRS_course_project.common',
@@ -108,6 +112,13 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
 
+cloudinary.config(
+    cloud_name=config("CLOUDINARY_CLOUD_NAME"),
+    api_key=config("CLOUDINARY_API_KEY"),
+    api_secret=config("CLOUDINARY_API_SECRET"),
+    secure=True,
+)
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user_app.AppUser'
@@ -116,11 +127,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 
 LOGIN_URL = '/profile/login/'
 
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT')
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+#
+# DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
