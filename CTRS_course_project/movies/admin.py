@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from CTRS_course_project.movies.forms import CreateMovieForm
 from CTRS_course_project.movies.models import Movie, MovieComment
 
 

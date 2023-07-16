@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    {% if is_staff %}
+    {% if request.user.is_staff %}
         <h1>Create new hall</h1>
         <form action="{% url 'add hall' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}

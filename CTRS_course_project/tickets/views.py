@@ -18,20 +18,10 @@ class CreateTicketView(LoginRequiredMixin, PermissionRequiredMixin, views.Create
     form_class = CreateTicketForm
     success_url = reverse_lazy('tickets index')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
-
 
 class ListTicketView(views.ListView):
     template_name = 'tickets/list-ticket-page.html'
     model = Ticket
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
 
 
 class EditTicketView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateView):
@@ -41,11 +31,6 @@ class EditTicketView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVi
     model = Ticket
     fields = '__all__'
     success_url = reverse_lazy('tickets index')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
 
 
 class DeleteTicketView(LoginRequiredMixin, PermissionRequiredMixin, views.DeleteView):

@@ -38,5 +38,5 @@ class ProjectionSerializer(serializers.ModelSerializer):
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ('id', 'title', 'year', 'image_url', 'runtime', 'plot', 'directors', 'writers',
+        fields = ('id', 'title', 'year', 'image', 'runtime', 'plot', 'directors', 'writers',
                   'actors', 'genres', 'country', 'languages', 'contentRating', 'imbd_link', 'rating', 'votes')

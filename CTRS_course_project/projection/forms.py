@@ -4,10 +4,6 @@ from CTRS_course_project.projection.models import Projection, Seat
 
 
 class CreateProjectionForm(forms.ModelForm):
-    # hour = forms.TimeField(
-    #     input_formats=['%H:%M'],  # Specify the 24-hour time format
-    #     # widget=forms.TimeInput(format='%H:%M'),  # Set the display format
-    # )
 
     class Meta:
         model = Projection
@@ -16,11 +12,11 @@ class CreateProjectionForm(forms.ModelForm):
             'date': forms.DateInput(attrs={
                 'type': 'date',
                 'placeholder': 'dd-mm-yyyy',
-                'class': 'form-control'
             }),
             'hour': forms.TimeInput(attrs={
                 'type': 'time',
                 'placeholder': 'HH:MM',
+                'input_type': '%H:%M',
                 "step": 900,
             }),
         }

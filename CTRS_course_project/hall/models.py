@@ -28,11 +28,6 @@ class Hall(models.Model):
     )
     image = cloudinary_models.CloudinaryField('image')
 
-    temp_img = models.URLField(
-        null=True,
-        blank=True,
-    )
-
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.slug:

@@ -88,11 +88,6 @@ class Movie(models.Model):
         null=False,
         blank=False,
     )
-    temp_img = models.URLField(
-        null=True,
-        blank=True,
-    )
-
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

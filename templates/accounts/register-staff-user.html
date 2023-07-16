@@ -2,7 +2,7 @@
 {% load placeholders %}
 
 {% block page_content %}
-    {% if is_staff %}
+    {% if request.user.is_staff %}
         <h1>Register staff user</h1>
         <form action="{% url 'register staff user' %}" method="post">
             {% csrf_token %}

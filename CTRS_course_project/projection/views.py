@@ -43,11 +43,6 @@ class CreateProjectionView(LoginRequiredMixin, PermissionRequiredMixin, views.Cr
     form_class = CreateProjectionForm
     success_url = reverse_lazy('projection index')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
-
 
 class DetailsProjectionView(LoginRequiredMixin, views.DetailView):
     template_name = 'projections/details-projection-view.html'

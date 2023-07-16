@@ -2,7 +2,7 @@
 
 {% block page_content %}
     <h1>Create new ticket type</h1>
-    {% if is_staff %}
+    {% if request.user.is_staff %}
         <form action="{% url 'add ticket' %}" method="post">
             {{ form }}
             {% csrf_token %}

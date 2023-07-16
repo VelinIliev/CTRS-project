@@ -10,5 +10,4 @@ urlpatterns = [
     path('details/<int:pk>/<str:slug>/', DisplayMovieDetailsView.as_view(), name='details movie'),
     path('edit/<int:pk>/<str:slug>/', EditMovieView.as_view(), name='edit movie'),
     path('vote/<int:pk>/<str:slug>/', VoteMovieView.as_view(), name='vote movie'),
-    # path('vote/<int:pk>/<str:slug>', VoteMovieView.as_view(), name='vote movie'),
 ]

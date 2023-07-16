@@ -10,14 +10,14 @@ def calculate_runtime(value):
 
 
 def calculate_rating(movie):
-    sum_rating = MovieVotes.objects.filter(movie=movie)
-    sum_rating = sum([x.rating for x in sum_rating])
+    ratings = MovieVotes.objects.filter(movie=movie)
+    sum_rating = sum([x.rating for x in ratings])
     votes_count = MovieVotes.objects.filter(movie=movie).count()
     if sum_rating == 0:
         rating = 0
     else:
         rating = sum_rating / votes_count
-    return rating
+    return round(rating, 1)
 
 
 def find_vote(movie, user):

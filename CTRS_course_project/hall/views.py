@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.http import HttpResponse
-from django.shortcuts import render
 
 from CTRS_course_project.hall.forms import CreateHallForm
 from CTRS_course_project.hall.models import Hall
@@ -21,11 +20,6 @@ class CreateHallView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateVi
     def get_success_url(self):
         return reverse_lazy('details hall', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
-
 
 class DisplayHallView(views.ListView):
     template_name = 'halls/halls-main-page.html'
@@ -43,7 +37,6 @@ class HallDetailsView(views.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
         context['total_seats'] = self.object.rows * self.object.seats_per_row
         context['rows'] = range(self.object.rows)
         context['seats'] = range(self.object.seats_per_row)
@@ -59,11 +52,6 @@ class EditHallView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateView
 
     def get_success_url(self):
         return reverse_lazy('details hall', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
 
 
 class DeleteHallView(LoginRequiredMixin, PermissionRequiredMixin, views.DeleteView):

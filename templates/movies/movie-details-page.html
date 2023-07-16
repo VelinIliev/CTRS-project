@@ -10,7 +10,6 @@
             <img src="{{ movie.image.url }}" alt="{{ movie.title }} - image">
             <p class="movie-rating">Rating {{ movie.rating|floatformat:1 }} from {{ movie.votes }} votes</p>
             <div class="rating-wrap details">
-                {#                <p>{{ movie.rating }}</p>#}
                 {% for star in rating|prepare_stars %}
                     <div class="rating-star">
                         <img src="{% static star %}" alt="star">
@@ -18,7 +17,7 @@
                 {% endfor %}
             </div>
 
-            {% if is_staff %}
+            {% if request.user.is_staff %}
                 <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-link">Edit</a>
             {% endif %}
 

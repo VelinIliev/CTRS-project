@@ -3,7 +3,7 @@
 {% block page_content %}
     <h1>Tickets</h1>
     <div class="tickets-list">
-        {% if is_staff %}
+        {% if request.user.is_staff %}
             <div class="ticket-row-staff title">
                 <span>Type</span>
                 <span>Weekdays price</span>

@@ -22,11 +22,6 @@ class CreateMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.CreateV
     def get_success_url(self):
         return reverse_lazy('details movie', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
-
 
 class DisplayMovieDetailsView(views.View):
 
@@ -38,7 +33,6 @@ class DisplayMovieDetailsView(views.View):
         updated_comments = comments.annotate(
             updated_datetime=F('publication_date_and_time') + timezone.timedelta(hours=3)
         )
-        rating = calculate_rating(movie)
         votes = MovieVotes.objects.filter(movie=movie).count()
         today = datetime.datetime.today().date()
         context = {
@@ -48,10 +42,9 @@ class DisplayMovieDetailsView(views.View):
             'directors': movie.directors.split(", "),
             'actors': movie.actors.split(", "),
             'runtime': calculate_runtime(movie.runtime),
-            'rating': rating,
+            'rating': movie.rating,
             'votes': votes,
             'comments': updated_comments,
-            'is_staff': self.request.user.is_staff,
             'logged_user': self.request.user.is_authenticated,
             'projections': Projection.objects.filter(movie=movie, date__gte=today).order_by('date', 'hour')
         }
@@ -112,11 +105,6 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
     def get_success_url(self):
         return reverse_lazy('details movie', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_staff'] = self.request.user.is_staff
-        return context
-
 
 class VoteMovieView(LoginRequiredMixin, views.View):
     login_url = "/profile/login/"
@@ -150,11 +138,11 @@ class VoteMovieView(LoginRequiredMixin, views.View):
             vote.movie = movie
             vote.user = self.request.user
             vote.save()
-            rating = calculate_rating(movie)
-            votes = MovieVotes.objects.filter(movie=movie).count()
-            movie.rating = round(rating, 1)
-            movie.votes = votes
+
+            movie.rating = calculate_rating(movie)
+            movie.votes = MovieVotes.objects.filter(movie=movie).count()
             movie.save()
+
             return redirect(reverse('details movie', kwargs={'pk': pk, 'slug': slug}))
         else:
             context = {

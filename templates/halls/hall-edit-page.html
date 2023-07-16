@@ -1,7 +1,7 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    {% if is_staff %}
+    {% if request.user.is_staff %}
         <form action="{% url 'edit hall' pk=object.pk slug=object.slug %}" method="post">
             {% csrf_token %}
             {{ form }}
