@@ -7,7 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import generic as views
 
-from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm
+from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm, EditMovieForm
 from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, find_vote
 from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 from CTRS_course_project.projection.models import Projection
@@ -99,6 +99,7 @@ class EditMovieView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateVie
     login_url = "/profile/login/"
     template_name = 'movies/movie-edit-page.html'
     model = Movie
+    # fields = '__all__'
     fields = ('title', 'year', 'image', 'runtime', 'plot', 'directors', 'writers', 'actors', 'genres', 'country',
               'languages', 'contentRating', 'imbd_link', 'is_active')
 

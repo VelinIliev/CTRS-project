@@ -3,7 +3,7 @@
 {% block page_content %}
 
     {% if request.user.is_staff %}
-        <form action="{% url 'edit movie' pk=object.pk slug=object.slug%}" method="post">
+        <form action="{% url 'edit movie' pk=object.pk slug=object.slug%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form }}
             <button>Confirm</button>

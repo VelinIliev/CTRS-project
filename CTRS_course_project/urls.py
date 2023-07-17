@@ -9,7 +9,7 @@ urlpatterns = [
     path('hall/', include('CTRS_course_project.hall.urls')),
     path('projection/', include('CTRS_course_project.projection.urls')),
     path('ticket/', include('CTRS_course_project.tickets.urls')),
-    path('resrvation/', include('CTRS_course_project.reservation.urls')),
+    path('reservation/', include('CTRS_course_project.reservation.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('CTRS_course_project.api.urls')),
 ]

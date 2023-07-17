@@ -8,5 +8,5 @@ urlpatterns = [
     path('save/<int:pk>/', save_projection, name='save projection'),
     path('step1/', ReservationStep1View.as_view(), name='reservation step 1'),
     path('step2/', ReservationStep2View.as_view(), name='reservation step 2'),
-    path('<int:pk>/review/', ReservationDetailsView.as_view(), name='reservation review'),
+    path('review/<int:pk>/', ReservationDetailsView.as_view(), name='reservation review'),
 ]

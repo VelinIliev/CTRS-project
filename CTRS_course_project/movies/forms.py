@@ -8,7 +8,7 @@ class CreateMovieForm(forms.ModelForm):
 
     class Meta:
         model = Movie
-        exclude = ('rating', 'votes', 'temp_img', 'stars',)
+        exclude = ('rating', 'votes',)
         widgets = {
             'directors': forms.Textarea(
                 attrs={
@@ -30,9 +30,12 @@ class CreateMovieForm(forms.ModelForm):
 
 
 class EditMovieForm(forms.ModelForm):
+    image = forms.ImageField()
+
     class Meta:
         model = Movie
-        exclude = ('rating', 'votes', 'temp_img', 'stars',)
+        # fields = '__all__'
+        exclude = ('rating', 'votes',)
 
 
 class CommentForm(forms.ModelForm):
