@@ -22,13 +22,13 @@
       <p><img src="./screenshots/index.png" alt="ctrs-index" width="600px"></p>
 
 2. <b>Admin Section (admin/):</b>
-   - Fully configured admin section with the following groups:</p>
-   - Admins: Full control over the system. <br>
-   - CinemaAdmin: CRUD operations for movies, halls, projections, and tickets. Can review users. <br>
-   - ContentCreator: Can create, edit, review movies and projections <br>
-   - Moderators: CRUD operations for movie comments. <br>
-   - UserAdmin: CRUD operations for users. <br>
-     <p><img src="./screenshots/admin.png" alt="ctrs-admin" width="600px"></p>
+   #### Fully configured admin section with the following groups:
+   - Admins: Full control over the system. 
+   - CinemaAdmin: CRUD operations for movies, halls, projections, and tickets. Can review users.
+   - ContentCreator: Can create, edit, review movies and projections
+   - Moderators: CRUD operations for movie comments.
+   - UserAdmin: CRUD operations for users.
+     <p><img src="./screenshots/admin.png" alt="ctrs-admin" width="600px">
 
 3. <b>User Authentication and Registration (profile/):</b>
    - login/ - User login page.
