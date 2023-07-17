@@ -87,4 +87,4 @@ Automated movie ticket booking system. Easy to navigate and use.
     <p>Filters can be combined.</p> 
   - projections/<str:projection_date>/ - list of all projection on exact date: 'dd-mm-yyyy'
 
-<p><ins>Administration links are visible only for staff users.</ins></p>
+<p><b><ins>Administration links are visible only for staff users.</ins></b></p>
