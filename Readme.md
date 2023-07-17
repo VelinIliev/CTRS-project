@@ -14,12 +14,12 @@
 Automated movie ticket booking system. Easy to navigate and use.
 
 ## <ins>Paths:</ins>
-<p><ins>Administration links are visible only for staff users.</ins></p>
+  
 - index 
   - home page
   <p><img src="./screenshots/index.png" alt="ctrs-index" width="600px"></p>
 - admin/
-  <ul>Fully configured admin section with groups:</ul>
+  Fully configured admin section with groups:
   - Admins: full control <br>
   - CinemaAdmin: CRUD to movies, halls, projections, tickets, can review users <br>
   - ContentCreator: Can create, edit, review movies and projections <br>
@@ -86,4 +86,4 @@ Automated movie ticket booking system. Easy to navigate and use.
     <p>Filters can be combined.</p> 
   - projections/<str:projection_date>/ - list of all projection on exact date: 'dd-mm-yyyy'
 
-  
+<p><ins style="color: red">Administration links are visible only for staff users.</ins></p>
