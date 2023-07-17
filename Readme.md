@@ -35,14 +35,14 @@
    - logout/ - User logout page.
    - register/ - User registration page.
    - register/staff/ - Restricted to users with "add_user" permission. Allows registration as staff members.
-   - details/<int:pk>/ - Only the owner can see the complete information and the reservations he has made.
+   - details/<int:pk>/ - Allows users to view their personal information and reservation history. Restricted to owner of profile. 
    - delete/<int:pk>/ - Restricted to owner of profile.
    - edit/<int:pk>/ - Restricted to owner of profile.
 
 4. <b>Movie Details and Management (movie/):</b>
    - index - Displays a list of all movies sorted by most recently added (paginated by 8). Includes a search field to search by title and an option to order by rating</p>
      <p><img src="./screenshots/movies-list.png" alt="ctrs-admin" width="600px"></p>
-   - add/ - only users with this permission can add movie
+   - add/ - Restricted to users with "add_movie" permission. Allows adding a new movie.
    - details/<int:pk>/<str:slug>/ - Displays full information about a specific movie. Includes links to vote for the movie and view upcoming projections. Only logged-in users can comment.
      <p><img src="./screenshots/movie-details.png" alt="ctrs-admin" width="600px"></p>
    - edit/<int:pk>/<str:slug>/ - Restricted to users with "edit_movie" permission. Allows editing of movie details.
@@ -76,7 +76,7 @@
    - review/<int:pk>/ - Displays an overview of the reservation.
 
 9. <b>API Integration (api/): </b> - 
-   - Api integration for third party sites. Only GET requests.
+   #### Api integration for third party sites. Only GET requests.
    - movies/ - Retrieves a list of all movies. Supports search by title (?title=) and year (?year=).
    - movies/<int:movie_id>/ - Retrieves details of a single movie.
    - projections/ - Retrieves a list of all projections. Supports filtering by movie ID (?movie_id=), movie title (?movie_title=), start date (?start='dd-mm-yyyy'), and end date (?end='dd-mm-yyyy').
