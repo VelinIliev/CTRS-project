@@ -14,6 +14,7 @@
 Automated movie ticket booking system. Easy to navigate and use.
 
 ## <ins>Paths:</ins>
+<p><ins>Administration links are visible only for staff users.</ins></p>
 - index 
   - home page
   <p><img src="./screenshots/index.png" alt="ctrs-index" width="600px"></p>
