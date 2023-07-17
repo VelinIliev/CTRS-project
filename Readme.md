@@ -4,9 +4,11 @@
 ## <ins>Build with:<ins>
 - Python
 - Django
+- PostgreSQL
+- HTML
 - Django template language
 - CSS
-- Java Script
+- JavaScript
 - Django Rest framework
 
 
