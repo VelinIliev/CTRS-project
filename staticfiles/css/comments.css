@@ -43,3 +43,8 @@
     font-weight: bold;
     border-top: 1px solid var(--secondary-color-text);
 }
+.comment-edit a {
+    color: var(--main-color-text);
+    text-decoration: none;
+    margin-left: 10px;
+}

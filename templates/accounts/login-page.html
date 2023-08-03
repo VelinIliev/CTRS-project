@@ -1,9 +1,10 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Login</h1>
-    <form action="{% url 'login' %}" method="post">
+
+    <form action="{% url 'login' %}" method="post" class="input-forms">
         <input type="hidden" name="next" value="{{ next }}">
+        <h1>Login</h1>
         {% csrf_token %}
         {{ form}}
         <button>Login</button>

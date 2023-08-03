@@ -3,8 +3,8 @@
 
 {% block page_content %}
     {% if request.user.is_staff %}
-        <h1>Register staff user</h1>
-        <form action="{% url 'register staff user' %}" method="post">
+        <form action="{% url 'register staff user' %}" method="post" class="input-forms">
+            <h1>Register staff user</h1>
             {% csrf_token %}
             {{ form }}
             <button>Register</button>

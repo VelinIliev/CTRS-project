@@ -4,21 +4,39 @@ form {
     width: 400px;
     margin-top: 50px;
     margin-bottom: 100px;
+    padding: 2rem 3rem 3rem 3rem;
 }
-
+.input-forms {
+    border: 1px solid var(--main-color-text);
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px var(--secondary-color-text);
+}
+form h1{
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 1.45rem;
+}
 .description {
     width: 600px;
 }
-
 .helptext {
     display: none;
 }
-
+input, textarea {
+    box-sizing: border-box;
+    transition: border .3s;
+    outline: none;
+    border: none;
+}
+input:focus, textarea:focus{
+    outline: none;
+    border: 1px solid red;
+    border-radius: 4px;
+}
 form li {
     color: var(--main-color-hover);
     margin: 0;
 }
-
 form button {
     color: var(--main-color-text);
     background-color: var(--secondary-color-backgrond);
@@ -26,7 +44,6 @@ form button {
     border: none;
     margin-top: 20px;
 }
-
 button:hover {
     font-weight: bold;
     background-color: var(--main-color-hover);
@@ -40,4 +57,14 @@ form input, form select, form textarea {
 }
 form br {
     display: none;
+}
+
+#form-movie{
+    width: 800px;
+}
+.errorlist {
+    padding: 0;
+}
+.errorlist li {
+    list-style-type: none;
 }

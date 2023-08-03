@@ -153,3 +153,28 @@ class VoteMovieView(LoginRequiredMixin, views.View):
                 'already_voted': find_vote(movie, user),
             }
             return render(request, 'movies/movie-vote-page.html', context)
+
+
+class DeleteComment(LoginRequiredMixin, PermissionRequiredMixin, views.DeleteView):
+    login_url = "/profile/login/"
+    permission_required = 'moviecomment.delete_moviecomment'
+    model = MovieComment
+
+    def get_success_url(self):
+        movie = Movie.objects.filter(pk=self.object.movie_id).get()
+        return '{}#comments'.format(reverse('details movie', kwargs={'pk': movie.pk, 'slug': movie.slug}))
+
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+
+class EditCommentView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateView):
+    permission_required = 'moviecomment.change_moviecomment'
+    login_url = "/profile/login/"
+    template_name = 'movies/comment-edit-page.html'
+    model = MovieComment
+    fields = ('text',)
+
+    def get_success_url(self):
+        movie = Movie.objects.filter(pk=self.object.movie_id).get()
+        return '{}#comments'.format(reverse('details movie', kwargs={'pk': movie.pk, 'slug': movie.slug}))

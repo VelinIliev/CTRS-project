@@ -3,13 +3,13 @@
 {% block page_content %}
 
     {% if request.user.is_staff %}
-        <form action="{% url 'add ticket' %}" method="post" class="input-forms">
-            <h1>Create new ticket type</h1>
-            {{ form }}
+        <form action="{% url 'delete comment' pk=object.pk %}" method="post" class="input-forms" >
             {% csrf_token %}
+            {{ form }}
             <button>Confirm</button>
         </form>
     {% else %}
-        <h2>You do not have rights</h2>
+        <p>You do not have rights1</p>
     {% endif %}
+
 {% endblock %}

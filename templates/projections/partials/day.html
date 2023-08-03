@@ -1,6 +1,6 @@
 {% load static %}
 
-<h1>{{ date }} movies</h1>
+{#<h1>{{ date }} movies</h1>#}
 
 <div class="projections-list">
     {% if current_day %}
@@ -8,6 +8,6 @@
             {% include 'projections/partials/movie-projections.html' %}
         {% endfor %}
     {% else %}
-        <h2>No movies this day</h2>
+        <h2>No movies this day.</h2>
     {% endif %}
 </div>

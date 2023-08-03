@@ -78,39 +78,54 @@
 
     <div class="comments-list">
         {% if comments %}
-            {% for commnet in comments %}
+            {% for comment in comments %}
                 <div class="single-comment">
                     <p>
                         <span class="comment-user">
-                            {{ commnet.user }}
+                            {{ comment.user }}
                         </span>
                         <span class="comment-date">
-                            {{ commnet.updated_datetime|date:"d-m-Y H:i" }}
+                            {{ comment.updated_datetime|date:"d-m-Y H:i" }}
                         </span>
+                        {% if request.user.is_staff %}
+                            <span class="comment-edit">
+                                <a href="{% url 'edit comment' pk=comment.pk %}">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                                <a href="{% url 'delete comment' pk=comment.pk %}">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </span>
+                        {% endif %}
+{#                        <span>{{ commnet.user == request.user }} {{ request.user }}</span>#}
                     </p>
-                    <p class="comment-text">{{ commnet.text }}</p>
+                    <p class="comment-text">{{ comment.text }}</p>
                 </div>
             {% endfor %}
         {% else %}
             <p>No comments.</p>
         {% endif %}
 
-        <div id="comments"></div>
-        {% if logged_user %}
-            <div class="new-comments">
-                <form action="{% url 'details movie' pk=movie.pk slug=movie.slug %}" method="post">
-                    <p class="new-comment-text">{{ comment_form.text|placeholder:"Add new comment..." }}</p>
-                    {% csrf_token %}
-                    <button class="post-comment">Post</button>
-                </form>
-            </div>
-        {% else %}
-            <p class="comment-login">Login to comment</p>
-            <a class="edit-link" href="{% url 'login' %}?next=/movie/details/{{ movie.pk }}/{{ movie.slug }}">Login</a>
-        {% endif %}
+        <div id="comments">
+            {% if logged_user %}
+                <div class="new-comments">
+                    <form action="{% url 'details movie' pk=movie.pk slug=movie.slug %}" method="post">
+                        <p class="new-comment-text">{{ comment_form.text|placeholder:"Add new comment..." }}</p>
+                        {% csrf_token %}
+                        <button class="post-comment">Post</button>
+                    </form>
+                </div>
+            {% else %}
+                <p class="comment-login">Login to comment</p>
+                <a class="edit-link"
+                   href="{% url 'login' %}?next=/movie/details/{{ movie.pk }}/{{ movie.slug }}">Login</a>
+            {% endif %}
+        </div>
 
     </div>
 
 {% endblock %}
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At commodi cumque ducimus eligendi, enim esse eveniet, expedita facere facilis inventore molestias nobis pariatur provident quas quos repellat tempore tenetur voluptate. </p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At commodi cumque ducimus eligendi, enim esse eveniet,
+    expedita facere facilis inventore molestias nobis pariatur provident quas quos repellat tempore tenetur
+    voluptate. </p>

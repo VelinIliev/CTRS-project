@@ -3,8 +3,9 @@
 {% block page_content %}
 
     {% if request.user.is_staff %}
-        <h1>Create new movie</h1>
-        <form action="{% url 'add movie' %}" method="post"  enctype="multipart/form-data">
+
+        <form action="{% url 'add movie' %}" method="post"  enctype="multipart/form-data" id="form-movie" class="input-forms">
+            <h1>Create new movie</h1>
             {% csrf_token %}
             {{ form }}
             <button>Add</button>
