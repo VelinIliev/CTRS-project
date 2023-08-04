@@ -1,9 +1,10 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Edit ticket</h1>
+
     {% if request.user.is_staff %}
-        <form action="{% url 'edit ticket' pk=object.pk  %}" method="post">
+        <form action="{% url 'edit ticket' pk=object.pk  %}" method="post" class="input-forms">
+            <h1>Edit ticket</h1>
             {{ form }}
             {% csrf_token %}
             <button>Confirm</button>

@@ -3,8 +3,11 @@
 {% block page_content %}
 
     {% if request.user.is_staff %}
-        <form action="{% url 'edit movie' pk=object.pk slug=object.slug%}" method="post" enctype="multipart/form-data">
+
+        <form action="{% url 'edit movie' pk=object.pk slug=object.slug%}" method="post" enctype="multipart/form-data"
+              id="form-movie" class="input-forms">
             {% csrf_token %}
+            <h1>EDIT MOVIE</h1>
             {{ form }}
             <button>Confirm</button>
         </form>

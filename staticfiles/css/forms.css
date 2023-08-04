@@ -30,7 +30,7 @@ input, textarea {
 }
 input:focus, textarea:focus{
     outline: none;
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     border-radius: 4px;
 }
 form li {
@@ -64,7 +64,9 @@ form br {
 }
 .errorlist {
     padding: 0;
+    margin: .2rem 0;
 }
 .errorlist li {
     list-style-type: none;
+    font-size: .8rem;
 }
