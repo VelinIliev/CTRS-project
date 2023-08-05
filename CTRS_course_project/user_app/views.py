@@ -1,7 +1,8 @@
 import datetime
 
 from django.contrib.auth import views as auth_view, get_user_model, login
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.db.models import Q, Count
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -9,6 +10,7 @@ from django.views import generic as views
 
 from CTRS_course_project.reservation.models import Reservation
 from CTRS_course_project.user_app.forms import UserCreateForm, UserCreateStaffForm
+from CTRS_course_project.user_app.models import AppUser
 
 UserModel = get_user_model()
 
@@ -88,3 +90,18 @@ class UserDeleteView(views.DeleteView):
     template_name = 'accounts/profile-delete-page.html'
     model = UserModel
     success_url = reverse_lazy('index')
+
+
+class ListStaffUsersView(LoginRequiredMixin, PermissionRequiredMixin, views.ListView):
+    permission_required = 'user_app.view_appuser'
+    login_url = "/profile/login/"
+    template_name = 'accounts/profile-list-staff-page.html'
+    model = UserModel
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_staff=True) \
+            .annotate(group_count=Count('groups')) \
+            .filter(group_count__gt=0).values_list('username', 'groups__name')\
+            .order_by('username')
+        return queryset

@@ -1,8 +1,7 @@
 from django.urls import path
-from .signals import *
 
 from CTRS_course_project.user_app.views import index, SignInView, SignUpView, SignOutView, UserDetailsView, \
-    UserEditView, UserDeleteView, CreateUpStaffView
+    UserEditView, UserDeleteView, CreateUpStaffView, ListStaffUsersView
 
 urlpatterns = [
     path('', index, name='profile index'),
@@ -13,4 +12,5 @@ urlpatterns = [
     path('details/<int:pk>/', UserDetailsView.as_view(), name='details user'),
     path('delete/<int:pk>/', UserDeleteView.as_view(), name='delete user'),
     path('edit/<int:pk>/', UserEditView.as_view(), name='edit user'),
+    path('list-staff-users/', ListStaffUsersView.as_view(), name='list staff users'),
 ]

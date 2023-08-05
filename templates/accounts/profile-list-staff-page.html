@@ -1,0 +1,15 @@
+{% extends 'bases/base.html' %}
+
+{% block page_content %}
+    <h2>List of staff users and their groups:</h2>
+    {% if request.user.is_staff %}
+        <ul>
+            {% for user in object_list %}
+                <li>{{ user.0 }} - {{ user.1 }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h2>You do not have rights.</h2>
+    {% endif %}
+{% endblock %}
+
