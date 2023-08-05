@@ -5,6 +5,7 @@
     {% if request.user.is_staff %}
         <ul>
             {% for user in object_list %}
+
                 <li>{{ user.0 }} - {{ user.1 }}</li>
             {% endfor %}
         </ul>

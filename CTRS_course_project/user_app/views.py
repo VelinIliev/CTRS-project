@@ -102,6 +102,8 @@ class ListStaffUsersView(LoginRequiredMixin, PermissionRequiredMixin, views.List
         queryset = super().get_queryset()
         queryset = queryset.filter(is_staff=True) \
             .annotate(group_count=Count('groups')) \
-            .filter(group_count__gt=0).values_list('username', 'groups__name')\
+            .filter(group_count__gt=0).values_list('username', 'groups__name', 'id') \
             .order_by('username')
         return queryset
+
+

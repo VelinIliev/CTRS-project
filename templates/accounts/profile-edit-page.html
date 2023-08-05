@@ -1,7 +1,6 @@
 {% extends 'bases/base.html'%}
 
 {% block page_content %}
-
     <form action="{% url 'edit user' pk=object.pk%}" method="post" class="input-forms">
         {% csrf_token %}
         <h1>Edit user</h1>
