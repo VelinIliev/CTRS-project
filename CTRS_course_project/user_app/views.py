@@ -39,7 +39,7 @@ class CreateUpStaffView(PermissionRequiredMixin, views.CreateView):
     permission_required = 'user_app.add_appuser'
     template_name = 'accounts/register-staff-user.html'
     form_class = UserCreateStaffForm
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('list staff users')
 
 
 class SignOutView(auth_view.LogoutView):

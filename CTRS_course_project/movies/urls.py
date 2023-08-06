@@ -1,10 +1,8 @@
-from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 from CTRS_course_project.movies.views import CreateMovieView, DisplayMoviesView, \
     DisplayMovieDetailsView, EditMovieView, VoteMovieView, EditCommentView, \
     DeleteComment
-
 
 urlpatterns = [
     path('', DisplayMoviesView.as_view(), name='movies'),

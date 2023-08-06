@@ -2,45 +2,45 @@
 
 {% block page_content %}
     {% if is_owner %}
-    <h1>Reservation details</h1>
-    <div class="reservation-details">
-        <div class="reservation-row">
-            <span class="left">Movie: </span>
-            <span class="right">{{ object.projection.movie }}</span>
-        </div>
-        <div class="reservation-row">
-            <span class="left">Date: </span>
-            <span class="right">{{ object.projection.date|date:"d-m-Y" }}</span>
-        </div>
-        <div class="reservation-row">
-            <span class="left">Hour: </span>
-            <span class="right">{{ object.projection.hour|time:'H:i' }}</span>
-        </div>
-        <div class="reservation-row">
-            <span class="left">Hall: </span>
-            <span class="right">{{ object.projection.hall }}</span>
-        </div>
-        <div class="reservation-row">
-            <span class="left">Tickets: </span>
-            <span class="right">
+        <h1>Reservation details</h1>
+        <div class="reservation-details">
+            <div class="reservation-row">
+                <span class="left">Movie: </span>
+                <span class="right">{{ object.projection.movie }}</span>
+            </div>
+            <div class="reservation-row">
+                <span class="left">Date: </span>
+                <span class="right">{{ object.projection.date|date:"d-m-Y" }}</span>
+            </div>
+            <div class="reservation-row">
+                <span class="left">Hour: </span>
+                <span class="right">{{ object.projection.hour|time:'H:i' }}</span>
+            </div>
+            <div class="reservation-row">
+                <span class="left">Hall: </span>
+                <span class="right">{{ object.projection.hall }}</span>
+            </div>
+            <div class="reservation-row">
+                <span class="left">Tickets: </span>
+                <span class="right">
                 {% for ticket in tickets %}
                     <p>{{ ticket }}$</p>
                 {% endfor %}
             </span>
-        </div>
-        <div class="reservation-row">
-            <span class="left">Seats: </span>
-            <span class="right">
+            </div>
+            <div class="reservation-row">
+                <span class="left">Seats: </span>
+                <span class="right">
                 {% for seat in seats %}
                     <p>Row: {{ seat.row_n }}, Seat: {{ seat.seat_n }}</p>
                 {% endfor %}
             </span>
+            </div>
+            <div class="reservation-row">
+                <span class="left">Total: </span>
+                <span class="right">{{ object.total_price }}$</span>
+            </div>
         </div>
-        <div class="reservation-row">
-            <span class="left">Total: </span>
-            <span class="right">{{ object.total_price }}$</span>
-        </div>
-    </div>
     {% else %}
         <h2>You do not have rights to see this reservation.</h2>
     {% endif %}

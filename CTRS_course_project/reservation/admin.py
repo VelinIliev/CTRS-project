@@ -9,4 +9,3 @@ class ReservationAdmin(admin.ModelAdmin):
     list_filter = ['is_finished', 'date']
     ordering = ['date', 'user']
     search_fields = ['user__username', ]
-

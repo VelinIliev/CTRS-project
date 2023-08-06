@@ -4,7 +4,6 @@ from CTRS_course_project.projection.models import Projection, Seat
 
 
 class CreateProjectionForm(forms.ModelForm):
-
     class Meta:
         model = Projection
         fields = '__all__'

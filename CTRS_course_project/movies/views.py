@@ -7,7 +7,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils import timezone
 from django.views import generic as views
 
-from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm, EditMovieForm
+from CTRS_course_project.movies.forms import CreateMovieForm, CommentForm, VoteForm
 from CTRS_course_project.movies.helpers import calculate_runtime, calculate_rating, find_vote
 from CTRS_course_project.movies.models import Movie, MovieComment, MovieVotes
 from CTRS_course_project.projection.models import Projection
@@ -75,15 +75,15 @@ class DisplayMoviesView(views.ListView):
         queryset = super().get_queryset()
         search = self.request.GET.get('search', '')
         rating = self.request.GET.get('rating', '')
-
+        queryset = queryset.filter(is_active=1)
         if search and rating:
-            queryset = queryset.filter(title__icontains=search, is_active=1).order_by('-rating')
+            queryset = queryset.filter(title__icontains=search).order_by('-rating')
         elif search:
-            queryset = queryset.filter(title__icontains=search, is_active=1).order_by('-pk')
+            queryset = queryset.filter(title__icontains=search).order_by('-pk')
         elif rating == 'dsc':
-            queryset = queryset.filter(is_active=1).order_by('-rating')
+            queryset = queryset.order_by('-rating')
         else:
-            queryset = Movie.objects.filter(is_active=1).order_by('-pk')
+            queryset = Movie.objects.order_by('-pk')
 
         return queryset
 
@@ -177,4 +177,4 @@ class EditCommentView(LoginRequiredMixin, PermissionRequiredMixin, views.UpdateV
 
     def get_success_url(self):
         movie = Movie.objects.filter(pk=self.object.movie_id).get()
-        return '{}#comments'.format(reverse('details movie', kwargs={'pk': movie.pk, 'slug': movie.slug}))
+        return f"{reverse('details movie', kwargs={'pk': movie.pk, 'slug': movie.slug})}#comments"

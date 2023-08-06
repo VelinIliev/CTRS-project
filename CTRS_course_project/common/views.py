@@ -11,4 +11,3 @@ class IndexView(views.TemplateView):
 
 class AdminIndexView(LoginRequiredMixin, views.TemplateView):
     template_name = 'common/index-admin.html'
-
