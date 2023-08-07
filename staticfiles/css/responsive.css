@@ -1,56 +1,85 @@
-/* INDEX PAGE */
-
-@media (max-width: 1000px) {
-    .description-index {
-        width: 500px;
-    }
-}
-
-@media (max-width: 550px) {
+@media (max-width: 600px) {
     .description-index {
         width: 90%;
     }
 
     .hand-writing {
-        /*width: 90%;*/
         font-size: 1.5rem;
     }
 
     .logo-wrapper {
         width: 90%;
     }
-}
 
-/* FOOTER */
-@media (max-width: 600px) {
     footer p {
         font-size: .8rem;
     }
+
+    main .list-movies {
+        width: 400px;
+    }
+
+    .projection-display {
+        width: 400px;
+        margin-right: 0;
+    }
+
+    .movie-plot {
+        display: none;
+    }
+
+    .display-hours {
+        justify-content: flex-start;
+        height: 10rem;
+    }
 }
 
-/* NAVIGATION */
-@media (max-width: 950px) {
+@media (max-width: 750px) {
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .days-navigation li a {
+        padding: 4px 10px;
+    }
+
+    #form-movie {
+        width: 400px;
+    }
+}
+
+
+@media (max-width: 1000px) {
     nav {
         flex-direction: column;
         justify-content: center;
         padding: 0;
         margin: 0;
     }
+
     nav .image {
-        /*margin-top: 1rem;*/
-        /*margin-bottom: 0;*/
         margin: 1rem auto 0 auto;
     }
+
     nav ul {
         margin: 0;
         padding: 0;
-        /*border: 1px solid red;*/
-        justify-content: space-between;
-    }
-}
-@media (max-width: 750px) {
-    nav ul {
-        flex-wrap: wrap;
         justify-content: flex-start;
     }
+
+    .description-index {
+        width: 500px;
+    }
 }
+
+@media (max-width: 1150px) {
+    .list-movies {
+        width: 800px;
+        justify-content: center;
+    }
+}
+
+
+
+
