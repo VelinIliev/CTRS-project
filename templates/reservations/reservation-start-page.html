@@ -30,9 +30,9 @@
             </a>
             <p class="movie-plot">{{ projection.movie.plot|truncatechars:200 }}</p>
             <hr>
-            <p class="movie-plot">Date: {{ projection.date|date:"d-m-Y" }}</p>
-            <p class="movie-plot">Hour: {{ projection.hour|time:'H:i' }}</p>
-            <p class="movie-plot">Hall: {{ projection.hall }}</p>
+            <p class="movie-info">Date: {{ projection.date|date:"d-m-Y" }}</p>
+            <p class="movie-info">Hour: {{ projection.hour|time:'H:i' }}</p>
+            <p class="movie-info">Hall: {{ projection.hall }}</p>
 
         </div>
     </div>

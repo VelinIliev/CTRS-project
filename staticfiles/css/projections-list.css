@@ -75,7 +75,7 @@
     color: var(--main-color-hover);
 }
 
-.movie-plot {
+.movie-plot, .movie-info {
     font-size: .9rem;
 }
 
