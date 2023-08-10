@@ -6,36 +6,41 @@
     {% if reservation.is_finished %}
         <h1>finished</h1>
     {% else %}
-    <h1>Reservation - step 1: <br> select tickets</h1>
-    <div class="select-tickets">
-        {% for ticket in tickets %}
-            <div class="ticket-type">
-                <div class="{{ ticket.ticket_type }}">
-                    {{ ticket.ticket_type }}:
-                </div>
-                <div class="price">
-                    <span>$</span>
-                    <span class="price-value">
+
+        <div class="input-forms reservation1">
+            <h2>Reservation - step 1: <br> select tickets</h2>
+            <div class="select-tickets">
+                {% for ticket in tickets %}
+                    <div class="ticket-type">
+                        <div class="{{ ticket.ticket_type }}">
+                            {{ ticket.ticket_type }}:
+                        </div>
+                        <div class="price">
+                            <span>$</span>
+                            <span class="price-value">
                         {% if weekdays %}
                             {{ ticket.price }}
                         {% else %}
                             {{ ticket.weekend_price }}
                         {% endif %}
                         </span>
-                </div>
-                <input type="number" min="0" step="1" value="0" class="numberInput"/>
+                        </div>
+                        <input type="number" min="0" step="1" value="0" class="numberInput"/>
+                    </div>
+                {% endfor %}
+
             </div>
-        {% endfor %}
-    </div>
-    <p class="display-result">Total: $00.00</p>
-    <form action="{% url 'reservation step 1' %}" method="post">
-        {% csrf_token %}
-        <button>Confirm</button>
-        <p style="display: none">{{ form.type_of_tickets }}</p>
-        <p style="display: none">{{ form.number_of_tickets }}</p>
-        <p style="display: none">{{ form.total_price }}</p>
-    </form>
-    <p style="display: none" class="free-seats">{{ free_seats }}</p>
-    <script src="{% static 'javascript/reservationStepOne.js' %}"></script>
+            <p class="display-result">Total: $00.00</p>
+            <form action="{% url 'reservation step 1' %}" method="post">
+                {% csrf_token %}
+                <button>Confirm</button>
+                <p style="display: none">{{ form.type_of_tickets }}</p>
+                <p style="display: none">{{ form.number_of_tickets }}</p>
+                <p style="display: none">{{ form.total_price }}</p>
+            </form>
+        </div>
+        <p style="display: none" class="free-seats">{{ free_seats }}</p>
+        <script src="{% static 'javascript/reservationStepOne.js' %}"></script>
     {% endif %}
+
 {% endblock %}

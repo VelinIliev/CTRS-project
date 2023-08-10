@@ -3,7 +3,7 @@
     flex-direction: column;
     /*border: 1px solid red;*/
     padding: 0;
-    margin: 3rem 0 0 0;
+    margin: 1rem 0 0 0;
 }
 
 .ticket-type {
@@ -40,4 +40,30 @@
 
 .reservation-row .left {
     width: 90px;
+}
+
+.form-reservation {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.reservation1 {
+    margin-top: 3rem;
+}
+.reservation1 h2, .reservation2{
+    text-align: center;
+    text-transform: uppercase;
+}
+.reservation1 .display-result{
+    text-align: center;
+    background-color: #333333;
+    padding: .5em 0;
+}
+.reservation1 form {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 2rem;
 }

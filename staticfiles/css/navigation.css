@@ -88,3 +88,10 @@ nav .sub-menu a:hover {
 .header-menu:hover > .sub-menu {
     display: block;
 }
+.fa-sort-down {
+    box-sizing: border-box;
+    margin-left: .4rem;
+    vertical-align: top;
+    font-size: 1rem;
+    margin-top: -2px;
+}z

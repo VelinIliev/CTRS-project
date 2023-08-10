@@ -7,7 +7,7 @@
         <ul>
             {% if  request.user.is_staff %}
                 <li class="header-menu">
-                    <a href="{% url 'admin index' %}">Administration</a>
+                    <a href="">Administration<i class="fa-solid fa-sort-down"></i></a>
                     <ul class="sub-menu">
                         <li><a href="{% url 'register staff user' %}">Add staff</a></li>
                         <li><a href="{% url 'add movie' %}">Add movie</a></li>

@@ -55,7 +55,7 @@ class UserDetailsView(views.DetailView):
         context = super().get_context_data(**kwargs)
         context['is_owner'] = self.request.user == self.object
         groups = self.object.groups.all()
-        context['groups'] = ", ".join(str(x) for x in groups) if groups else "No groups"
+        context['groups'] = [str(x) for x in groups] if groups else ["No groups",]
         context['new_reservations'] = Reservation.objects \
             .filter(
             user=self.object.pk,
@@ -116,7 +116,7 @@ class ListStaffUsersView(LoginRequiredMixin, PermissionRequiredMixin, views.List
         staff_groups = []
         for staff in staff_users:
             groups = staff.groups.all()
-            staff_groups.append((staff.username, ", ".join(str(x) for x in groups) if groups else "No groups"))
+            staff_groups.append((staff.username, (str(x) for x in groups) if groups else "No groups"))
         context['staff_users'] = staff_groups
         return context
 

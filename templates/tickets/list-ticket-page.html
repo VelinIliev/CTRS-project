@@ -1,13 +1,13 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>Tickets</h1>
+    <h1>Ticket prices</h1>
     <div class="tickets-list">
         {% if request.user.is_staff %}
             <div class="ticket-row-staff title">
                 <span>Type</span>
-                <span>Weekdays price</span>
-                <span>Weekend price</span>
+                <span>Weekdays</span>
+                <span>Weekend</span>
                 <span>Actions</span>
             </div>
             {% for ticket in object_list %}
@@ -16,16 +16,16 @@
                     <span>${{ ticket.price }}</span>
                     <span>${{ ticket.weekend_price }}</span>
                     <span>
-                        <a class="edit-link" href="{% url 'edit ticket' pk=ticket.pk %}">Edit</a>
-                        <a class="edit-link" href="{% url 'delete ticket' pk=ticket.pk %}">Delete</a>
+                        <a class="edit-user" href="{% url 'edit ticket' pk=ticket.pk %}"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="edit-user" href="{% url 'delete ticket' pk=ticket.pk %}"><i class="fa-solid fa-trash-can"></i></a>
                     </span>
                 </div>
             {% endfor %}
         {% else %}
             <div class="ticket-row title">
                 <span>Type</span>
-                <span>Weekdays price</span>
-                <span>Weekend price</span>
+                <span>Weekdays</span>
+                <span>Weekend</span>
             </div>
             {% for ticket in object_list %}
                 <div class="ticket-row">

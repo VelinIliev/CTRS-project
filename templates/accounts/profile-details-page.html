@@ -25,7 +25,14 @@
                         <span>staff</span>
                     {% endif %}
                 </p>
-                <p><span>Member of:</span><span>{{ groups }}</span></p>
+                <p><span>Member of:</span>
+                    <span>
+                        {% for group in groups %}
+                            {{ group }}<br>
+                        {% endfor %}
+
+                    </span>
+                </p>
             {% endif %}
             <p><span>Actions:</span>
                 <span>

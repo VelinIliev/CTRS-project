@@ -36,10 +36,12 @@
 
         </div>
     </div>
-    <form action="" method="post">
+
+    <form action="" method="post" class="form-reservation">
         {% csrf_token %}
         <button>Confirm</button>
     </form>
+{#    <div class="separator"></div>#}
     <h2>Available seats:</h2>
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
