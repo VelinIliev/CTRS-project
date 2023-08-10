@@ -5,7 +5,7 @@ const id_total_price = document.querySelector('#id_total_price');
 const displayResult = document.querySelector('.display-result');
 const freeSeats = document.querySelector('.free-seats');
 const ConfirmBtn = document.querySelector('form button')
-
+displayResult.innerHTML = `<p style="color: #ff0000">Please select at least one tickets</p>`
 let statistic = {}
 
 id_total_price.value = "";
