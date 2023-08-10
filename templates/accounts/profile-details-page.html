@@ -1,52 +1,64 @@
 {% extends 'bases/base.html' %}
 
 {% block page_content %}
-    <h1>User details</h1>
-    <p>Username: {{ object.username }}</p>
-    {% if  object.get_full_name %}
-        <p>Name: {{ object.get_full_name }}</p>
-    {% endif %}
+    <div class="user-info">
+        <h2>Hello, {{ object.username }}</h2>
 
-    {% if is_owner %}
-        <p>Email: {{ object.email }}</p>
-        {% if  object.age %}
-            <p>Age: {{ object.age }}</p>
+        <p><span>Username:</span><span>{{ object.username }}</span></p>
+
+        {% if  object.get_full_name %}
+            <p><span>Name:</span><span>{{ object.get_full_name }}</span></p>
         {% endif %}
-        <p>Type user:
-            {% if object.is_staff %}
-                staff
-            {% else %}
-                regular
+
+        {% if is_owner %}
+            <p><span>Email:</span><span>{{ object.email }}</span></p>
+            {% if  object.age %}
+                <p><span>Age:</span><span>{{ object.age }}</span></p>
             {% endif %}
-        </p>
-        <p>
-            <a class="edit-link" href="{% url 'edit user' pk=object.pk %}">Edit</a>
-            <a class="edit-link" href="{% url 'delete user' pk=object.pk %}">Delete</a>
-        </p>
 
-        {% if new_reservations %}
-            <div class="separator"></div>
-            <h2>Pending reservations:</h2>
-            {% for reservation in new_reservations %}
+            {% if object.is_staff %}
                 <p>
-                    <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
-                        {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
-                    </a>
+                    <span>Type user:</span>
+                    {% if object.is_superuser %}
+                        <span>superuser</span>
+                    {% else %}
+                        <span>staff</span>
+                    {% endif %}
                 </p>
-            {% endfor %}
-        {% endif %}
-        {% if old_reservations %}
-            <div class="separator"></div>
-            <h2>Expired reservations:</h2>
-            {% for reservation in old_reservations %}
-                <p>
-                    <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
-                        {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
-                    </a>
-                </p>
-            {% endfor %}
+                <p><span>Member of:</span><span>{{ groups }}</span></p>
+            {% endif %}
+            <p><span>Actions:</span>
+                <span>
+                    <a class="edit-user" href="{% url 'edit user' pk=object.pk %}"><i class="fa-solid fa-pencil"></i></a>
+                    <a class="edit-user" href="{% url 'delete user' pk=object.pk %}"><i class="fa-solid fa-trash-can"></i></a>
+                    <a class="edit-user" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i></a>
+                </span>
+            </p>
 
-        {% endif %}
-    {% endif %}
+            {% if new_reservations %}
+                <h3>Pending reservations:</h3>
+                <div class="user-separator"></div>
+                {% for reservation in new_reservations %}
+                    <p>
+                        <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
+                            {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
+                        </a>
+                    </p>
+                {% endfor %}
+            {% endif %}
 
+            {% if old_reservations %}
+                <h3>Expired reservations:</h3>
+                <div class="user-separator"></div>
+                {% for reservation in old_reservations %}
+                    <p>
+                        <a class="alink" href="{% url 'reservation review' pk=reservation.pk %}">
+                            {{ reservation.projection.date|date:"d-m-Y" }} {{ reservation.projection.hour|time:"H:i" }}: {{ reservation.projection.movie }}
+                        </a>
+                    </p>
+                {% endfor %}
+
+            {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}

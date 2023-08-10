@@ -54,6 +54,8 @@ class UserDetailsView(views.DetailView):
         today = datetime.datetime.now().date()
         context = super().get_context_data(**kwargs)
         context['is_owner'] = self.request.user == self.object
+        groups = self.object.groups.all()
+        context['groups'] = ", ".join(str(x) for x in groups) if groups else "No groups"
         context['new_reservations'] = Reservation.objects \
             .filter(
             user=self.object.pk,
@@ -91,6 +93,11 @@ class UserDeleteView(views.DeleteView):
     model = UserModel
     success_url = reverse_lazy('index')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = self.request.user == self.object
+        return context
+
 
 class ListStaffUsersView(LoginRequiredMixin, PermissionRequiredMixin, views.ListView):
     permission_required = 'user_app.view_appuser'
@@ -98,12 +105,20 @@ class ListStaffUsersView(LoginRequiredMixin, PermissionRequiredMixin, views.List
     template_name = 'accounts/profile-list-staff-page.html'
     model = UserModel
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(is_staff=True) \
-            .annotate(group_count=Count('groups')) \
-            .filter(group_count__gt=0).values_list('username', 'groups__name', 'id') \
-            .order_by('username')
-        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        staff_users = UserModel.objects.filter(is_staff=True, is_superuser=False).order_by('username')
+        staff_groups = []
+        for staff in staff_users:
+            groups = staff.groups.all()
+            staff_groups.append((staff.username, ", ".join(str(x) for x in groups) if groups else "No groups"))
+        context['staff_users'] = staff_groups
+        return context
 
-
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     queryset = queryset.filter(is_staff=True) \
+    #         .annotate(group_count=Count('groups')) \
+    #         .filter(group_count__gt=0).values_list('username', 'groups__name', 'id') \
+    #         .order_by('username')
+    #     return queryset

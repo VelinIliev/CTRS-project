@@ -1,0 +1,59 @@
+.user-info {
+    /*width: 400px;*/
+    /*border: 1px solid red;*/
+}
+
+.user-info p, .user-info h3, .staff-users p {
+    vertical-align: top;
+    padding: .4rem;
+}
+.staff-users {
+    width: 480px;
+}
+
+.staff-users p span:first-child {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 220px;
+    vertical-align: top;
+}
+
+.staff-users p span:nth-child(2) {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+}
+
+.user-info p:nth-child(2n), .staff-users p:nth-child(2n) {
+    background-color: var(--first-line);
+}
+.user-info p:nth-child(2n+1), .staff-users p:nth-child(2n+1) {
+    background-color: var(--second-line);;
+}
+.user-info p span:first-child {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 120px;
+    vertical-align: top;
+}
+
+.user-info p span:nth-child(2) {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+}
+
+.user-separator {
+    height: 1px;
+    background-color: var(--main-color-text);
+}
+
+.edit-user{
+    color: var(--main-color-text);
+    margin-right: .5rem;
+}
+.register-link{
+    color: var(--secondary-color-hover);
+}
