@@ -87,6 +87,11 @@ class UserEditView(views.UpdateView):
     def get_success_url(self):
         return reverse_lazy('details user', kwargs={'pk': self.request.user.pk, })
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_owner'] = self.request.user == self.object
+        return context
+
 
 class UserDeleteView(views.DeleteView):
     template_name = 'accounts/profile-delete-page.html'
