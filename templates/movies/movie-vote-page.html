@@ -5,11 +5,11 @@
 {% block page_content %}
 
     <h2>{{ movie }}</h2>
+    <img src="{{ movie.image.url }}" alt="{{ movie }} image" class="rating-image">
     <p>Your vote:</p>
 
     {% if already_voted %}
         <div class="rating-wrap">
-{#            <p>{{ already_voted.rating }}</p>#}
             {% for star in already_voted.rating|prepare_stars %}
                 <div class="rating-star">
                     <img class="" src="{% static star %}" alt="star">
@@ -25,7 +25,7 @@
             {% endfor %}
         </div>
 
-        <form action="{% url 'vote movie' pk=movie.pk slug=movie.slug %}" method="post">
+        <form action="{% url 'vote movie' pk=movie.pk slug=movie.slug %}" method="post" id="vote-form">
             {% csrf_token %}
             <p style="display: none">{{ form.rating }}</p>
             <button>Vote</button>

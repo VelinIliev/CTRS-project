@@ -18,11 +18,13 @@
             </div>
             <p class="movie-rating">Rating {{ movie.rating|floatformat:1 }} from {{ movie.votes }} votes</p>
 
-            {% if request.user.is_staff %}
-                <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-link">Edit</a>
-            {% endif %}
-
             <a class='edit-link' href="{% url 'vote movie' pk=movie.pk slug=movie.slug %}">Vote</a>
+
+            {% if request.user.is_staff %}
+                <a href="{% url 'edit movie' pk=movie.pk slug=movie.slug %}" class="edit-user">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+            {% endif %}
 
             <div class="list-projections">
                 <h4>Upcoming projections:</h4>

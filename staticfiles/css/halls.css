@@ -33,4 +33,12 @@
 .single-hall>p {
     top: 2rem;
     left: .5rem;
+
+}
+.hall-wrapper {
+    margin-bottom: 1rem;
+}
+.hall-actions {
+    display: flex;
+    justify-content: space-between;
 }

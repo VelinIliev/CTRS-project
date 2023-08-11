@@ -206,3 +206,13 @@
 .list-projections a:hover {
     color: var(--main-color-hover);
 }
+.rating-image {
+    margin-bottom: 1rem;
+    height: 400px;
+}
+#vote-form, .vote-form button{
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}

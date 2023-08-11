@@ -4,17 +4,21 @@
 {% block page_content %}
     <div class="hall-wrapper">
         <h1>{{ object.name }}</h1>
-        <p>Number of seats: {{ total_seats }}</p>
+        <div class="hall-actions">
+            <span>Number of seats: {{ total_seats }}</span>
+            {% if request.user.is_staff %}
+                <span>
+                <a class="edit-user" href="{% url 'edit hall' pk=object.pk slug=object.slug %}"><i
+                        class="fa-solid fa-pencil"></i></a>
+                <a class="edit-user" href="{% url 'delete hall' pk=object.pk slug=object.slug %}"><i
+                        class="fa-solid fa-trash-can"></i></a>
+            </span>
+
+            {% endif %}
+        </div>
         <img src="{{ hall.image.url }}" alt="{{ object.name }} hall image">
         <p>{{ object.description }}</p>
 
-        {% if request.user.is_staff %}
-            <div class="buttons">
-                <a class="edit-link" href="{% url 'edit hall' pk=object.pk slug=object.slug %}">Edit</a>
-                <a class="edit-link" href="{% url 'delete hall' pk=object.pk slug=object.slug %}">Delete</a>
-            </div>
-
-        {% endif %}
     </div>
     <div class="cinema-hall">
         <div class="cinema-screen">CINEMA SCREEN</div>
