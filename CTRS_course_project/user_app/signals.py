@@ -1,6 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.core.mail import send_mail, EmailMessage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 UserModel = get_user_model()
 
@@ -10,16 +13,14 @@ def send_email_after_registration(instance, created, **kwargs):
     if not created:
         return
 
-    # user_email = instance.email
+    user_email = instance.email
+    html_template = 'email_template.html'
+    html_message = render_to_string(html_template, {'name': instance.username})
 
-    # send_mail(
-    #     subject='Welcome to CTRS ARENA!',
-    #     message="Welcome to CTRS (Cinema Tickets Reservation System)! "
-    #             "We're delighted to have you here. With CTRS, your movie ticket booking "
-    #             "experience is about to reach new heights. Say goodbye to long queues and "
-    #             "last-minute disappointments. Get ready to indulge in seamless ticket "
-    #             "reservations and secure your spot for an extraordinary cinematic adventure. "
-    #             "Sit back, relax, and let CTRS take care of all your movie-going needs. Enjoy the show!",
-    #     from_email=settings.DEFAULT_FROM_EMAIL,
-    #     recipient_list=(user_email, ),
-    # )
+    subject = 'Welcome to CTRS ARENA!'
+    from_email = 'info@veliniliev.eu'
+    # recipient_list = (user_email,)
+
+    message = EmailMessage(subject, html_message, from_email, [user_email, ])
+    message.content_subtype = 'html'
+    message.send()
